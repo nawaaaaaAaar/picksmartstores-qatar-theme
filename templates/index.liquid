@@ -1,0 +1,290 @@
+{{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+
+<style>
+  .homepage-hero {
+    background: linear-gradient(135deg, #242833 0%, #1a1a1a 50%, #242833 100%);
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .homepage-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, rgba(217, 35, 45, 0.1) 0%, transparent 70%);
+    z-index: 1;
+  }
+
+  .homepage-hero .page-width {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-title {
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 50%, #e0e0e0 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(16px, 3vw, 24px);
+    font-weight: 600;
+    margin-bottom: 30px;
+    opacity: 0.9;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-button {
+    background: #d9232d;
+    color: white;
+    padding: 16px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+
+  .hero-button:hover {
+    background: #b01d26;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(217, 35, 45, 0.4);
+  }
+
+  .hero-button--secondary {
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+  }
+
+  .hero-button--secondary:hover {
+    background: white;
+    color: #242833;
+  }
+
+  .featured-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 25%, #2d2d2d 50%, #1a1a1a 75%, #0a0a0a 100%);
+    position: relative;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .featured-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, rgba(217, 35, 45, 0.04) 0%, transparent 70%);
+    z-index: 1;
+  }
+
+  .featured-section .page-width {
+    position: relative;
+    z-index: 2;
+  }
+
+  .section-title {
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 50%, #e0e0e0 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .section-description {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 18px;
+    margin-bottom: 40px;
+  }
+
+  .promotional-banner {
+    background: linear-gradient(135deg, #d9232d 0%, #a01d24 50%, #d9232d 100%);
+    padding: 60px 0;
+    text-align: center;
+    color: white;
+    margin: 60px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .promo-title {
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  }
+
+  .promo-text {
+    font-size: clamp(16px, 2vw, 24px);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+    opacity: 0.95;
+  }
+
+  @media screen and (max-width: 749px) {
+    .homepage-hero {
+      padding: 60px 0;
+    }
+
+    .hero-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-button {
+      width: 100%;
+      max-width: 280px;
+    }
+
+    .featured-section {
+      padding: 60px 0;
+    }
+
+    .promotional-banner {
+      padding: 40px 0;
+      margin: 40px 0;
+    }
+  }
+</style>
+
+<!-- Hero Section -->
+<section class="homepage-hero">
+  <div class="page-width">
+    <h1 class="hero-title">boAthead DAYS</h1>
+    <p class="hero-subtitle">Get additional 5% off on Prepaid orders with code BOATHEAD</p>
+    <div class="hero-buttons">
+      <a href="{{ routes.collections_url }}" class="hero-button">Shop Now</a>
+      <a href="{{ routes.collections_url }}" class="hero-button hero-button--secondary">View Deals</a>
+    </div>
+  </div>
+</section>
+
+<!-- Promotional Banner -->
+<section class="promotional-banner">
+  <div class="page-width">
+    <h2 class="promo-title">Save 75% OFF</h2>
+    <p class="promo-text">Extra 5% off | Use Code: BOATHEAD</p>
+    <a href="{{ routes.collections_url }}" class="hero-button">Shop Collection</a>
+  </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="featured-section">
+  <div class="page-width">
+    <h2 class="section-title">Featured Products</h2>
+    <p class="section-description">Discover our premium audio collection</p>
+
+    {% assign featured_collection = collections.all %}
+    {% if collections['featured-products'] != blank %}
+      {% assign featured_collection = collections['featured-products'] %}
+    {% elsif collections.frontpage != blank %}
+      {% assign featured_collection = collections.frontpage %}
+    {% endif %}
+
+    <div
+      class="product-grid"
+      style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;"
+    >
+      {% for product in featured_collection.products limit: 8 %}
+        <div
+          class="product-card"
+          style="background: white; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 8px 32px rgba(0,0,0,0.2);"
+        >
+          <a href="{{ product.url }}">
+            {% if product.featured_media %}
+              <div style="aspect-ratio: 1; overflow: hidden;">
+                {{
+                  product.featured_media
+                  | image_url: width: 400
+                  | image_tag: style: 'width: 100%; height: 100%; object-fit: cover;'
+                }}
+              </div>
+            {% else %}
+              <div style="aspect-ratio: 1; background: #f5f5f5; display: flex; align-items: center; justify-content: center;">
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+            {% endif %}
+
+            <div style="padding: 20px;">
+              <h3 style="margin: 0 0 10px 0; font-size: 16px; font-weight: 600; color: #121212;">
+                {{ product.title }}
+              </h3>
+              <div style="font-size: 18px; font-weight: 700; color: #d9232d;">
+                {{ product.price | money }}
+                {% if product.compare_at_price > product.price %}
+                  <span style="text-decoration: line-through; color: #999; font-size: 14px; margin-left: 8px;">
+                    {{- product.compare_at_price | money -}}
+                  </span>
+                {% endif %}
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div style="text-align: center; margin-top: 40px;">
+      <a href="{{ routes.collections_url }}" class="hero-button">View All Products</a>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter Section -->
+<section style="background: #f8f9fa; padding: 80px 0; text-align: center;">
+  <div class="page-width">
+    <h2 style="font-size: clamp(28px, 5vw, 42px); font-weight: 700; margin-bottom: 16px; color: #121212;">
+      Stay Updated
+    </h2>
+    <p style="font-size: 18px; color: #666; margin-bottom: 30px;">
+      Get the latest deals and product updates delivered to your inbox
+    </p>
+
+    {% form 'customer' %}
+      <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; max-width: 500px; margin: 0 auto;">
+        <input
+          type="email"
+          name="contact[email]"
+          placeholder="Enter your email"
+          style="flex: 1; min-width: 250px; padding: 16px 20px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px;"
+          required
+        >
+        <button type="submit" class="hero-button" style="min-width: 140px;">Subscribe</button>
+      </div>
+    {% endform %}
+  </div>
+</section>
