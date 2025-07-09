@@ -442,6 +442,492 @@ html[dir="rtl"] .float-right {
   }
 }
 
+/* ===================================
+   HOMEPAGE CUSTOMIZATIONS
+   boat-lifestyle.com Dark Carousels & Hero Sections
+   ===================================*/
+
+/* Dark Product Carousel Styling (boat-lifestyle.com style) */
+.featured-collection--dark-carousel,
+.color-scheme-dark {
+  background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%) !important;
+  padding: var(--spacing-xxl) 0 !important;
+  margin: var(--spacing-lg) 0 !important;
+}
+
+.featured-collection--dark-carousel .collection__title,
+.color-scheme-dark .collection__title {
+  text-align: center !important;
+  margin-bottom: var(--spacing-xl) !important;
+}
+
+.featured-collection--dark-carousel .title,
+.color-scheme-dark .title {
+  color: var(--color-text-on-dark) !important;
+  font-size: 32px !important;
+  font-weight: var(--font-weight-bold) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+}
+
+.featured-collection--dark-carousel .title-wrapper--no-top-margin,
+.color-scheme-dark .title-wrapper--no-top-margin {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+/* View All Link Styling */
+.featured-collection--dark-carousel .link--text,
+.color-scheme-dark .link--text {
+  color: var(--color-primary-brand-red) !important;
+  font-weight: var(--font-weight-semibold) !important;
+  text-decoration: none !important;
+  text-transform: uppercase !important;
+  font-size: 14px !important;
+  transition: color 0.3s ease !important;
+}
+
+.featured-collection--dark-carousel .link--text:hover,
+.color-scheme-dark .link--text:hover {
+  color: var(--color-text-on-dark) !important;
+}
+
+/* Carousel Navigation Buttons */
+.featured-collection--dark-carousel .slider-button,
+.color-scheme-dark .slider-button {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 50% !important;
+  color: var(--color-text-on-dark) !important;
+  width: 48px !important;
+  height: 48px !important;
+  transition: all 0.3s ease !important;
+}
+
+.featured-collection--dark-carousel .slider-button:hover,
+.color-scheme-dark .slider-button:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  transform: scale(1.05) !important;
+}
+
+.featured-collection--dark-carousel .slider-counter,
+.color-scheme-dark .slider-counter {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Product Cards in Dark Carousel */
+.featured-collection--dark-carousel .card,
+.color-scheme-dark .card {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: var(--border-radius-medium) !important;
+  transition: all 0.3s ease !important;
+}
+
+.featured-collection--dark-carousel .card:hover,
+.color-scheme-dark .card:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: var(--color-primary-brand-red) !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3) !important;
+}
+
+.featured-collection--dark-carousel .card__content,
+.color-scheme-dark .card__content {
+  padding: var(--spacing-md) !important;
+}
+
+.featured-collection--dark-carousel .card__heading,
+.color-scheme-dark .card__heading {
+  color: var(--color-text-on-dark) !important;
+}
+
+.featured-collection--dark-carousel .card__heading a,
+.color-scheme-dark .card__heading a {
+  color: var(--color-text-on-dark) !important;
+}
+
+.featured-collection--dark-carousel .price,
+.color-scheme-dark .price {
+  color: var(--color-text-on-dark) !important;
+}
+
+.featured-collection--dark-carousel .price--sold-out,
+.color-scheme-dark .price--sold-out {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Hero Banner Enhancements */
+.banner--large {
+  min-height: 500px !important;
+}
+
+.banner__content {
+  backdrop-filter: blur(10px) !important;
+  background: rgba(0,0,0,0.3) !important;
+  border-radius: var(--border-radius-large) !important;
+  padding: var(--spacing-xxl) !important;
+}
+
+.banner__heading {
+  font-size: clamp(32px, 5vw, 64px) !important;
+  font-weight: var(--font-weight-bold) !important;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5) !important;
+}
+
+.banner__text {
+  font-size: 18px !important;
+  font-weight: var(--font-weight-regular) !important;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7) !important;
+  margin-bottom: var(--spacing-lg) !important;
+}
+
+.banner .button {
+  background: var(--color-primary-brand-red) !important;
+  color: var(--color-text-on-dark) !important;
+  border: none !important;
+  padding: var(--spacing-md) var(--spacing-xl) !important;
+  font-weight: var(--font-weight-bold) !important;
+  text-transform: uppercase !important;
+  border-radius: var(--border-radius-medium) !important;
+  box-shadow: 0 4px 16px rgba(217, 35, 45, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+.banner .button:hover {
+  background: #c01e28 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(217, 35, 45, 0.4) !important;
+}
+
+/* ===================================
+   NEWS SECTION CUSTOMIZATIONS
+   boat-lifestyle.com News Grid Styling
+   ===================================*/
+
+.news-card {
+  background: var(--color-background-white) !important;
+  border: 1px solid var(--color-border-light) !important;
+  border-radius: var(--border-radius-medium) !important;
+  transition: all 0.3s ease !important;
+  overflow: hidden !important;
+}
+
+.news-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15) !important;
+  border-color: var(--color-primary-brand-red) !important;
+}
+
+.news-card__title {
+  font-weight: var(--font-weight-bold) !important;
+  font-size: 18px !important;
+  color: var(--color-text-dark) !important;
+  margin-bottom: var(--spacing-sm) !important;
+  line-height: 1.4 !important;
+}
+
+.news-card__text {
+  color: var(--color-text-medium) !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  margin-bottom: var(--spacing-md) !important;
+}
+
+.news-card__link {
+  color: var(--color-primary-brand-red) !important;
+  font-weight: var(--font-weight-semibold) !important;
+  text-decoration: none !important;
+  font-size: 14px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  transition: color 0.3s ease !important;
+}
+
+.news-card__link:hover {
+  color: var(--color-text-dark) !important;
+}
+
+.news-card .multicolumn-card__image-wrapper {
+  border-radius: var(--border-radius-medium) var(--border-radius-medium) 0 0 !important;
+  overflow: hidden !important;
+}
+
+.news-card .multicolumn-card__image {
+  transition: transform 0.3s ease !important;
+}
+
+.news-card:hover .multicolumn-card__image {
+  transform: scale(1.05) !important;
+}
+
+/* ===================================
+   COLLECTION PAGE ENHANCEMENTS
+   boat-lifestyle.com Filtering & FAQ Styling
+   ===================================*/
+
+/* Enhanced Filter Sidebar */
+.facets__display {
+  border: 1px solid var(--color-border-light) !important;
+  border-radius: var(--border-radius-medium) !important;
+  background: var(--color-background-white) !important;
+}
+
+.facet-filters {
+  padding: var(--spacing-lg) !important;
+}
+
+.facet-filters__field {
+  border-bottom: 1px solid var(--color-border-light) !important;
+  padding-bottom: var(--spacing-md) !important;
+  margin-bottom: var(--spacing-md) !important;
+}
+
+.facet-filters__label {
+  font-weight: var(--font-weight-bold) !important;
+  color: var(--color-text-dark) !important;
+  font-size: 16px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+.facet-checkbox {
+  border: 2px solid var(--color-border-light) !important;
+  border-radius: var(--border-radius-small) !important;
+  transition: all 0.3s ease !important;
+}
+
+.facet-checkbox:checked {
+  background: var(--color-primary-brand-red) !important;
+  border-color: var(--color-primary-brand-red) !important;
+}
+
+/* FAQ Accordion Styling */
+.collection-faq {
+  background: var(--color-background-light-gray) !important;
+  border-top: 2px solid var(--color-border-light) !important;
+}
+
+.faq__accordion {
+  max-width: 800px !important;
+  margin: 0 auto !important;
+}
+
+.faq__item {
+  border: 1px solid var(--color-border-light) !important;
+  border-radius: var(--border-radius-medium) !important;
+  margin-bottom: var(--spacing-md) !important;
+  background: var(--color-background-white) !important;
+  overflow: hidden !important;
+  transition: all 0.3s ease !important;
+}
+
+.faq__item:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1) !important;
+}
+
+.faq__question {
+  padding: var(--spacing-lg) var(--spacing-xl) !important;
+  cursor: pointer !important;
+  background: var(--color-background-white) !important;
+  border: none !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  transition: all 0.3s ease !important;
+}
+
+.faq__question:hover {
+  background: var(--color-background-light-gray) !important;
+}
+
+.accordion__title-text {
+  font-weight: var(--font-weight-semibold) !important;
+  color: var(--color-text-dark) !important;
+  margin: 0 !important;
+  text-align: left !important;
+}
+
+.faq__item[open] .faq__question {
+  background: var(--color-primary-brand-red) !important;
+  color: var(--color-text-on-dark) !important;
+}
+
+.faq__item[open] .accordion__title-text {
+  color: var(--color-text-on-dark) !important;
+}
+
+.icon-caret {
+  transform: rotate(0deg) !important;
+  transition: transform 0.3s ease !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+.faq__item[open] .icon-caret {
+  transform: rotate(180deg) !important;
+}
+
+.faq__item[open] .icon-caret svg {
+  fill: var(--color-text-on-dark) !important;
+}
+
+.faq__answer {
+  padding: 0 var(--spacing-xl) var(--spacing-lg) var(--spacing-xl) !important;
+  color: var(--color-text-medium) !important;
+  line-height: 1.6 !important;
+  border-top: 1px solid var(--color-border-light) !important;
+}
+
+.faq__answer p {
+  margin-bottom: var(--spacing-sm) !important;
+}
+
+/* ===================================
+   PRODUCT CARD ENHANCEMENTS
+   boat-lifestyle.com Card Styling with Percentage Discounts
+   ===================================*/
+
+/* Enhanced Product Cards */
+.card-wrapper {
+  transition: all 0.3s ease !important;
+}
+
+.card-wrapper:hover {
+  transform: translateY(-4px) !important;
+}
+
+.card {
+  border: 1px solid var(--color-border-light) !important;
+  border-radius: var(--border-radius-medium) !important;
+  overflow: hidden !important;
+  transition: all 0.3s ease !important;
+  background: var(--color-background-white) !important;
+}
+
+.card:hover {
+  border-color: var(--color-primary-brand-red) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15) !important;
+}
+
+/* Product Card Titles */
+.card__heading {
+  font-weight: var(--font-weight-semibold) !important;
+  color: var(--color-text-dark) !important;
+  font-size: 16px !important;
+  line-height: 1.4 !important;
+  margin-bottom: var(--spacing-xs) !important;
+}
+
+.card__heading a {
+  color: var(--color-text-dark) !important;
+  text-decoration: none !important;
+  transition: color 0.3s ease !important;
+}
+
+.card__heading a:hover {
+  color: var(--color-primary-brand-red) !important;
+}
+
+/* Enhanced Percentage Discount Badge */
+.badge--percentage-off {
+  background: var(--color-primary-brand-red) !important;
+  color: var(--color-text-on-dark) !important;
+  font-weight: var(--font-weight-bold) !important;
+  font-size: 14px !important;
+  padding: var(--spacing-xs) var(--spacing-sm) !important;
+  border-radius: var(--border-radius-small) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  box-shadow: 0 2px 8px rgba(217, 35, 45, 0.3) !important;
+}
+
+/* Enhanced Price Display */
+.price {
+  display: flex !important;
+  align-items: center !important;
+  gap: var(--spacing-xs) !important;
+  flex-wrap: wrap !important;
+}
+
+.price .price-item--regular {
+  font-weight: var(--font-weight-bold) !important;
+  color: var(--color-text-dark) !important;
+  font-size: 18px !important;
+}
+
+.price .price-item--compare {
+  color: var(--color-text-light) !important;
+  text-decoration: line-through !important;
+  font-size: 14px !important;
+}
+
+/* Product Image Hover Effects */
+.card__media .media {
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: var(--border-radius-medium) var(--border-radius-medium) 0 0 !important;
+}
+
+.card__media .media img {
+  transition: transform 0.3s ease !important;
+}
+
+.card:hover .card__media .media img {
+  transform: scale(1.05) !important;
+}
+
+/* Add to Cart Button Styling */
+.card .button {
+  background: var(--color-primary-brand-red) !important;
+  color: var(--color-text-on-dark) !important;
+  border: none !important;
+  font-weight: var(--font-weight-bold) !important;
+  text-transform: uppercase !important;
+  border-radius: var(--border-radius-medium) !important;
+  transition: all 0.3s ease !important;
+  font-size: 14px !important;
+  letter-spacing: 0.5px !important;
+}
+
+.card .button:hover {
+  background: #c01e28 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(217, 35, 45, 0.3) !important;
+}
+
+/* Rating Stars Enhancement */
+.rating {
+  margin-bottom: var(--spacing-xs) !important;
+}
+
+.rating-star {
+  color: #ffd700 !important;
+}
+
+.rating-text,
+.rating-count {
+  font-size: 12px !important;
+  color: var(--color-text-medium) !important;
+}
+
+/* Quick Add Button */
+.quick-add__submit {
+  background: var(--color-primary-brand-green) !important;
+  color: var(--color-text-on-dark) !important;
+  border: none !important;
+  font-weight: var(--font-weight-bold) !important;
+  text-transform: uppercase !important;
+  border-radius: var(--border-radius-medium) !important;
+  transition: all 0.3s ease !important;
+  font-size: 12px !important;
+  letter-spacing: 0.5px !important;
+}
+
+.quick-add__submit:hover {
+  background: #00a085 !important;
+}
+
 /* Placeholder styles for upcoming customizations */
-/* Product card customizations will go here */
 /* PDP customizations will go here */ 

@@ -23,10 +23,49 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "collection-faq": {
+      "type": "collection-faq",
+      "blocks": {
+        "faq-1": {
+          "type": "faq-item",
+          "settings": {
+            "question": "What audio products do you offer?",
+            "answer": "<p>We offer a comprehensive range of audio products including wireless earbuds, headphones, speakers, soundbars, and smartwatches designed for the Qatar and GCC market.</p>"
+          }
+        },
+        "faq-2": {
+          "type": "faq-item",
+          "settings": {
+            "question": "Do you provide warranty on products?",
+            "answer": "<p>Yes, all our products come with 12+3 months warranty covering manufacturing defects and quality issues.</p>"
+          }
+        },
+        "faq-3": {
+          "type": "faq-item",
+          "settings": {
+            "question": "What are your delivery options in Qatar?",
+            "answer": "<p>We offer same-day delivery in Doha and 1-2 day delivery across Qatar. Express shipping is available for urgent orders.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq-1", 
+        "faq-2", 
+        "faq-3"
+      ],
+      "settings": {
+        "title": "Product Questions & Answers",
+        "heading_size": "h2",
+        "color_scheme": "scheme-1",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
     }
   },
   "order": [
     "banner",
-    "product-grid"
+    "product-grid",
+    "collection-faq"
   ]
 }
