@@ -3,10 +3,17 @@
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 
 <style>
+  /* Reset and Base Styles */
+  .homepage-container {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Hero Section - Main boAthead DAYS */
   .homepage-hero {
-    background: linear-gradient(135deg, #242833 0%, #1a1a1a 50%, #242833 100%);
+    background: linear-gradient(135deg, #242833 0%, #1a1a1a 30%, #242833 100%);
     color: white;
-    padding: 100px 0;
+    padding: 120px 0;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -19,7 +26,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(ellipse at center, rgba(217, 35, 45, 0.1) 0%, transparent 70%);
+    background: radial-gradient(ellipse at center, rgba(217, 35, 45, 0.15) 0%, transparent 70%);
     z-index: 1;
   }
 
@@ -29,27 +36,37 @@
   }
 
   .hero-title {
-    font-size: clamp(36px, 6vw, 64px);
+    font-size: clamp(48px, 8vw, 96px);
     font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: -1px;
-    margin-bottom: 20px;
-    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 50%, #e0e0e0 100%);
+    letter-spacing: -2px;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   }
 
   .hero-subtitle {
-    font-size: clamp(16px, 3vw, 24px);
-    font-weight: 600;
-    margin-bottom: 30px;
+    font-size: clamp(24px, 4vw, 48px);
+    font-weight: 900;
+    margin-bottom: 12px;
+    color: #ff4444;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .hero-description {
+    font-size: clamp(16px, 2vw, 20px);
+    font-weight: 500;
+    margin-bottom: 40px;
     opacity: 0.9;
   }
 
   .hero-buttons {
     display: flex;
-    gap: 20px;
+    gap: 24px;
     justify-content: center;
     flex-wrap: wrap;
   }
@@ -57,20 +74,22 @@
   .hero-button {
     background: #d9232d;
     color: white;
-    padding: 16px 32px;
+    padding: 18px 36px;
     border-radius: 8px;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
+    font-size: 16px;
     transition: all 0.3s ease;
     display: inline-block;
+    border: none;
   }
 
   .hero-button:hover {
     background: #b01d26;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(217, 35, 45, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(217, 35, 45, 0.4);
   }
 
   .hero-button--secondary {
@@ -82,83 +101,300 @@
   .hero-button--secondary:hover {
     background: white;
     color: #242833;
+    transform: translateY(-3px);
   }
 
-  .featured-section {
+  /* Product Carousel Sections */
+  .product-carousel-section {
     padding: 80px 0;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 25%, #2d2d2d 50%, #1a1a1a 75%, #0a0a0a 100%);
+    background: #0a0a0a;
     position: relative;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
 
-  .featured-section::before {
+  .product-carousel-section::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(ellipse at center, rgba(217, 35, 45, 0.04) 0%, transparent 70%);
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 25%, #2d2d2d 50%, #1a1a1a 75%, #0a0a0a 100%);
     z-index: 1;
   }
 
-  .featured-section .page-width {
+  .product-carousel-section .page-width {
     position: relative;
     z-index: 2;
   }
 
-  .section-title {
-    font-size: clamp(24px, 4vw, 36px);
+  .carousel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+
+  .carousel-title {
+    font-size: clamp(28px, 4vw, 42px);
     font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 20px;
+    letter-spacing: 1px;
+    color: white;
+    margin: 0;
+  }
+
+  .view-all-link {
+    color: #d9232d;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+  }
+
+  .view-all-link:hover {
+    color: #ff4444;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .product-card {
+    background: #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+    border-color: rgba(217, 35, 45, 0.3);
+  }
+
+  .product-image {
+    aspect-ratio: 1;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .product-card:hover .product-image img {
+    transform: scale(1.05);
+  }
+
+  .discount-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #d9232d;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .product-info {
+    padding: 20px;
+  }
+
+  .product-title {
+    margin: 0 0 12px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    line-height: 1.3;
+  }
+
+  .product-price {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .current-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: #d9232d;
+  }
+
+  .compare-price {
+    font-size: 14px;
+    color: #999;
+    text-decoration: line-through;
+  }
+
+  .add-to-cart-btn {
+    width: 100%;
+    background: #d9232d;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .add-to-cart-btn:hover {
+    background: #b01d26;
+    transform: translateY(-2px);
+  }
+
+  /* Promotional Banner Sections */
+  .promo-banner {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #1a1a2e 100%);
+    padding: 80px 0;
     text-align: center;
-    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 50%, #e0e0e0 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .promo-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(217, 35, 45, 0.1) 0%, transparent 50%, rgba(217, 35, 45, 0.1) 100%);
+    z-index: 1;
+  }
+
+  .promo-banner .page-width {
+    position: relative;
+    z-index: 2;
+  }
+
+  .promo-badge {
+    display: inline-block;
+    background: #d9232d;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  .promo-title {
+    font-size: clamp(42px, 7vw, 84px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
-  .section-description {
+  .promo-subtitle {
+    font-size: clamp(18px, 3vw, 28px);
+    font-weight: 600;
+    margin-bottom: 32px;
+    opacity: 0.9;
+  }
+
+  /* Newsletter Section */
+  .newsletter-section {
+    background: #f8f8f8;
+    padding: 80px 0;
     text-align: center;
-    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .newsletter-title {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 900;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .newsletter-description {
     font-size: 18px;
+    color: #666;
     margin-bottom: 40px;
   }
 
-  .promotional-banner {
-    background: linear-gradient(135deg, #d9232d 0%, #a01d24 50%, #d9232d 100%);
-    padding: 60px 0;
-    text-align: center;
+  .newsletter-form {
+    display: flex;
+    max-width: 500px;
+    margin: 0 auto;
+    gap: 16px;
+  }
+
+  .newsletter-input {
+    flex: 1;
+    padding: 16px 20px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    background: white;
+  }
+
+  .newsletter-input:focus {
+    outline: none;
+    border-color: #d9232d;
+  }
+
+  .newsletter-button {
+    background: #d9232d;
     color: white;
-    margin: 60px 0;
-    position: relative;
-    overflow: hidden;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
   }
 
-  .promo-title {
-    font-size: clamp(36px, 6vw, 64px);
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: -1px;
-    margin-bottom: 16px;
-    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  .newsletter-button:hover {
+    background: #b01d26;
+    transform: translateY(-2px);
   }
 
-  .promo-text {
-    font-size: clamp(16px, 2vw, 24px);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 24px;
-    opacity: 0.95;
+  /* Responsive Design */
+  @media screen and (max-width: 989px) {
+    .carousel-header {
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
+    }
+
+    .product-grid {
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+    }
   }
 
   @media screen and (max-width: 749px) {
     .homepage-hero {
-      padding: 60px 0;
+      padding: 80px 0;
     }
 
     .hero-buttons {
@@ -171,120 +407,270 @@
       max-width: 280px;
     }
 
-    .featured-section {
+    .product-carousel-section {
       padding: 60px 0;
     }
 
-    .promotional-banner {
-      padding: 40px 0;
-      margin: 40px 0;
+    .promo-banner {
+      padding: 60px 0;
+    }
+
+    .newsletter-form {
+      flex-direction: column;
+    }
+
+    .newsletter-input,
+    .newsletter-button {
+      width: 100%;
+    }
+
+    .product-grid {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
     }
   }
 </style>
 
-<!-- Hero Section -->
-<section class="homepage-hero">
-  <div class="page-width">
-    <h1 class="hero-title">boAthead DAYS</h1>
-    <p class="hero-subtitle">Get additional 5% off on Prepaid orders with code BOATHEAD</p>
-    <div class="hero-buttons">
-      <a href="{{ routes.collections_url }}" class="hero-button">Shop Now</a>
-      <a href="{{ routes.collections_url }}" class="hero-button hero-button--secondary">View Deals</a>
+<div class="homepage-container">
+  <!-- Main Hero Section -->
+  <section class="homepage-hero">
+    <div class="page-width">
+      <h1 class="hero-title">boAthead DAYS</h1>
+      <p class="hero-subtitle">get up to 75% OFF</p>
+      <p class="hero-description">Extra 5% off | Use Code: BOATHEAD</p>
+      <div class="hero-buttons">
+        <a href="{{ routes.collections_url }}" class="hero-button">Shop Now</a>
+        <a href="{{ routes.collections_url }}" class="hero-button hero-button--secondary">View Deals</a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Promotional Banner -->
-<section class="promotional-banner">
-  <div class="page-width">
-    <h2 class="promo-title">Save 75% OFF</h2>
-    <p class="promo-text">Extra 5% off | Use Code: BOATHEAD</p>
-    <a href="{{ routes.collections_url }}" class="hero-button">Shop Collection</a>
-  </div>
-</section>
+  <!-- Big Deals Section -->
+  <section class="product-carousel-section">
+    <div class="page-width">
+      <div class="carousel-header">
+        <h2 class="carousel-title">Big Deals</h2>
+        <a href="{{ routes.collections_url }}" class="view-all-link">View All →</a>
+      </div>
 
-<!-- Featured Products Section -->
-<section class="featured-section">
-  <div class="page-width">
-    <h2 class="section-title">Featured Products</h2>
-    <p class="section-description">Discover our premium audio collection</p>
+      {% assign big_deals_collection = collections.all %}
+      {% if collections['big-deals'] != blank %}
+        {% assign big_deals_collection = collections['big-deals'] %}
+      {% elsif collections['featured-products'] != blank %}
+        {% assign big_deals_collection = collections['featured-products'] %}
+      {% elsif collections.frontpage != blank %}
+        {% assign big_deals_collection = collections.frontpage %}
+      {% endif %}
 
-    {% assign featured_collection = collections.all %}
-    {% if collections['featured-products'] != blank %}
-      {% assign featured_collection = collections['featured-products'] %}
-    {% elsif collections.frontpage != blank %}
-      {% assign featured_collection = collections.frontpage %}
-    {% endif %}
-
-    <div
-      class="product-grid"
-      style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;"
-    >
-      {% for product in featured_collection.products limit: 8 %}
-        <div
-          class="product-card"
-          style="background: white; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 8px 32px rgba(0,0,0,0.2);"
-        >
-          <a href="{{ product.url }}">
+      <div class="product-grid">
+        {% for product in big_deals_collection.products limit: 6 %}
+          <div class="product-card">
             {% if product.featured_media %}
-              <div style="aspect-ratio: 1; overflow: hidden;">
+              <div class="product-image">
                 {{
                   product.featured_media
                   | image_url: width: 400
-                  | image_tag: style: 'width: 100%; height: 100%; object-fit: cover;'
+                  | image_tag: loading: 'lazy', width: '400', height: '400'
                 }}
+                {% if product.compare_at_price > product.price %}
+                  {% assign discount = product.compare_at_price
+                    | minus: product.price
+                    | times: 100.0
+                    | divided_by: product.compare_at_price
+                    | round
+                  %}
+                  <div class="discount-badge">{{ discount }}% OFF</div>
+                {% endif %}
               </div>
             {% else %}
-              <div style="aspect-ratio: 1; background: #f5f5f5; display: flex; align-items: center; justify-content: center;">
+              <div class="product-image">
                 {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
               </div>
             {% endif %}
 
-            <div style="padding: 20px;">
-              <h3 style="margin: 0 0 10px 0; font-size: 16px; font-weight: 600; color: #121212;">
-                {{ product.title }}
+            <div class="product-info">
+              <h3 class="product-title">
+                <a href="{{ product.url }}" style="color: inherit; text-decoration: none;">{{ product.title }}</a>
               </h3>
-              <div style="font-size: 18px; font-weight: 700; color: #d9232d;">
-                {{ product.price | money }}
+              <div class="product-price">
+                <span class="current-price">{{ product.price | money }}</span>
                 {% if product.compare_at_price > product.price %}
-                  <span style="text-decoration: line-through; color: #999; font-size: 14px; margin-left: 8px;">
-                    {{- product.compare_at_price | money -}}
-                  </span>
+                  <span class="compare-price">{{ product.compare_at_price | money }}</span>
                 {% endif %}
               </div>
+              <button class="add-to-cart-btn" onclick="location.href='{{ product.url }}'">Add to Cart</button>
             </div>
-          </a>
-        </div>
-      {% endfor %}
+          </div>
+        {% endfor %}
+      </div>
     </div>
+  </section>
 
-    <div style="text-align: center; margin-top: 40px;">
-      <a href="{{ routes.collections_url }}" class="hero-button">View All Products</a>
+  <!-- Promotional Banner 1 -->
+  <section class="promo-banner">
+    <div class="page-width">
+      <div class="promo-badge">boAthead DAYS</div>
+      <h2 class="promo-title">75% OFF</h2>
+      <p class="promo-subtitle">Extra 5% off | Use Code: BOATHEAD</p>
+      <a href="{{ routes.collections_url }}" class="hero-button">Shop Collection</a>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Newsletter Section -->
-<section style="background: #f8f9fa; padding: 80px 0; text-align: center;">
-  <div class="page-width">
-    <h2 style="font-size: clamp(28px, 5vw, 42px); font-weight: 700; margin-bottom: 16px; color: #121212;">
-      Stay Updated
-    </h2>
-    <p style="font-size: 18px; color: #666; margin-bottom: 30px;">
-      Get the latest deals and product updates delivered to your inbox
-    </p>
+  <!-- Top TWS Offers Section -->
+  <section class="product-carousel-section">
+    <div class="page-width">
+      <div class="carousel-header">
+        <h2 class="carousel-title">Top TWS Offers</h2>
+        <a href="{{ routes.collections_url }}" class="view-all-link">View All →</a>
+      </div>
 
-    {% form 'customer' %}
-      <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; max-width: 500px; margin: 0 auto;">
+      {% assign tws_collection = collections.all %}
+      {% if collections['tws-offers'] != blank %}
+        {% assign tws_collection = collections['tws-offers'] %}
+      {% elsif collections['wireless-earbuds'] != blank %}
+        {% assign tws_collection = collections['wireless-earbuds'] %}
+      {% elsif collections.frontpage != blank %}
+        {% assign tws_collection = collections.frontpage %}
+      {% endif %}
+
+      <div class="product-grid">
+        {% for product in tws_collection.products limit: 6 %}
+          <div class="product-card">
+            {% if product.featured_media %}
+              <div class="product-image">
+                {{
+                  product.featured_media
+                  | image_url: width: 400
+                  | image_tag: loading: 'lazy', width: '400', height: '400'
+                }}
+                {% if product.compare_at_price > product.price %}
+                  {% assign discount = product.compare_at_price
+                    | minus: product.price
+                    | times: 100.0
+                    | divided_by: product.compare_at_price
+                    | round
+                  %}
+                  <div class="discount-badge">{{ discount }}% OFF</div>
+                {% endif %}
+              </div>
+            {% else %}
+              <div class="product-image">
+                {{ 'product-2' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+            {% endif %}
+
+            <div class="product-info">
+              <h3 class="product-title">
+                <a href="{{ product.url }}" style="color: inherit; text-decoration: none;">{{ product.title }}</a>
+              </h3>
+              <div class="product-price">
+                <span class="current-price">{{ product.price | money }}</span>
+                {% if product.compare_at_price > product.price %}
+                  <span class="compare-price">{{ product.compare_at_price | money }}</span>
+                {% endif %}
+              </div>
+              <button class="add-to-cart-btn" onclick="location.href='{{ product.url }}'">Add to Cart</button>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Choose Your Offer Section -->
+  <section class="product-carousel-section">
+    <div class="page-width">
+      <div class="carousel-header">
+        <h2 class="carousel-title">Choose Your Offer</h2>
+        <a href="{{ routes.collections_url }}" class="view-all-link">View All →</a>
+      </div>
+
+      {% assign offers_collection = collections.all %}
+      {% if collections['special-offers'] != blank %}
+        {% assign offers_collection = collections['special-offers'] %}
+      {% elsif collections.sale != blank %}
+        {% assign offers_collection = collections.sale %}
+      {% elsif collections.frontpage != blank %}
+        {% assign offers_collection = collections.frontpage %}
+      {% endif %}
+
+      <div class="product-grid">
+        {% for product in offers_collection.products limit: 6 %}
+          <div class="product-card">
+            {% if product.featured_media %}
+              <div class="product-image">
+                {{
+                  product.featured_media
+                  | image_url: width: 400
+                  | image_tag: loading: 'lazy', width: '400', height: '400'
+                }}
+                {% if product.compare_at_price > product.price %}
+                  {% assign discount = product.compare_at_price
+                    | minus: product.price
+                    | times: 100.0
+                    | divided_by: product.compare_at_price
+                    | round
+                  %}
+                  <div class="discount-badge">{{ discount }}% OFF</div>
+                {% endif %}
+              </div>
+            {% else %}
+              <div class="product-image">
+                {{ 'product-3' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+            {% endif %}
+
+            <div class="product-info">
+              <h3 class="product-title">
+                <a href="{{ product.url }}" style="color: inherit; text-decoration: none;">{{ product.title }}</a>
+              </h3>
+              <div class="product-price">
+                <span class="current-price">{{ product.price | money }}</span>
+                {% if product.compare_at_price > product.price %}
+                  <span class="compare-price">{{ product.compare_at_price | money }}</span>
+                {% endif %}
+              </div>
+              <button class="add-to-cart-btn" onclick="location.href='{{ product.url }}'">Add to Cart</button>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Promotional Banner 2 -->
+  <section class="promo-banner">
+    <div class="page-width">
+      <div class="promo-badge">boAthead DAYS</div>
+      <h2 class="promo-title">75% OFF</h2>
+      <p class="promo-subtitle">Extra 5% off | Use Code: BOATHEAD</p>
+      <a href="{{ routes.collections_url }}" class="hero-button">Shop Now</a>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="newsletter-section">
+    <div class="page-width">
+      <h2 class="newsletter-title">Stay Updated</h2>
+      <p class="newsletter-description">Get the latest deals and product updates delivered to your inbox</p>
+      <form
+        action="{{ routes.root_url }}contact#contact_form"
+        method="post"
+        id="contact_form"
+        accept-charset="UTF-8"
+        class="newsletter-form"
+      >
+        <input type="hidden" name="form_type" value="customer">
+        <input type="hidden" name="utf8" value="✓">
         <input
           type="email"
           name="contact[email]"
+          class="newsletter-input"
           placeholder="Enter your email"
-          style="flex: 1; min-width: 250px; padding: 16px 20px; border: 2px solid #ddd; border-radius: 8px; font-size: 16px;"
           required
         >
-        <button type="submit" class="hero-button" style="min-width: 140px;">Subscribe</button>
-      </div>
-    {% endform %}
-  </div>
-</section>
+        <button type="submit" class="newsletter-button">Subscribe</button>
+      </form>
+    </div>
+  </section>
+</div>
