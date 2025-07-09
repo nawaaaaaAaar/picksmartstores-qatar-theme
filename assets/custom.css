@@ -2559,4 +2559,659 @@ select:focus {
     text-shadow: none !important;
     box-shadow: none !important;
   }
+}
+
+/* ===================================
+   ENHANCED HOMEPAGE HERO SECTION
+   boat-lifestyle.com Exact Design
+   ===================================*/
+
+/* Hero Section Background and Layout */
+.hero-section.banner--large {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 25%, #2d2d2d 50%, #1a1a1a 75%, #0a0a0a 100%);
+}
+
+.hero-background.banner__media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.7) contrast(1.1) saturate(1.2);
+}
+
+.hero-overlay.banner__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(217, 35, 45, 0.15) 0%, rgba(0, 0, 0, 0.7) 50%, rgba(217, 35, 45, 0.1) 100%);
+  z-index: 2;
+}
+
+.hero-gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center left, rgba(217, 35, 45, 0.2) 0%, transparent 70%);
+  z-index: 3;
+}
+
+.hero-content.banner__content {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 80px 0;
+}
+
+/* Hero Typography - boat-lifestyle.com Style */
+.hero-text-wrapper {
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+.hero-title.banner__heading {
+  font-family: var(--font-primary);
+  font-weight: 900;
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  line-height: 0.9;
+  color: var(--color-text-on-dark);
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8);
+  letter-spacing: -0.02em;
+}
+
+.hero-brand-text {
+  color: var(--color-text-on-dark);
+}
+
+.hero-brand-highlight {
+  color: var(--color-primary-brand-red);
+  text-shadow: 0 0 30px rgba(217, 35, 45, 0.5);
+}
+
+.hero-event-text {
+  color: var(--color-text-on-dark);
+  display: block;
+  margin-top: 10px;
+}
+
+/* Hero Discount Display */
+.hero-discount-wrapper {
+  display: flex;
+  align-items: baseline;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.hero-discount-text {
+  font-family: var(--font-primary);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 600;
+  color: var(--color-text-on-dark);
+  margin: 0;
+  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.7);
+}
+
+.hero-discount-number {
+  font-family: var(--font-primary);
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 900;
+  color: var(--color-primary-brand-red);
+  text-shadow: 2px 2px 20px rgba(217, 35, 45, 0.5);
+  line-height: 1;
+}
+
+.hero-discount-off {
+  font-family: var(--font-primary);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: var(--color-text-on-dark);
+  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.7);
+}
+
+.hero-subtitle {
+  font-family: var(--font-primary);
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 500;
+  color: var(--color-text-on-dark);
+  margin-bottom: 40px;
+  text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.6);
+  opacity: 0.95;
+}
+
+.hero-promo-code {
+  color: var(--color-primary-brand-red);
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 0 15px rgba(217, 35, 45, 0.4);
+}
+
+/* Hero Buttons */
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+}
+
+.btn-hero-primary,
+.btn-hero-secondary {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 16px;
+  padding: 18px 35px;
+  border-radius: 50px;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-hero-primary {
+  background: linear-gradient(135deg, var(--color-primary-brand-red) 0%, #ff4757 100%);
+  color: var(--color-text-on-dark);
+}
+
+.btn-hero-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
+  transition: left 0.4s ease;
+}
+
+.btn-hero-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(217, 35, 45, 0.4);
+}
+
+.btn-hero-primary:hover::before {
+  left: 100%;
+}
+
+.btn-hero-secondary {
+  background: transparent;
+  color: var(--color-text-on-dark);
+  border: 2px solid var(--color-text-on-dark);
+}
+
+.btn-hero-secondary:hover {
+  background: var(--color-text-on-dark);
+  color: var(--color-text-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(255, 255, 255, 0.2);
+}
+
+/* Hero Features */
+.hero-features {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.hero-feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 25px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.hero-feature:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.hero-feature-icon {
+  font-size: 24px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.hero-feature-text {
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text-on-dark);
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive Design for Hero */
+@media screen and (max-width: 989px) {
+  .hero-section.banner--large {
+    min-height: 80vh;
+  }
+  
+  .hero-content.banner__content {
+    min-height: 80vh;
+    padding: 60px 0;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .btn-hero-primary,
+  .btn-hero-secondary {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+  }
+  
+  .hero-features {
+    gap: 20px;
+  }
+  
+  .hero-feature {
+    padding: 12px 20px;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .hero-section.banner--large {
+    min-height: 70vh;
+  }
+  
+  .hero-content.banner__content {
+    min-height: 70vh;
+    padding: 40px 0;
+  }
+  
+  .hero-discount-wrapper {
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-start;
+  }
+  
+  .hero-features {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .hero-feature {
+    align-self: flex-start;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .hero-features {
+    display: none;
+  }
+}
+
+/* ===================================
+   ENHANCED PRODUCT SECTIONS & CAROUSELS
+   boat-lifestyle.com Dark Theme Design
+   ===================================*/
+
+/* Enhanced Product Grid */
+.product-grid.slider {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 40px;
+  padding: 40px 0;
+  position: relative;
+}
+
+.product-grid.slider::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, rgba(217, 35, 45, 0.03) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.product-grid.slider .card {
+  position: relative;
+  z-index: 1;
+}
+
+/* Enhanced Product Card Styling */
+.featured-collection--dark-carousel .card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.featured-collection--dark-carousel .card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(217, 35, 45, 0.2);
+  border-color: rgba(217, 35, 45, 0.3);
+}
+
+/* Enhanced Card Media */
+.featured-collection--dark-carousel .card__media {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px 16px 0 0;
+}
+
+.featured-collection--dark-carousel .card__media::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, transparent 0%, rgba(217, 35, 45, 0.1) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.featured-collection--dark-carousel .card:hover .card__media::after {
+  opacity: 1;
+}
+
+/* Enhanced Badge Styling */
+.badge--percentage-off {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: linear-gradient(135deg, var(--color-primary-brand-red) 0%, #ff4757 100%);
+  color: var(--color-text-on-dark);
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  z-index: 2;
+  box-shadow: 0 4px 15px rgba(217, 35, 45, 0.4);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced Product Rating */
+.card__rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.rating-stars {
+  color: #ffd700;
+  font-size: 14px;
+  text-shadow: 0 1px 3px rgba(255, 215, 0, 0.3);
+}
+
+.rating-count {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* ===================================
+   ENHANCED PROMOTIONAL BANNERS
+   boat-lifestyle.com Style
+   ===================================*/
+
+.banner--promotional {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 25%, #1a1a1a 50%, #0a0a0a 75%, #1a1a1a 100%);
+  border-radius: 20px;
+  margin: 60px 0;
+  padding: 50px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.banner--promotional::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(217, 35, 45, 0.1) 0%, transparent 50%, rgba(217, 35, 45, 0.1) 100%);
+  z-index: 1;
+}
+
+.banner--promotional .banner__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.promotional-content {
+  flex: 1;
+}
+
+.promo-badge {
+  display: inline-block;
+  background: rgba(217, 35, 45, 0.2);
+  color: var(--color-primary-brand-red);
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 8px 20px;
+  border-radius: 25px;
+  border: 1px solid var(--color-primary-brand-red);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.banner--promotional .banner__heading {
+  font-family: var(--font-primary);
+  font-weight: 900;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: var(--color-text-on-dark);
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8);
+  background: linear-gradient(135deg, var(--color-text-on-dark) 0%, var(--color-primary-brand-red) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.banner--promotional .banner__text {
+  font-family: var(--font-primary);
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.5);
+}
+
+.sale-code {
+  background: rgba(217, 35, 45, 0.2);
+  color: var(--color-primary-brand-red);
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border: 1px dashed var(--color-primary-brand-red);
+}
+
+.promotional-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.promo-icon {
+  font-size: 48px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* ===================================
+   ADVANCED RESPONSIVE DESIGN
+   Enhanced Mobile & Tablet Experience
+   ===================================*/
+
+@media screen and (max-width: 989px) {
+  .product-grid.slider {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 30px 0;
+  }
+  
+  .banner--promotional .banner__content {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+  }
+  
+  .promotional-visual {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .promo-icon {
+    font-size: 32px;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .product-grid.slider {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 20px 0;
+  }
+  
+  .featured-collection--dark-carousel .card {
+    border-radius: 12px;
+  }
+  
+  .featured-collection--dark-carousel .card:hover {
+    transform: translateY(-4px);
+  }
+  
+  .badge--percentage-off {
+    font-size: 10px;
+    padding: 4px 8px;
+    top: 8px;
+    left: 8px;
+  }
+  
+  .banner--promotional {
+    margin: 40px 0;
+    padding: 30px 0;
+    border-radius: 16px;
+  }
+  
+  .promotional-visual {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .promo-icon {
+    font-size: 24px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .product-grid.slider {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  
+  .banner--promotional .banner__heading {
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
+  }
+}
+
+/* ===================================
+   PERFORMANCE & ACCESSIBILITY
+   Enhanced User Experience
+   ===================================*/
+
+/* Smooth animations with reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .featured-collection--dark-carousel .card,
+  .banner--promotional,
+  .hero-section * {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .featured-collection--dark-carousel .card {
+    border: 2px solid var(--color-text-on-dark);
+  }
+  
+  .badge--percentage-off {
+    border: 2px solid var(--color-text-on-dark);
+  }
+}
+
+/* Dark mode enhancement */
+@media (prefers-color-scheme: dark) {
+  .featured-collection--dark-carousel .card {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* Performance optimizations */
+.featured-collection--dark-carousel .card {
+  will-change: transform;
+}
+
+.hero-section .hero-bg-image {
+  will-change: filter;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  /* Touch device optimizations */
+  .featured-collection--dark-carousel .card,
+  .banner--promotional .button {
+    min-height: 44px;
+  }
+  
+  .featured-collection--dark-carousel .card:hover {
+    transform: translateY(-2px);
+  }
 } 
