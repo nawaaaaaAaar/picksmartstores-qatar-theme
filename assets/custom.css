@@ -159,38 +159,102 @@ html[dir="rtl"] .float-right {
 
 /* ===================================
    FOOTER CUSTOMIZATIONS
+   boat-lifestyle.com Multi-Column Layout
    ===================================*/
 
 .footer {
-  background-color: var(--color-background-light-gray);
+  background-color: var(--color-background-light-gray) !important;
+  padding-top: var(--spacing-xxl) !important;
+  border-top: 2px solid var(--color-border-light) !important;
+}
+
+.footer__content-top {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+  gap: var(--spacing-xl) !important;
+  margin-bottom: var(--spacing-xxl) !important;
 }
 
 .footer__list-social,
 .footer__content-bottom {
-  border-top: 1px solid var(--color-border-light);
+  border-top: 1px solid var(--color-border-light) !important;
+  padding-top: var(--spacing-lg) !important;
 }
 
 .footer-block__heading {
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-dark);
-  text-transform: uppercase;
-  font-size: 14px;
-  margin-bottom: var(--spacing-md);
+  font-weight: var(--font-weight-bold) !important;
+  color: var(--color-text-dark) !important;
+  text-transform: uppercase !important;
+  font-size: 14px !important;
+  margin-bottom: var(--spacing-md) !important;
+  letter-spacing: 0.5px !important;
 }
 
 .footer-block__details-content .list-menu__item {
-  padding: var(--spacing-xs) 0;
-  font-size: 14px;
+  padding: var(--spacing-xs) 0 !important;
+  font-size: 14px !important;
+  border-bottom: none !important;
 }
 
 .footer-block__details-content .list-menu__item a {
-  color: var(--color-text-light);
-  text-decoration: none;
-  transition: color 0.3s;
+  color: var(--color-text-light) !important;
+  text-decoration: none !important;
+  transition: color 0.3s ease !important;
+  font-weight: var(--font-weight-regular) !important;
 }
 
 .footer-block__details-content .list-menu__item a:hover {
-  color: var(--color-text-dark);
+  color: var(--color-text-dark) !important;
+}
+
+/* Brand and Company Info Styling */
+.footer-block--text .footer-block__details-content {
+  color: var(--color-text-medium) !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+
+/* Payment Methods and Trust Badges */
+.footer__payment {
+  margin-top: var(--spacing-lg) !important;
+}
+
+.footer__payment img {
+  height: 24px !important;
+  margin-right: var(--spacing-sm) !important;
+  filter: grayscale(1) !important;
+  transition: filter 0.3s ease !important;
+}
+
+.footer__payment img:hover {
+  filter: grayscale(0) !important;
+}
+
+/* Social Links Enhancement */
+.footer__list-social .list-social__item {
+  margin-right: var(--spacing-md) !important;
+}
+
+.footer__list-social .link {
+  color: var(--color-text-light) !important;
+  transition: color 0.3s ease !important;
+}
+
+.footer__list-social .link:hover {
+  color: var(--color-primary-brand-red) !important;
+}
+
+/* Mobile Footer Responsiveness */
+@media screen and (max-width: 749px) {
+  .footer__content-top {
+    grid-template-columns: 1fr !important;
+    gap: var(--spacing-lg) !important;
+  }
+  
+  .footer-block__heading {
+    font-size: 16px !important;
+    margin-bottom: var(--spacing-lg) !important;
+  }
 }
 
 /* ===================================
