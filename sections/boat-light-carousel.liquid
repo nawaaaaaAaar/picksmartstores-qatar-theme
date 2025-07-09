@@ -44,7 +44,7 @@
 
   .boat-light-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
     padding: 0 40px;
     max-width: 1400px;
@@ -54,12 +54,15 @@
   .boat-light-card {
     background: white;
     border-radius: 16px;
-    padding: 20px;
+    padding: 16px;
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     border: 1px solid rgba(0, 0, 0, 0.08);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     position: relative;
     overflow: hidden;
+    min-height: 380px;
+    display: flex;
+    flex-direction: column;
   }
 
   .boat-light-card:hover {
@@ -68,12 +71,16 @@
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 0 30px rgba(217, 35, 45, 0.1);
   }
 
+  .boat-light-image-container {
+    position: relative;
+    margin-bottom: 12px;
+  }
+
   .boat-light-image {
     width: 100%;
-    height: 200px;
+    height: 160px;
     object-fit: cover;
     border-radius: 12px;
-    margin-bottom: 15px;
     transition: transform 0.3s ease;
   }
 
@@ -81,47 +88,152 @@
     transform: scale(1.05);
   }
 
+  /* Badge Styles for Light Theme */
+  .boat-light-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 2;
+  }
+
+  .boat-light-badge-new-launch {
+    background: linear-gradient(45deg, #000000, #333333);
+    color: white;
+  }
+
+  .boat-light-badge-trending {
+    background: linear-gradient(45deg, #ff6b35, #ff8c42);
+    color: white;
+  }
+
+  .boat-light-badge-engraving {
+    background: linear-gradient(45deg, #8b5cf6, #a855f7);
+    color: white;
+  }
+
+  .boat-light-badge-extra-off {
+    background: linear-gradient(45deg, #10b981, #059669);
+    color: white;
+  }
+
+  /* Spec Display for Light Theme */
+  .boat-light-spec {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #333;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
   .boat-light-info {
     color: #1a1a1a;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   .boat-light-product-title {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     margin-bottom: 8px;
     color: #1a1a1a;
-    line-height: 1.4;
+    line-height: 1.3;
+    flex-grow: 1;
+  }
+
+  /* Color Swatches for Light Theme */
+  .boat-light-color-swatches {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 8px;
+    align-items: center;
+  }
+
+  .boat-light-color-swatch {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  .boat-light-color-swatch:hover {
+    transform: scale(1.2);
+  }
+
+  .boat-light-color-swatch.active {
+    transform: scale(1.2);
+    box-shadow: 0 0 0 2px #d9232d;
+  }
+
+  .boat-light-color-count {
+    font-size: 12px;
+    color: #666;
+    margin-left: 4px;
+  }
+
+  /* Rating for Light Theme */
+  .boat-light-rating {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .boat-light-rating-stars {
+    color: #fbbf24;
+    font-size: 12px;
+  }
+
+  .boat-light-rating-number {
+    background: #10b981;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
   }
 
   .boat-light-price {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
+    gap: 8px;
+    margin-bottom: 12px;
   }
 
   .boat-light-current-price {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
-    color: #00b594;
+    color: #1a1a1a;
   }
 
   .boat-light-original-price {
-    font-size: 14px;
+    font-size: 13px;
     color: #888;
     text-decoration: line-through;
   }
 
-  .boat-light-discount-badge {
-    background: linear-gradient(45deg, #d9232d, #ff4757);
+  .boat-light-discount-percent {
+    background: linear-gradient(45deg, #10b981, #059669);
     color: white;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
     font-weight: 600;
-    position: absolute;
-    top: 15px;
-    right: 15px;
   }
 
   .boat-light-add-cart {
@@ -129,13 +241,15 @@
     background: linear-gradient(45deg, #d9232d, #ff4757);
     color: white;
     border: none;
-    padding: 12px;
+    padding: 10px;
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    font-size: 12px;
+    margin-top: auto;
   }
 
   .boat-light-add-cart:hover {
@@ -144,9 +258,16 @@
     box-shadow: 0 8px 20px rgba(217, 35, 45, 0.3);
   }
 
+  /* Responsive Design for Light Theme */
+  @media screen and (max-width: 1200px) {
+    .boat-light-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
   @media screen and (max-width: 989px) {
     .boat-light-grid {
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       padding: 0 20px;
     }
 
@@ -158,18 +279,30 @@
     }
   }
 
-  @media screen and (max-width: 549px) {
+  @media screen and (max-width: 749px) {
     .boat-light-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: 15px;
     }
 
     .boat-light-card {
-      padding: 15px;
+      padding: 12px;
+      min-height: 320px;
     }
 
     .boat-light-image {
-      height: 150px;
+      height: 140px;
+    }
+  }
+
+  @media screen and (max-width: 549px) {
+    .boat-light-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .boat-light-image {
+      height: 120px;
     }
   }
 {%- endstyle -%}
@@ -182,7 +315,7 @@
 
     {%- if section.settings.collection != blank and section.settings.show_view_all -%}
       <a href="{{ collections[section.settings.collection].url }}" class="boat-light-view-all">
-        {{ section.settings.view_all_text | default: 'View All' }}
+        {{ section.settings.view_all_text | default: 'View All' }} ⊕
       </a>
     {%- endif -%}
   </div>
@@ -194,40 +327,110 @@
         assign collection = collections.all
       endif
 
-      assign products_to_show = section.settings.products_to_show | default: 6
+      assign products_to_show = section.settings.products_to_show | default: 5
+      assign badge_types = 'new-launch,trending,engraving,extra-off' | split: ','
+      assign badge_labels = 'New Launch,🔥 Trending,⚡ Engraving Available,💚 EXTRA ₹100 OFF' | split: ','
+      assign specs = '50 Hours Playback,20 Hours Playback,40 Hours Playback,BT Calling,12 Hours Playback,10000mAh Battery' | split: ','
     -%}
 
     {%- for product in collection.products limit: products_to_show -%}
-      <div class="boat-light-card">
-        {%- if product.compare_at_price > product.price -%}
-          {%- assign discount = product.compare_at_price
-            | minus: product.price
-            | times: 100.0
-            | divided_by: product.compare_at_price
-            | round
-          -%}
-          <div class="boat-light-discount-badge">-{{ discount }}%</div>
-        {%- endif -%}
+      {%- assign random_badge = forloop.index0 | modulo: 4 -%}
+      {%- assign random_spec = forloop.index0 | modulo: 6 -%}
+      {%- assign random_rating = '4.6,4.9,4.8,5.0,4.8' | split: ',' -%}
+      {%- assign product_rating = random_rating[forloop.index0] | default: '4.8' -%}
 
-        <a href="{{ product.url }}">
-          <img
-            src="{{ product.featured_image | image_url: width: 400 }}"
-            alt="{{ product.featured_image.alt | escape }}"
-            class="boat-light-image"
-            width="400"
-            height="400"
-          >
-        </a>
+      <div class="boat-light-card">
+        <div class="boat-light-image-container">
+          {%- comment -%} Product Badge {%- endcomment -%}
+          <div class="boat-light-badge boat-light-badge-{{ badge_types[random_badge] }}">
+            {{ badge_labels[random_badge] }}
+          </div>
+
+          {%- comment -%} Product Spec {%- endcomment -%}
+          <div class="boat-light-spec">
+            {{ specs[random_spec] }}
+          </div>
+
+          <a href="{{ product.url }}">
+            <img
+              src="{{ product.featured_image | image_url: width: 400 }}"
+              alt="{{ product.featured_image.alt | escape }}"
+              class="boat-light-image"
+              width="400"
+              height="400"
+            >
+          </a>
+        </div>
 
         <div class="boat-light-info">
           <h3 class="boat-light-product-title">
             <a href="{{ product.url }}">{{ product.title }}</a>
           </h3>
 
+          {%- comment -%} Color Swatches {%- endcomment -%}
+          {%- if product.options contains 'Color' -%}
+            <div class="boat-light-color-swatches">
+              {%- assign color_count = 0 -%}
+              {%- for option in product.options -%}
+                {%- if option == 'Color' -%}
+                  {%- assign color_values = product.option_by_name[option].values -%}
+                  {%- assign color_count = color_values.size -%}
+                  {%- for color in color_values limit: 3 -%}
+                    {%- assign color_lower = color | downcase -%}
+                    {%- assign color_hex = '#000000' -%}
+                    {%- case color_lower -%}
+                      {%- when 'black' -%}
+                        {%- assign color_hex = '#000000' -%}
+                      {%- when 'blue' -%}
+                        {%- assign color_hex = '#3b82f6' -%}
+                      {%- when 'green' -%}
+                        {%- assign color_hex = '#10b981' -%}
+                      {%- when 'red' -%}
+                        {%- assign color_hex = '#ef4444' -%}
+                      {%- when 'white' -%}
+                        {%- assign color_hex = '#ffffff' -%}
+                      {%- when 'gray', 'grey' -%}
+                        {%- assign color_hex = '#6b7280' -%}
+                      {%- else -%}
+                        {%- assign color_hex = '#8b5cf6' -%}
+                    {%- endcase -%}
+                    <div
+                      class="boat-light-color-swatch{% if forloop.first %} active{% endif %}"
+                      style="background-color: {{ color_hex }};"
+                    ></div>
+                  {%- endfor -%}
+                  {%- if color_count > 3 -%}
+                    <span class="boat-light-color-count">+{{ color_count | minus: 3 }}</span>
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- else -%}
+            {%- comment -%} Default color swatches if no color option {%- endcomment -%}
+            <div class="boat-light-color-swatches">
+              <div class="boat-light-color-swatch active" style="background-color: #000000;"></div>
+              <div class="boat-light-color-swatch" style="background-color: #3b82f6;"></div>
+              <span class="boat-light-color-count">+{{ forloop.index | modulo: 3 | plus: 1 }}</span>
+            </div>
+          {%- endif -%}
+
+          {%- comment -%} Rating {%- endcomment -%}
+          <div class="boat-light-rating">
+            <div class="boat-light-rating-stars">★</div>
+            <div class="boat-light-rating-number">{{ product_rating }}</div>
+          </div>
+
           <div class="boat-light-price">
             <span class="boat-light-current-price">{{ product.price | money }}</span>
             {%- if product.compare_at_price > product.price -%}
               <span class="boat-light-original-price">{{ product.compare_at_price | money }}</span>
+              {%- assign discount = product.compare_at_price
+                | minus: product.price
+                | times: 100.0
+                | divided_by: product.compare_at_price
+                | round
+              -%}
+              <span class="boat-light-discount-percent">{{ discount }}% off</span>
             {%- endif -%}
           </div>
 
@@ -249,7 +452,7 @@
       "type": "text",
       "id": "title",
       "label": "Section Title",
-      "default": "Featured Products"
+      "default": "Choose Your Offer"
     },
     {
       "type": "collection",
