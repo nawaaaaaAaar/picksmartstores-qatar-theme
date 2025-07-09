@@ -584,7 +584,6 @@
                                 <ul class="list-unstyled" role="list">
                                   {%- for product in recommendations.products
                                     limit: block.settings.products_per_page
-                                    offset: continue
                                   -%}
                                     <li>
                                       {%- if block.settings.enable_quick_add -%}
@@ -674,6 +673,22 @@
                 </product-recommendations>
               {%- when 'icon-with-text' -%}
                 {% render 'icon-with-text', block: block %}
+              {%- when 'delivery-check' -%}
+                <div {{ block.shopify_attributes }}>
+                  {% render 'pdp-delivery-check' %}
+                </div>
+              {%- when 'trust-badges' -%}
+                <div {{ block.shopify_attributes }}>
+                  {% render 'pdp-trust-badges' %}
+                </div>
+              {%- when 'payment-offers' -%}
+                <div {{ block.shopify_attributes }}>
+                  {% render 'pdp-payment-offers' %}
+                </div>
+              {%- when 'tiered-pricing' -%}
+                <div {{ block.shopify_attributes }}>
+                  {% render 'pdp-tiered-pricing' %}
+                </div>
             {%- endcase -%}
           {%- endfor -%}
           <a href="{{ product.url }}" class="link product__view-details animate-arrow">
@@ -723,14 +738,6 @@
       </script>
       <script src="{{ 'product-model.js' | asset_url }}" defer></script>
     {%- endif -%}
-
-    {%- liquid
-      if product.selected_or_first_available_variant.featured_media
-        assign seo_media = product.selected_or_first_available_variant.featured_media
-      else
-        assign seo_media = product.featured_media
-      endif
-    -%}
 
     <script type="application/ld+json">
       {{ product | structured_data }}
@@ -2086,6 +2093,30 @@
           "info": "t:sections.main-product.blocks.icon_with_text.settings.heading.info"
         }
       ]
+    },
+    {
+      "type": "delivery-check",
+      "name": "Delivery Check",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "trust-badges",
+      "name": "Trust Badges",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "payment-offers",
+      "name": "Payment & Rewards",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "tiered-pricing",
+      "name": "Active Offers (Tiered Pricing)",
+      "limit": 1,
+      "settings": []
     }
   ],
   "settings": [

@@ -151,21 +151,65 @@
       </div>
       <div class="card__content">
         <div class="card__information">
-          <h3
-            class="card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"
-            {% if card_product.featured_media or settings.card_style == 'card' %}
-              id="title-{{ section_id }}-{{ card_product.id }}"
-            {% endif %}
-          >
-            <a
-              href="{{ card_product.url }}"
-              id="CardLink-{{ section_id }}-{{ card_product.id }}"
-              class="full-unstyled-link"
-              aria-labelledby="CardLink-{{ section_id }}-{{ card_product.id }} Badge-{{ section_id }}-{{ card_product.id }}"
+                      <h3
+              class="card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"
+              {% if card_product.featured_media or settings.card_style == 'card' %}
+                id="title-{{ section_id }}-{{ card_product.id }}"
+              {% endif %}
             >
-              {{ card_product.title | escape }}
-            </a>
-          </h3>
+              <a
+                href="{{ card_product.url }}"
+                id="CardLink-{{ section_id }}-{{ card_product.id }}"
+                class="full-unstyled-link"
+                aria-labelledby="CardLink-{{ section_id }}-{{ card_product.id }} Badge-{{ section_id }}-{{ card_product.id }}"
+              >
+                {{ card_product.title | escape }}
+              </a>
+            </h3>
+            
+            {%- comment -%} Color Swatches - boat-lifestyle.com Style {%- endcomment -%}
+            {%- assign color_option = card_product.options_with_values | where: 'name', 'Color' | first -%}
+            {%- if color_option and color_option.values.size > 1 -%}
+              <div class="card__color-swatches">
+                {%- for color_value in color_option.values limit: 5 -%}
+                  {%- assign color_variant = card_product.variants | where: 'option1', color_value | first -%}
+                  {%- if color_variant -%}
+                    <a href="{{ color_variant.url }}" class="color-swatch" 
+                       title="{{ color_value | escape }}"
+                       style="background-color: {{ color_value | replace: ' ', '' | downcase }}; 
+                              {%- case color_value | downcase -%}
+                                {%- when 'white' or 'pearl' or 'cream' -%}
+                                  background-color: #ffffff; border: 1px solid #e0e0e0;
+                                {%- when 'black' or 'midnight' or 'charcoal' -%}
+                                  background-color: #000000;
+                                {%- when 'blue' or 'navy' -%}
+                                  background-color: #1e40af;
+                                {%- when 'red' or 'crimson' -%}
+                                  background-color: #dc2626;
+                                {%- when 'green' or 'mint' -%}
+                                  background-color: #059669;
+                                {%- when 'pink' or 'rose' -%}
+                                  background-color: #ec4899;
+                                {%- when 'grey' or 'gray' or 'silver' -%}
+                                  background-color: #6b7280;
+                                {%- when 'gold' or 'yellow' -%}
+                                  background-color: #fbbf24;
+                                {%- when 'purple' or 'violet' -%}
+                                  background-color: #7c3aed;
+                                {%- when 'orange' -%}
+                                  background-color: #ea580c;
+                                {%- else -%}
+                                  background: linear-gradient(45deg, #e5e7eb, #9ca3af);
+                              {%- endcase -%}">
+                      <span class="visually-hidden">{{ color_value }}</span>
+                    </a>
+                  {%- endif -%}
+                {%- endfor -%}
+                {%- if color_option.values.size > 5 -%}
+                  <span class="color-swatch-more">+{{ color_option.values.size | minus: 5 }}</span>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
           <div class="card-information">
             {%- if show_vendor -%}
               <span class="visually-hidden">{{ 'accessibility.vendor' | t }}</span>

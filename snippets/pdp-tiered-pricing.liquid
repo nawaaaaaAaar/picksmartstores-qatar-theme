@@ -1,0 +1,116 @@
+{% comment %}
+  PDP Tiered Pricing Component - "Active Offers"
+  Matches boat-lifestyle.com volume discount display
+  This is a visual component. For functional tiered pricing, install Barn2 Bundles app.
+{% endcomment %}
+
+<div class="pdp-info-block tiered-pricing">
+  <div class="pdp-info-block__title">
+    <span class="svg-wrapper" style="color: var(--color-primary-brand-red);">
+      {{- 'icon-discount.svg' | inline_asset_content -}}
+    </span>
+    Active Offers
+  </div>
+  <div class="pdp-info-block__content">
+    <div class="tiered-pricing__list">
+      <div class="tiered-pricing__tier">
+        <div class="tiered-pricing__quantity">More than 2 items</div>
+        <div class="tiered-pricing__discount">5% off</div>
+        <div class="tiered-pricing__badge tiered-pricing__badge--popular">Most Popular</div>
+      </div>
+
+      <div class="tiered-pricing__tier">
+        <div class="tiered-pricing__quantity">More than 5 items</div>
+        <div class="tiered-pricing__discount">7% off</div>
+      </div>
+
+      <div class="tiered-pricing__tier">
+        <div class="tiered-pricing__quantity">More than 10 items</div>
+        <div class="tiered-pricing__discount">10% off</div>
+        <div class="tiered-pricing__badge tiered-pricing__badge--best">Best Value</div>
+      </div>
+    </div>
+
+    <div class="tiered-pricing__note">
+      <small style="color: var(--color-text-light); font-size: 12px;">
+        💡 Discounts automatically applied at checkout.
+        <strong>Install Barn2 Bundles app for functional tiered pricing.</strong>
+      </small>
+    </div>
+  </div>
+</div>
+
+<style>
+  .tiered-pricing .tiered-pricing__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .tiered-pricing__tier {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md);
+    background: var(--color-background-white);
+    border: 1px dashed var(--color-border-light);
+    border-radius: var(--border-radius-small);
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .tiered-pricing__tier:hover {
+    border-color: var(--color-primary-brand-red);
+    background: rgba(217, 35, 45, 0.02);
+  }
+
+  .tiered-pricing__quantity {
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-dark);
+    font-size: 14px;
+  }
+
+  .tiered-pricing__discount {
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary-brand-green);
+    font-size: 16px;
+  }
+
+  .tiered-pricing__badge {
+    position: absolute;
+    top: -8px;
+    right: var(--spacing-md);
+    background: var(--color-primary-brand-red);
+    color: var(--color-text-on-dark);
+    font-size: 10px;
+    font-weight: var(--font-weight-bold);
+    padding: 4px 8px;
+    border-radius: var(--border-radius-small);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .tiered-pricing__badge--best {
+    background: var(--color-primary-brand-green);
+  }
+
+  .tiered-pricing__note {
+    text-align: center;
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  @media screen and (max-width: 749px) {
+    .tiered-pricing__tier {
+      flex-direction: column;
+      text-align: center;
+      gap: var(--spacing-xs);
+    }
+
+    .tiered-pricing__badge {
+      position: static;
+      margin-top: var(--spacing-xs);
+    }
+  }
+</style>

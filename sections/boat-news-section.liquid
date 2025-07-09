@@ -83,18 +83,6 @@
                       style="padding-bottom: {{ 1 | divided_by: highest_ratio | times: 100 }}%;"
                     {% endif %}
                   >
-                    {%- liquid
-                      assign image_height = section.settings.image_width | divided_by: block.settings.image.aspect_ratio
-                      if section.settings.image_ratio == 'adapt'
-                        assign image_height = 400 | divided_by: highest_ratio
-                      elsif section.settings.image_ratio == 'square'
-                        assign image_height = section.settings.image_width
-                      elsif section.settings.image_ratio == 'circle'
-                        assign image_height = section.settings.image_width
-                      elsif section.settings.image_ratio == 'portrait'
-                        assign image_height = section.settings.image_width | divided_by: 0.8
-                      endif
-                    -%}
                     {{
                       block.settings.image
                       | image_url: width: 400
@@ -103,8 +91,8 @@
                       sizes: '(min-width: 990px) {{ 990 | minus: 130 | divided_by: 4
                     -}}
                     px, (min-width: 750px) {{ 750 | minus: 130 | divided_by: 2 }}px, calc((100vw - 130px) / 2)', alt:
-                    block.settings.title | escape, height: image_height, width: section.settings.image_width, loading:
-                    'lazy', class: 'multicolumn-card__image' }}
+                    block.settings.title | escape, width: section.settings.image_width, loading: 'lazy', class:
+                    'multicolumn-card__image' }}
                   </div>
                 </div>
               {%- endif -%}
@@ -153,14 +141,14 @@
             <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
             <span class="slider-counter--total">{{ section.blocks.size }}</span>
           </div>
-                     <button
-             type="button"
-             class="slider-button slider-button--next"
-             name="next"
-             aria-label="{{ 'general.slider.next_slide' | t }}"
-           >
-             {{- 'icon-caret.svg' | inline_asset_content -}}
-           </button>
+          <button
+            type="button"
+            class="slider-button slider-button--next"
+            name="next"
+            aria-label="{{ 'general.slider.next_slide' | t }}"
+          >
+            {{- 'icon-caret.svg' | inline_asset_content -}}
+          </button>
         </div>
       {%- endif -%}
     </slider-component>

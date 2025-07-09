@@ -1,0 +1,51 @@
+{% comment %}
+  PDP Delivery Check Component
+  Matches boat-lifestyle.com pincode checker design
+{% endcomment %}
+
+<div class="pdp-info-block delivery-check">
+  <div class="pdp-info-block__title">
+    <span class="svg-wrapper">
+      {{- 'icon-truck.svg' | inline_asset_content -}}
+    </span>
+    Check Delivery & Services
+  </div>
+  <div class="pdp-info-block__content">
+    <p style="margin-bottom: var(--spacing-md); color: var(--color-text-medium);">
+      Enter your pincode to check delivery time & services
+    </p>
+    <form class="delivery-check__form" onsubmit="checkDelivery(event)">
+      <input
+        type="text"
+        class="delivery-check__input"
+        placeholder="Enter pincode (e.g. 110001)"
+        pattern="[0-9]{5,6}"
+        required
+        maxlength="6"
+      >
+      <button type="submit" class="delivery-check__button">CHECK</button>
+    </form>
+    <div id="delivery-result" style="margin-top: var(--spacing-md); display: none;">
+      <div style="color: var(--color-primary-brand-green); font-weight: var(--font-weight-bold); font-size: 14px;">
+        ✓ Delivery available in your area
+      </div>
+      <div style="color: var(--color-text-medium); font-size: 14px; margin-top: var(--spacing-xs);">
+        Expected delivery: 2-3 business days
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function checkDelivery(event) {
+    event.preventDefault();
+    const form = event.target;
+    const pincode = form.querySelector('.delivery-check__input').value;
+    const result = document.getElementById('delivery-result');
+
+    if (pincode && pincode.length >= 5) {
+      result.style.display = 'block';
+      result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+</script>

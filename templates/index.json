@@ -1,31 +1,31 @@
 {
   "sections": {
-    "image_banner": {
+    "boat_hero_banner": {
       "type": "image-banner",
       "blocks": {
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Image banner",
+            "heading": "boAthead DAYS",
             "heading_size": "h0"
           }
         },
         "text": {
           "type": "text",
           "settings": {
-            "text": "Give customers details about the banner image(s) or content on the template.",
+            "text": "Get additional 5% off on Prepaid orders with code BOATHEAD",
             "text_style": "body"
           }
         },
         "button": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Shop all",
+            "button_label_1": "Shop Now",
             "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "button_style_secondary_1": false,
+            "button_label_2": "View Deals",
+            "button_link_2": "shopify://collections/deals",
+            "button_style_secondary_2": true
           }
         }
       },
@@ -35,176 +35,269 @@
         "button"
       ],
       "settings": {
-        "image_overlay_opacity": 40,
+        "image_overlay_opacity": 20,
         "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "desktop_content_alignment": "center",
+        "desktop_content_position": "middle-left",
+        "show_text_box": true,
+        "desktop_content_alignment": "left",
         "color_scheme": "scheme-3",
         "mobile_content_alignment": "center",
         "stack_images_on_mobile": false,
         "show_text_below": false
       }
     },
-    "rich_text": {
-      "type": "rich-text",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Talk about your brand",
-            "heading_size": "h1"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.<\/p>"
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "text"
-      ],
-      "settings": {
-        "color_scheme": "scheme-1",
-        "full_width": true,
-        "padding_top": 40,
-        "padding_bottom": 0
-      }
-    },
-    "featured_collection": {
+    "big_deals_carousel": {
       "type": "featured-collection",
       "settings": {
-        "title": "Featured products",
+        "title": "Big Deals",
         "heading_size": "h2",
+        "description": "Unbeatable prices on premium audio gear",
         "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "show_view_all": false,
-        "swipe_on_mobile": false,
+        "products_to_show": 6,
+        "columns_desktop": 6,
+        "color_scheme": "scheme-dark",
+        "show_view_all": true,
+        "view_all_style": "link",
+        "enable_desktop_slider": true,
+        "swipe_on_mobile": true,
         "image_ratio": "adapt",
         "show_secondary_image": true,
         "show_vendor": false,
-        "show_rating": false,
+        "show_rating": true,
+        "enable_quick_add": true,
         "columns_mobile": "2",
-        "padding_top": 28,
-        "padding_bottom": 36
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "custom_class": "featured-collection--dark-carousel"
       }
     },
-    "collage": {
-      "type": "collage",
+    "promotional_banner": {
+      "type": "image-banner",
       "blocks": {
-        "collection-0": {
-          "type": "collection",
+        "promo_heading": {
+          "type": "heading",
           "settings": {
-            "collection": ""
+            "heading": "Save 75% OFF",
+            "heading_size": "h1"
           }
         },
-        "product": {
-          "type": "product",
+        "promo_text": {
+          "type": "text",
           "settings": {
-            "product": "",
-            "second_image": false
+            "text": "Extra 5% off | Use Code: BOATHEAD",
+            "text_style": "subtitle"
           }
         },
-        "collection-1": {
-          "type": "collection",
+        "promo_button": {
+          "type": "buttons",
           "settings": {
-            "collection": ""
+            "button_label_1": "Shop Collection",
+            "button_link_1": "shopify://collections/sale",
+            "button_style_secondary_1": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
           }
         }
       },
       "block_order": [
-        "collection-0",
-        "product",
-        "collection-1"
+        "promo_heading",
+        "promo_text",
+        "promo_button"
       ],
       "settings": {
-        "heading": "Multimedia collage",
+        "image_overlay_opacity": 30,
+        "image_height": "medium",
+        "desktop_content_position": "bottom-center",
+        "show_text_box": false,
+        "desktop_content_alignment": "center",
+        "color_scheme": "scheme-1",
+        "mobile_content_alignment": "center",
+        "stack_images_on_mobile": false,
+        "show_text_below": false
+      }
+    },
+    "top_tws_offers": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Top TWS Offers",
         "heading_size": "h2",
-        "desktop_layout": "left",
-        "mobile_layout": "collage",
-        "color_scheme": "scheme-1",
+        "description": "Premium True Wireless Stereo Collection",
+        "collection": "true-wireless-earbuds",
+        "products_to_show": 6,
+        "columns_desktop": 6,
+        "color_scheme": "scheme-dark",
+        "show_view_all": true,
+        "view_all_style": "link",
+        "enable_desktop_slider": true,
+        "swipe_on_mobile": true,
+        "image_ratio": "adapt",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "enable_quick_add": true,
+        "columns_mobile": "2",
         "padding_top": 36,
-        "padding_bottom": 36
+        "padding_bottom": 36,
+        "custom_class": "featured-collection--dark-carousel"
       }
     },
-    "video": {
-      "type": "video",
+    "choose_your_offer": {
+      "type": "featured-collection",
       "settings": {
-        "heading": "",
-        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-        "heading_size": "h1",
-        "description": "",
-        "full_width": false,
+        "title": "Choose Your Offer",
+        "heading_size": "h2",
+        "description": "Handpicked deals just for you",
+        "collection": "special-offers",
+        "products_to_show": 5,
+        "columns_desktop": 5,
         "color_scheme": "scheme-1",
+        "show_view_all": true,
+        "view_all_style": "link",
+        "enable_desktop_slider": true,
+        "swipe_on_mobile": true,
+        "image_ratio": "adapt",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "enable_quick_add": true,
+        "columns_mobile": "2",
         "padding_top": 36,
         "padding_bottom": 36
       }
     },
-    "multicolumn": {
-      "type": "multicolumn",
+    "smart_watches_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Exclusively at boAt Prices",
+        "heading_size": "h2",
+        "description": "Smart Watches & Wearables",
+        "collection": "smart-watches",
+        "products_to_show": 6,
+        "columns_desktop": 6,
+        "color_scheme": "scheme-dark",
+        "show_view_all": true,
+        "view_all_style": "link",
+        "enable_desktop_slider": true,
+        "swipe_on_mobile": true,
+        "image_ratio": "adapt",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "enable_quick_add": true,
+        "columns_mobile": "2",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "custom_class": "featured-collection--dark-carousel"
+      }
+    },
+    "home_audio_deals": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Exclusive Home Audio Steals",
+        "heading_size": "h2",
+        "description": "Premium speakers and audio systems",
+        "collection": "home-audio",
+        "products_to_show": 6,
+        "columns_desktop": 6,
+        "color_scheme": "scheme-dark",
+        "show_view_all": true,
+        "view_all_style": "link",
+        "enable_desktop_slider": true,
+        "swipe_on_mobile": true,
+        "image_ratio": "adapt",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "enable_quick_add": true,
+        "columns_mobile": "2",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "custom_class": "featured-collection--dark-carousel"
+      }
+    },
+    "best_deals_accessories": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Best Deals on Accessories",
+        "heading_size": "h2",
+        "description": "Cables, chargers, and must-have accessories",
+        "collection": "accessories",
+        "products_to_show": 6,
+        "columns_desktop": 6,
+        "color_scheme": "scheme-dark",
+        "show_view_all": true,
+        "view_all_style": "link",
+        "enable_desktop_slider": true,
+        "swipe_on_mobile": true,
+        "image_ratio": "adapt",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "enable_quick_add": true,
+        "columns_mobile": "2",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "custom_class": "featured-collection--dark-carousel"
+      }
+    },
+    "boat_news_section": {
+      "type": "boat-news-section",
       "blocks": {
-        "column1": {
-          "type": "column",
+        "news_1": {
+          "type": "news_item",
           "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
-            "link_label": "",
-            "link": ""
+            "image": "",
+            "title": "boAt partners with premium audio brands",
+            "description": "Expanding our portfolio with world-class audio technology",
+            "link": "#",
+            "link_text": "Read More"
           }
         },
-        "column2": {
-          "type": "column",
+        "news_2": {
+          "type": "news_item",
           "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
-            "link_label": "",
-            "link": ""
+            "image": "",
+            "title": "New boAt lifestyle stores opening across Qatar",
+            "description": "Experience our products in premium retail locations",
+            "link": "#",
+            "link_text": "Find Stores"
           }
         },
-        "column3": {
-          "type": "column",
+        "news_3": {
+          "type": "news_item",
           "settings": {
-            "title": "Column",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
-            "link_label": "",
-            "link": ""
+            "image": "",
+            "title": "boAt wins Innovation Award 2024",
+            "description": "Recognized for excellence in audio technology and design",
+            "link": "#",
+            "link_text": "Learn More"
           }
         }
       },
       "block_order": [
-        "column1",
-        "column2",
-        "column3"
+        "news_1",
+        "news_2", 
+        "news_3"
       ],
       "settings": {
-        "title": "",
-        "heading_size": "h1",
-        "image_width": "third",
-        "image_ratio": "adapt",
-        "columns_desktop": 3,
-        "column_alignment": "center",
-        "background_style": "none",
-        "button_label": "",
-        "button_link": "",
-        "swipe_on_mobile": false,
+        "title": "boAt in the NEWS",
+        "heading_size": "h2",
         "color_scheme": "scheme-1",
-        "columns_mobile": "1",
         "padding_top": 36,
         "padding_bottom": 36
       }
     }
   },
   "order": [
-    "image_banner",
-    "rich_text",
-    "featured_collection",
-    "collage",
-    "video",
-    "multicolumn"
+    "boat_hero_banner",
+    "big_deals_carousel",
+    "promotional_banner", 
+    "top_tws_offers",
+    "choose_your_offer",
+    "smart_watches_collection",
+    "home_audio_deals",
+    "best_deals_accessories",
+    "boat_news_section"
   ]
 }

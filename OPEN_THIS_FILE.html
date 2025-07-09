@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 picksmartstores.com - Theme Preview Ready!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+          --color-primary-brand-red: #D9232D;
+          --color-primary-brand-green: #00B594;
+          --color-text-dark: #000000;
+          --color-text-medium: #4A4A4A;
+          --color-text-light: #878787;
+          --color-text-on-dark: #FFFFFF;
+          --color-background-light-gray: #F7F7F7;
+          --color-background-white: #FFFFFF;
+          --color-border-light: #EAEAEA;
+          --font-weight-bold: 700;
+          --font-weight-semi-bold: 600;
+          --spacing-xs: 4px;
+          --spacing-sm: 8px;
+          --spacing-md: 16px;
+          --spacing-lg: 24px;
+          --spacing-xl: 32px;
+          --border-radius-small: 4px;
+          --border-radius-medium: 8px;
+          --border-radius-large: 12px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--color-text-dark);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, var(--color-primary-brand-red), #ff6b6b);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin: 0 0 20px 0;
+            font-weight: var(--font-weight-bold);
+        }
+
+        .hero p {
+            font-size: 18px;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .status-card {
+            background: var(--color-background-light-gray);
+            padding: 24px;
+            border-radius: 12px;
+            border-left: 5px solid var(--color-primary-brand-green);
+            transition: transform 0.3s ease;
+        }
+
+        .status-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .status-card h3 {
+            color: var(--color-text-dark);
+            margin: 0 0 12px 0;
+            font-size: 18px;
+            font-weight: var(--font-weight-bold);
+        }
+
+        .status-card p {
+            color: var(--color-text-medium);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .feature-demo {
+            background: var(--color-background-white);
+            border: 2px solid var(--color-border-light);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-demo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary-brand-red), var(--color-primary-brand-green));
+        }
+
+        .feature-demo h2 {
+            color: var(--color-text-dark);
+            font-size: 24px;
+            font-weight: var(--font-weight-bold);
+            margin-bottom: 20px;
+        }
+
+        .price-demo {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 36px;
+            font-weight: var(--font-weight-bold);
+            margin: 20px 0;
+        }
+
+        .price-current {
+            color: var(--color-text-dark);
+        }
+
+        .price-old {
+            font-size: 20px;
+            color: var(--color-text-light);
+            text-decoration: line-through;
+        }
+
+        .percentage-badge {
+            background: var(--color-primary-brand-green);
+            color: var(--color-text-on-dark);
+            font-weight: var(--font-weight-bold);
+            font-size: 18px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(0, 181, 148, 0.3);
+        }
+
+        .info-block {
+            background: var(--color-background-light-gray);
+            border: 1px solid var(--color-border-light);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .info-block:hover {
+            border-color: var(--color-primary-brand-red);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .info-block__title {
+            font-weight: var(--font-weight-bold);
+            color: var(--color-text-dark);
+            font-size: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .trust-badges {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .trust-badge {
+            text-align: center;
+            padding: 16px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--color-border-light);
+        }
+
+        .trust-badge__icon {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 8px;
+            background: var(--color-primary-brand-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .next-steps {
+            background: linear-gradient(135deg, var(--color-primary-brand-green), #4ecdc4);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .next-steps h2 {
+            margin: 0 0 20px 0;
+            font-size: 28px;
+        }
+
+        .phase-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .phase-item {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .phase-item h4 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+
+        .checkmark {
+            color: var(--color-primary-brand-green);
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .rocket {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .price-demo {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1><span class="rocket">🚀</span>picksmartstores.com</h1>
+            <p>boat-lifestyle.com Theme Transformation Complete!</p>
+        </div>
+
+        <div class="status-grid">
+            <div class="status-card">
+                <h3><span class="checkmark">✅</span> Phase 1: Foundation</h3>
+                <p>Design tokens, CSS variables, RTL support, and GCC localization implemented</p>
+            </div>
+            <div class="status-card">
+                <h3><span class="checkmark">✅</span> Phase 2: Navigation</h3>
+                <p>Header restructured, mega menu with images, and enhanced footer completed</p>
+            </div>
+            <div class="status-card">
+                <h3><span class="checkmark">✅</span> Phase 3: Page Templates</h3>
+                <p>Homepage sections, collection enhancements, and product card overhaul done</p>
+            </div>
+            <div class="status-card">
+                <h3><span class="checkmark">✅</span> Phase 4: Product Pages</h3>
+                <p>Vertical gallery, enhanced pricing, custom blocks, and tiered discounts ready</p>
+            </div>
+        </div>
+
+        <div class="feature-demo">
+            <h2>🎯 Enhanced Pricing Display</h2>
+            <div class="price-demo">
+                <span class="price-current">QAR 299</span>
+                <span class="price-old">QAR 399</span>
+                <span class="percentage-badge">-25% OFF</span>
+            </div>
+            <p>✅ Smart percentage calculations instead of generic "Sale" badges</p>
+        </div>
+
+        <div class="feature-demo">
+            <h2>🚚 Custom PDP Components</h2>
+            
+            <div class="info-block">
+                <div class="info-block__title">
+                    🚛 Check Delivery & Services
+                </div>
+                <p>Interactive pincode checker for Qatar & GCC delivery estimates</p>
+            </div>
+
+            <div class="info-block">
+                <div class="info-block__title">
+                    🏷️ Active Offers (Tiered Pricing)
+                </div>
+                <p>Volume discounts: 2+ items (5% off), 5+ items (7% off), 10+ items (10% off)</p>
+            </div>
+
+            <div class="info-block">
+                <div class="info-block__title">
+                    💰 boAt Rewards & Payment Offers
+                </div>
+                <p>Qatar-specific payment options: QNB cards, KNET, SADAD, Apple Pay, and more</p>
+            </div>
+        </div>
+
+        <div class="feature-demo">
+            <h2>💎 Trust Badges</h2>
+            <div class="trust-badges">
+                <div class="trust-badge">
+                    <div class="trust-badge__icon">✓</div>
+                    <div style="font-weight: bold; margin-bottom: 4px;">12+3 Months</div>
+                    <div style="font-size: 12px; color: var(--color-text-medium);">Warranty</div>
+                </div>
+                <div class="trust-badge">
+                    <div class="trust-badge__icon">↺</div>
+                    <div style="font-weight: bold; margin-bottom: 4px;">7-day</div>
+                    <div style="font-size: 12px; color: var(--color-text-medium);">Replacement</div>
+                </div>
+                <div class="trust-badge">
+                    <div class="trust-badge__icon">🚚</div>
+                    <div style="font-weight: bold; margin-bottom: 4px;">Free Delivery</div>
+                    <div style="font-size: 12px; color: var(--color-text-medium);">Qatar & GCC</div>
+                </div>
+                <div class="trust-badge">
+                    <div class="trust-badge__icon">🔒</div>
+                    <div style="font-weight: bold; margin-bottom: 4px;">Secure</div>
+                    <div style="font-size: 12px; color: var(--color-text-medium);">Payment</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="next-steps">
+            <h2>🎉 Transformation Complete!</h2>
+            <p>Your Shopify Dawn theme now perfectly matches boat-lifestyle.com with enhanced functionality for the Qatar & GCC market.</p>
+            
+            <div class="phase-list">
+                <div class="phase-item">
+                    <h4>✅ Design System</h4>
+                    <p>Montserrat fonts, brand colors, consistent spacing</p>
+                </div>
+                <div class="phase-item">
+                    <h4>✅ RTL Support</h4>
+                    <p>Arabic language compatibility for GCC markets</p>
+                </div>
+                <div class="phase-item">
+                    <h4>✅ Enhanced PDP</h4>
+                    <p>Vertical gallery, smart pricing, custom blocks</p>
+                </div>
+                <div class="phase-item">
+                    <h4>🚀 Ready for Phase 5</h4>
+                    <p>Payment gateways, shipping, reviews integration</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; padding: 30px; background: var(--color-background-light-gray); border-radius: 15px;">
+            <h3 style="color: var(--color-text-dark); margin-bottom: 20px;">🌐 Access Your Work</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                <div style="padding: 20px; background: white; border-radius: 10px; border: 2px solid var(--color-primary-brand-green);">
+                    <h4 style="color: var(--color-primary-brand-green); margin: 0 0 10px 0;">Local Server</h4>
+                    <p style="margin: 0; font-size: 14px;"><strong>http://localhost:8080/preview.html</strong></p>
+                </div>
+                <div style="padding: 20px; background: white; border-radius: 10px; border: 2px solid var(--color-primary-brand-red);">
+                    <h4 style="color: var(--color-primary-brand-red); margin: 0 0 10px 0;">Direct File</h4>
+                    <p style="margin: 0; font-size: 14px;">Right-click this file → Open with Browser</p>
+                </div>
+            </div>
+            <p style="margin-top: 20px; color: var(--color-text-medium);">
+                <strong>Ready for Shopify?</strong> Upload your theme folder to Shopify Admin → Online Store → Themes
+            </p>
+        </div>
+    </div>
+</body>
+</html> 
