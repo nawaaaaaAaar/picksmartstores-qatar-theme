@@ -1,0 +1,197 @@
+{{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .boat-hero-section {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(20, 20, 20, 0.8) 50%, rgba(0, 0, 0, 0.9) 100%),
+      url('https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+    background-size: cover;
+    background-position: center;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .boat-hero-content {
+    text-align: center;
+    color: white;
+    z-index: 2;
+    max-width: 800px;
+    padding: 0 2rem;
+  }
+
+  .boat-hero-title {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    background: linear-gradient(45deg, #ffffff 0%, #ff6b6b 50%, #ffffff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .boat-hero-subtitle {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #d9232d;
+  }
+
+  .boat-hero-description {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .boat-hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .boat-btn {
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    min-width: 150px;
+  }
+
+  .boat-btn-primary {
+    background: linear-gradient(45deg, #d9232d, #ff4757);
+    color: white;
+  }
+
+  .boat-btn-primary:hover {
+    background: linear-gradient(45deg, #b71c1c, #d9232d);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(217, 35, 45, 0.3);
+  }
+
+  .boat-btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid #00b594;
+  }
+
+  .boat-btn-secondary:hover {
+    background: #00b594;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 181, 148, 0.3);
+  }
+
+  @media screen and (max-width: 749px) {
+    .boat-hero-section {
+      min-height: 500px;
+      padding: 2rem 0;
+    }
+
+    .boat-hero-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .boat-btn {
+      width: 100%;
+      max-width: 250px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="boat-hero-section">
+  <div class="boat-hero-content">
+    {%- if section.settings.title != blank -%}
+      <h1 class="boat-hero-title">{{ section.settings.title }}</h1>
+    {%- endif -%}
+
+    {%- if section.settings.subtitle != blank -%}
+      <div class="boat-hero-subtitle">{{ section.settings.subtitle }}</div>
+    {%- endif -%}
+
+    {%- if section.settings.description != blank -%}
+      <div class="boat-hero-description">{{ section.settings.description }}</div>
+    {%- endif -%}
+
+    <div class="boat-hero-buttons">
+      {%- if section.settings.button_1_text != blank -%}
+        <a href="{{ section.settings.button_1_link }}" class="boat-btn boat-btn-primary">
+          {{ section.settings.button_1_text }}
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.button_2_text != blank -%}
+        <a href="{{ section.settings.button_2_link }}" class="boat-btn boat-btn-secondary">
+          {{ section.settings.button_2_text }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "boAt Hero Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Hero Title",
+      "default": "BOATHEAD DAYS"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "get up to 75% OFF"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "EXTRA 5% OFF | USE CODE: BOATHEAD"
+    },
+    {
+      "type": "text",
+      "id": "button_1_text",
+      "label": "Primary Button Text",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Primary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "button_2_text",
+      "label": "Secondary Button Text",
+      "default": "VIEW ALL DEALS"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Secondary Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "boAt Hero Section"
+    }
+  ]
+}
+{% endschema %}

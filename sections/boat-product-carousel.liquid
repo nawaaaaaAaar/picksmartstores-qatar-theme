@@ -1,0 +1,288 @@
+{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .boat-carousel-section {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 25%, #2d2d2d 50%, #1a1a1a 75%, #0a0a0a 100%);
+    padding: 60px 0;
+    margin: 20px 0;
+    position: relative;
+  }
+
+  .boat-carousel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    padding: 0 40px;
+  }
+
+  .boat-carousel-title {
+    color: white;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin: 0;
+  }
+
+  .boat-view-all {
+    color: #d9232d;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+  }
+
+  .boat-view-all:hover {
+    color: #ff4757;
+    transform: translateX(5px);
+  }
+
+  .boat-products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 0 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .boat-product-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 20px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .boat-product-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(217, 35, 45, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(217, 35, 45, 0.1);
+  }
+
+  .boat-product-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+  }
+
+  .boat-product-card:hover .boat-product-image {
+    transform: scale(1.05);
+  }
+
+  .boat-product-info {
+    color: white;
+  }
+
+  .boat-product-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: white;
+    line-height: 1.4;
+  }
+
+  .boat-product-price {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  .boat-current-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: #00b594;
+  }
+
+  .boat-original-price {
+    font-size: 14px;
+    color: #888;
+    text-decoration: line-through;
+  }
+
+  .boat-discount-badge {
+    background: linear-gradient(45deg, #d9232d, #ff4757);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
+
+  .boat-add-to-cart {
+    width: 100%;
+    background: linear-gradient(45deg, #d9232d, #ff4757);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .boat-add-to-cart:hover {
+    background: linear-gradient(45deg, #b71c1c, #d9232d);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(217, 35, 45, 0.3);
+  }
+
+  @media screen and (max-width: 989px) {
+    .boat-products-grid {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      padding: 0 20px;
+    }
+
+    .boat-carousel-header {
+      padding: 0 20px;
+      flex-direction: column;
+      gap: 15px;
+      text-align: center;
+    }
+  }
+
+  @media screen and (max-width: 549px) {
+    .boat-products-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .boat-product-card {
+      padding: 15px;
+    }
+
+    .boat-product-image {
+      height: 150px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="boat-carousel-section">
+  <div class="boat-carousel-header">
+    {%- if section.settings.title != blank -%}
+      <h2 class="boat-carousel-title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.collection != blank and section.settings.show_view_all -%}
+      <a href="{{ collections[section.settings.collection].url }}" class="boat-view-all">
+        {{ section.settings.view_all_text | default: 'View All' }}
+      </a>
+    {%- endif -%}
+  </div>
+
+  <div class="boat-products-grid">
+    {%- liquid
+      assign collection = collections[section.settings.collection]
+      if collection == blank
+        assign collection = collections.all
+      endif
+
+      assign products_to_show = section.settings.products_to_show | default: 6
+    -%}
+
+    {%- for product in collection.products limit: products_to_show -%}
+      <div class="boat-product-card">
+        {%- if product.compare_at_price > product.price -%}
+          {%- assign discount = product.compare_at_price
+            | minus: product.price
+            | times: 100.0
+            | divided_by: product.compare_at_price
+            | round
+          -%}
+          <div class="boat-discount-badge">-{{ discount }}%</div>
+        {%- endif -%}
+
+        <a href="{{ product.url }}">
+          <img
+            src="{{ product.featured_image | image_url: width: 400 }}"
+            alt="{{ product.featured_image.alt | escape }}"
+            class="boat-product-image"
+            width="400"
+            height="400"
+          >
+        </a>
+
+        <div class="boat-product-info">
+          <h3 class="boat-product-title">
+            <a href="{{ product.url }}">{{ product.title }}</a>
+          </h3>
+
+          <div class="boat-product-price">
+            <span class="boat-current-price">{{ product.price | money }}</span>
+            {%- if product.compare_at_price > product.price -%}
+              <span class="boat-original-price">{{ product.compare_at_price | money }}</span>
+            {%- endif -%}
+          </div>
+
+          <form action="/cart/add" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+            <button type="submit" class="boat-add-to-cart">Add to Cart</button>
+          </form>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "boAt Product Carousel",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Featured Products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "label": "Products to show",
+      "default": 6
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show view all link",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View all text",
+      "default": "View All"
+    }
+  ],
+  "presets": [
+    {
+      "name": "boAt Product Carousel"
+    }
+  ]
+}
+{% endschema %}

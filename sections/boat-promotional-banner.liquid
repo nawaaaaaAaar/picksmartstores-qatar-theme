@@ -1,0 +1,178 @@
+{%- style -%}
+  .boat-promo-banner {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 25%, #121212 50%, #2d2d2d 75%, #1a1a1a 100%);
+    padding: 60px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin: 20px 0;
+  }
+
+  .boat-promo-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(217, 35, 45, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 70% 30%, rgba(0, 181, 148, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .boat-promo-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .boat-promo-title {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 900;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    background: linear-gradient(45deg, #d9232d 0%, #ff4757 50%, #d9232d 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .boat-promo-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    font-weight: 600;
+    color: white;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .boat-promo-description {
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 30px;
+    line-height: 1.5;
+  }
+
+  .boat-promo-button {
+    display: inline-block;
+    background: linear-gradient(45deg, #d9232d, #ff4757);
+    color: white;
+    padding: 15px 40px;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .boat-promo-button:hover {
+    background: linear-gradient(45deg, #b71c1c, #d9232d);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(217, 35, 45, 0.4);
+  }
+
+  .boat-promo-code {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.1);
+    color: #00b594;
+    padding: 8px 16px;
+    border: 2px dashed #00b594;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-weight: 700;
+    margin-top: 20px;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .boat-promo-banner {
+      padding: 40px 15px;
+    }
+
+    .boat-promo-button {
+      padding: 12px 30px;
+      font-size: 14px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="boat-promo-banner">
+  <div class="boat-promo-content">
+    {%- if section.settings.title != blank -%}
+      <h2 class="boat-promo-title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.subtitle != blank -%}
+      <div class="boat-promo-subtitle">{{ section.settings.subtitle }}</div>
+    {%- endif -%}
+
+    {%- if section.settings.description != blank -%}
+      <div class="boat-promo-description">{{ section.settings.description }}</div>
+    {%- endif -%}
+
+    {%- if section.settings.button_text != blank -%}
+      <a href="{{ section.settings.button_link }}" class="boat-promo-button">
+        {{ section.settings.button_text }}
+      </a>
+    {%- endif -%}
+
+    {%- if section.settings.promo_code != blank -%}
+      <div class="boat-promo-code">{{ section.settings.promo_code }}</div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "boAt Promotional Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Banner Title",
+      "default": "75% OFF"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "boAthead DAYS SALE"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Don't miss out on the biggest sale of the year"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "text",
+      "id": "promo_code",
+      "label": "Promo Code",
+      "default": "Use Code: BOATHEAD"
+    }
+  ],
+  "presets": [
+    {
+      "name": "boAt Promotional Banner"
+    }
+  ]
+}
+{% endschema %}
