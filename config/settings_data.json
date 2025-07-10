@@ -11,7 +11,7 @@
   "current": {
     "logo": "shopify://shop_images/Picksmart_bg_less_3.png",
     "logo_width": 160,
-    "type_header_font": "assistant_n4",
+    "type_header_font": "jost_n4",
     "heading_scale": 100,
     "type_body_font": "assistant_n4",
     "body_scale": 100,
@@ -114,8 +114,8 @@
     "social_tumblr_link": "",
     "social_vimeo_link": "",
     "predictive_search_enabled": true,
-    "predictive_search_show_vendor": false,
-    "predictive_search_show_price": false,
+    "predictive_search_show_vendor": true,
+    "predictive_search_show_price": true,
     "currency_code_enabled": true,
     "cart_type": "notification",
     "show_vendor": false,
@@ -135,17 +135,7 @@
         }
       }
     },
-    "content_for_index": [
-      "boat_hero_banner",
-      "big_deals_carousel",
-      "promotional_banner",
-      "top_tws_offers",
-      "choose_your_offer", 
-      "smart_watches_collection",
-      "home_audio_deals",
-      "best_deals_accessories",
-      "boat_news_section"
-    ],
+    "content_for_index": [],
     "color_schemes": {
       "scheme-1": {
         "settings": {
