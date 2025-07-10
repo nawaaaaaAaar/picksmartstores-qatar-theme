@@ -3,470 +3,160 @@
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 
 {%- comment -%}
-  🎯 EXACT boAt Lifestyle Product Carousel Clone
-  Pixel-perfect replica of boat-lifestyle.com product carousel
+  🎯 EXACT boat-lifestyle.com Product Carousel Clone
+  This is a pixel-perfect replica of boat's actual product carousel structure
 {%- endcomment -%}
 
-<div id="shopify-section-{{ section.id }}" class="shopify-section shopify-section--featured-collections two-pt-o">
-  <section class="section section--flush">
-    <div class="section__color-wrapper">
-      <div class="featured_collection_container-{{ section.id }} featured_collection_container container">
-        <header class="section__header">
-          <div class="">
-            <a
-              class="d-flex justify-content-between align-items-center"
-              href="{{ section.settings.collection.url | default: '/collections/all' }}"
-            >
-              <h3 class="ui2-heading">
-                {{ section.settings.title | default: 'Sale' }}&nbsp;<span
-                  ><b>{{ section.settings.title_bold | default: 'Is Live' }}</b></span
-                >
-              </h3>
-              <b class="view-all">
-                {{- section.settings.view_all_text | default: 'View All' }}
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
-                  <path id="Path_337386" data-name="Path 337386" d="M8.159,2.693a6.7,6.7,0,0,0,2.7-.551A7.172,7.172,0,0,0,13.095.625,7.133,7.133,0,0,0,14.608-1.6a6.735,6.735,0,0,0,.548-2.706,6.7,6.7,0,0,0-.551-2.7A7.216,7.216,0,0,0,13.087-9.25a7.041,7.041,0,0,0-2.234-1.513,6.781,6.781,0,0,0-2.7-.544,6.755,6.755,0,0,0-2.7.544A7.1,7.1,0,0,0,3.22-9.25,7.134,7.134,0,0,0,1.7-7.012a6.742,6.742,0,0,0-.548,2.7A6.7,6.7,0,0,0,1.706-1.6,7.184,7.184,0,0,0,3.223.625a7.184,7.184,0,0,0,2.23,1.517A6.7,6.7,0,0,0,8.159,2.693Zm0-1.283A5.609,5.609,0,0,1,5.932.968,5.741,5.741,0,0,1,4.109-.261,5.692,5.692,0,0,1,2.885-2.084a5.648,5.648,0,0,1-.44-2.226,5.648,5.648,0,0,1,.44-2.226A5.692,5.692,0,0,1,4.109-8.36,5.7,5.7,0,0,1,5.929-9.585a5.622,5.622,0,0,1,2.223-.44,5.675,5.675,0,0,1,2.23.44A5.681,5.681,0,0,1,12.208-8.36a5.692,5.692,0,0,1,1.225,1.823,5.648,5.648,0,0,1,.44,2.226,5.648,5.648,0,0,1-.44,2.226A5.692,5.692,0,0,1,12.208-.261,5.741,5.741,0,0,1,10.385.968,5.609,5.609,0,0,1,8.159,1.411Zm3.5-5.735a.637.637,0,0,0-.209-.44l-2.306-2.3a.541.541,0,0,0-.389-.144.5.5,0,0,0-.371.151.507.507,0,0,0-.148.367.526.526,0,0,0,.166.4l.843.821.793.648L8.62-4.887H5.183a.528.528,0,0,0-.4.162.557.557,0,0,0-.155.4.553.553,0,0,0,.155.4.535.535,0,0,0,.4.159H8.62l1.419-.058-.793.656L8.4-2.35a.5.5,0,0,0-.166.389.528.528,0,0,0,.148.378.491.491,0,0,0,.371.155.529.529,0,0,0,.389-.159l2.306-2.291A.627.627,0,0,0,11.661-4.325Z" transform="translate(-1.155 11.307)" fill="#2f5b96"></path>
-                </svg>
-              </b>
-            </a>
-          </div>
-        </header>
-
-        <div class="featured-collections">
-          <product-list id="block-{{ section.id }}" class="product-list product-list--center">
-            <div class="small-grids">
-              <div class="product-list__inner">
-                {%- assign collection = section.settings.collection -%}
-                {%- assign product_limit = section.settings.products_to_show | default: 8 -%}
-
-                {%- if collection != blank -%}
-                  {%- for product in collection.products limit: product_limit -%}
-                    <product-item class="product-item two-point-o product-item-vertical">
-                      <div class="product__wrapper">
-                        <div class="labels-wrapper metafeild-label">
-                          {%- comment -%} Feature Label (e.g., "50 Hours Playback") {%- endcomment -%}
-                          {%- if product.metafields.custom.feature_label != blank -%}
-                            <span class="metafeild-label label--highlight custom-label label ui-2">
-                              {{- product.metafields.custom.feature_label -}}
-                            </span>
-                          {%- endif -%}
-
-                          {%- comment -%} Rating System {%- endcomment -%}
-                          {%- if section.settings.show_ratings -%}
-                            <div class="card--rating">
-                              <div class="rating">
-                                <div
-                                  class="rating__stars"
-                                  data-rating="{{ product.metafields.reviews.rating.value | default: 4.5 }}"
-                                  role="img"
-                                  aria-label="{{ product.metafields.reviews.rating.value | default: 4.5 }} out of 5.0 stars"
-                                >
-                                  <span>
-                                    <img
-                                      src="https://cdn.shopify.com/s/files/1/0057/8938/4802/files/star-5.png?v=1722331088"
-                                      alt="star"
-                                      width="100"
-                                      height="100"
-                                      loading="lazy"
-                                      style="width: 14px;display: inline-block;vertical-align: bottom;"
-                                    >
-                                  </span>
-                                  {{ product.metafields.reviews.rating.value | default: 4.5 }}
-                                </div>
-                                <span class="rating__caption plp-reviews" style="font-size:12px!important;">
-                                  {{- product.metafields.reviews.rating_count.value | default: 83 -}}
-                                  <span
-                                    ><img
-                                      src="https://cdn.shopify.com/s/files/1/0057/8938/4802/files/Mask_group-10.png?v=1677571152"
-                                      style="width:11px;height:11px;"
-                                      alt="verified reviews"></span
-                                ></span>
-                              </div>
-                            </div>
-                          {%- endif -%}
-
-                          {%- comment -%} Priority Labels {%- endcomment -%}
-                          {%- if product.tags contains 'new-launch' -%}
-                            <span
-                              class="priority label z-4 label--highlight custom-label bg-purple just launched"
-                              style="display: flex; align-items: center;"
-                            >
-                              🎉 New Launch
-                            </span>
-                          {%- elsif product.tags contains 'trending' -%}
-                            <span
-                              class="priority label z-6 label--highlight custom-label bg-orange trending"
-                              style="display: flex; align-items: center;"
-                            >
-                              ✨Trending
-                            </span>
-                          {%- elsif product.tags contains 'engraving' -%}
-                            <span
-                              class="priority label z-10 label--highlight custom-label free-label bg-green"
-                              style="display: flex; align-items: center;"
-                            >
-                              ✍️ Engraving Available
-                            </span>
-                          {%- elsif product.tags contains 'extra-off' -%}
-                            <span
-                              class="priority label z-9-2 label--highlight custom-label free-label bg-green"
-                              style="display: flex; align-items: center;"
-                            >
-                              <img
-                                src="https://cdn.shopify.com/s/files/1/0057/8938/4802/files/offer_4000e398-1550-49a4-8cf7-00ae10d6b50d.png?v=1726470069"
-                                class="label--img"
-                                height="9"
-                                width="9"
-                                loading="lazy"
-                              >
-                              EXTRA ₹100 OFF
-                            </span>
-                          {%- endif -%}
-
-                          {%- comment -%} Product Image {%- endcomment -%}
-                          <div class="product-item__image-wrapper">
-                            {%- if product.tags contains 'personalized' -%}
-                              <span class="personalised-icon">
-                                <img
-                                  src="https://cdn.shopify.com/s/files/1/0057/8938/4802/files/personalisation_ca8237cd-20ca-4da7-8ad2-7d8a50320b3c.png?v=1724308287"
-                                  alt="Personalization"
-                                  loading="lazy"
-                                  width="29"
-                                  height="29"
-                                >
-                              </span>
-                            {%- endif -%}
-
-                            <a
-                              href="{{ product.url }}"
-                              class="product-item__aspect-ratio aspect-ratio"
-                              style="padding-bottom: 100.0%; --aspect-ratio: 1"
-                            >
-                              {%- if product.featured_media -%}
-                                <img
-                                  class="product-item__primary-image"
-                                  loading="lazy"
-                                  width="300"
-                                  height="300"
-                                  decoding="async"
-                                  alt="{{ product.featured_media.alt | escape }}"
-                                  src="{{ product.featured_media | image_url: width: 600 }}"
-                                  srcset="
-                                    {{ product.featured_media | image_url: width: 200 }} 200w,
-                                    {{ product.featured_media | image_url: width: 400 }} 400w,
-                                    {{ product.featured_media | image_url: width: 600 }} 600w
-                                  "
-                                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 300px"
-                                >
-                              {%- endif -%}
-                            </a>
-                          </div>
-                        </div>
-
-                        {%- comment -%} Product Info {%- endcomment -%}
-                        <div class="product-item__info">
-                          <div class="product-item-meta">
-                            <span class="product-item-meta__reviews-badge text--small vertical-product__card">
-                              <a href="{{ product.url }}" class="product-item-meta__title tile-title">
-                                {{ product.title | escape }}
-                              </a>
-
-                              <div class="product__spliter"></div>
-
-                              <div class="product-item-meta__price-list-container">
-                                <div class="price-list price-list--centered">
-                                  <span
-                                    class="price price--highlight product-card-price"
-                                    data-price="{{ product.price }}"
-                                  >
-                                    <span class="visually-hidden">Sale price</span>{{ product.price | money }}
-                                  </span>
-
-                                  {%- if product.compare_at_price > product.price -%}
-                                    <div class="grid--price">
-                                      <span
-                                        class="price price--compare line-through"
-                                        data-compare-price="{{ product.compare_at_price }}"
-                                      >
-                                        <span class="visually-hidden">Regular price</span>
-                                        {{- product.compare_at_price | money }}
-                                      </span>
-                                      {%- assign discount = product.compare_at_price
-                                        | minus: product.price
-                                        | times: 100.0
-                                        | divided_by: product.compare_at_price
-                                        | round
-                                      -%}
-                                      <p class="m-0 off">{{ discount }}% off</p>
-                                    </div>
-                                  {%- endif -%}
-                                </div>
-                              </div>
-
-                              {%- comment -%} Color Swatches {%- endcomment -%}
-                              {%- if section.settings.show_color_swatches and product.options contains 'Color' -%}
-                                {%- assign color_option_index = 0 -%}
-                                {%- for option in product.options -%}
-                                  {%- if option == 'Color' -%}
-                                    {%- assign color_option_index = forloop.index0 -%}
-                                    {%- break -%}
-                                  {%- endif -%}
-                                {%- endfor -%}
-
-                                <button
-                                  aria-label="Open Drawer"
-                                  is="toggle-button"
-                                  aria-expanded="false"
-                                  class="variants-list hidden-tablet-and-up custom_atoc_btn"
-                                >
-                                  {%- assign displayed_colors = 0 -%}
-                                  {%- for value in product.options[color_option_index].values limit: 2 -%}
-                                    {%- assign color_handle = value | handle -%}
-                                    {%- assign swatch_color = '#000000' -%}
-                                    {%- case color_handle -%}
-                                      {%- when 'black' -%}
-                                        {%- assign swatch_color = '#000000' -%}
-                                      {%- when 'white' -%}
-                                        {%- assign swatch_color = '#ffffff' -%}
-                                      {%- when 'gray', 'grey' -%}
-                                        {%- assign swatch_color = '#a6a5a6' -%}
-                                      {%- when 'blue' -%}
-                                        {%- assign swatch_color = '#0a3fa8' -%}
-                                      {%- when 'green' -%}
-                                        {%- assign swatch_color = '#567f3d' -%}
-                                      {%- when 'cyan' -%}
-                                        {%- assign swatch_color = '#2b9bad' -%}
-                                      {%- else -%}
-                                        {%- assign swatch_color = '#a6a5a6' -%}
-                                    {%- endcase -%}
-                                    <span class="swatch-circle" style="background:{{ swatch_color }}"></span>
-                                    {%- assign displayed_colors = displayed_colors | plus: 1 -%}
-                                  {%- endfor -%}
-
-                                  {%- assign remaining_colors = product.options[color_option_index].values.size
-                                    | minus: displayed_colors
-                                  -%}
-                                  {%- if remaining_colors > 0 -%}
-                                    <span class="more-colors">+{{ remaining_colors }}</span>
-                                  {%- endif -%}
-                                </button>
-
-                                <button
-                                  aria-label="Open Drawer"
-                                  is="toggle-button"
-                                  aria-expanded="false"
-                                  class="variants-list hidden-phone"
-                                >
-                                  {%- assign displayed_colors = 0 -%}
-                                  {%- for value in product.options[color_option_index].values limit: 2 -%}
-                                    {%- assign color_handle = value | handle -%}
-                                    {%- assign swatch_color = '#000000' -%}
-                                    {%- case color_handle -%}
-                                      {%- when 'black' -%}
-                                        {%- assign swatch_color = '#000000' -%}
-                                      {%- when 'white' -%}
-                                        {%- assign swatch_color = '#ffffff' -%}
-                                      {%- when 'gray', 'grey' -%}
-                                        {%- assign swatch_color = '#a6a5a6' -%}
-                                      {%- when 'blue' -%}
-                                        {%- assign swatch_color = '#0a3fa8' -%}
-                                      {%- when 'green' -%}
-                                        {%- assign swatch_color = '#567f3d' -%}
-                                      {%- when 'cyan' -%}
-                                        {%- assign swatch_color = '#2b9bad' -%}
-                                      {%- else -%}
-                                        {%- assign swatch_color = '#a6a5a6' -%}
-                                    {%- endcase -%}
-                                    <span class="swatch-circle" style="background:{{ swatch_color }}"></span>
-                                    {%- assign displayed_colors = displayed_colors | plus: 1 -%}
-                                  {%- endfor -%}
-
-                                  {%- assign remaining_colors = product.options[color_option_index].values.size
-                                    | minus: displayed_colors
-                                  -%}
-                                  {%- if remaining_colors > 0 -%}
-                                    <span class="more-colors">+{{ remaining_colors }}</span>
-                                  {%- endif -%}
-                                </button>
-                              {%- endif -%}
-                            </span>
-                            <div class="position-relative"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </product-item>
-                  {%- endfor -%}
-                {%- else -%}
-                  {%- comment -%} Fallback content when no collection is selected {%- endcomment -%}
-                  <div class="boat-carousel-placeholder">
-                    <p>Please select a collection in the theme settings to display products.</p>
-                  </div>
-                {%- endif -%}
-              </div>
-            </div>
-          </product-list>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-{%- comment -%} boAt EXACT Styling {%- endcomment -%}
-<style data-shopify="">
-  #shopify-section-{{ section.id }} {
-    --section-products-per-row: {{ section.settings.products_per_row_mobile | default: 2 }};
+{%- style -%}
+  .boat-carousel-section {
+    background: {{ section.settings.background_color | default: '#ffffff' }};
+    padding: {{ section.settings.section_padding_top | default: 60 }}px 0 {{ section.settings.section_padding_bottom | default: 60 }}px;
   }
 
-  @media screen and (min-width: 741px) {
-    #shopify-section-{{ section.id }} {
-      --section-products-per-row: {{ section.settings.products_per_row_tablet | default: 3 }};
-    }
+  .boat-carousel-container {
+    max-width: {{ section.settings.content_max_width | default: 1400 }}px;
+    margin: 0 auto;
+    padding: 0 {{ section.settings.content_padding_x | default: 20 }}px;
   }
 
-  @media screen and (min-width: 1000px) {
-    #shopify-section-{{ section.id }} {
-      --section-products-per-row: {{ section.settings.products_per_row_desktop | default: 4 }};
-    }
-  }
-
-  @media screen and (min-width: 1200px) {
-    #shopify-section-{{ section.id }} {
-      --section-products-per-row: {{ section.settings.products_per_row_desktop | default: 4 }};
-      overflow-y: hidden;
-    }
-  }
-
-  /* boAt Section Styling */
-  .shopify-section--featured-collections.two-pt-o {
-    background: {{ section.settings.section_background | default: '#ffffff' }};
-    padding: {{ section.settings.section_padding_top | default: 40 }}px 0 {{ section.settings.section_padding_bottom | default: 40 }}px;
-  }
-
-  /* boAt Header Styling */
-  .section__header .d-flex {
+  /* Header matching boat's style */
+  .boat-carousel-header {
     display: flex;
-  }
-
-  .justify-content-between {
     justify-content: space-between;
-  }
-
-  .align-items-center {
     align-items: center;
+    margin-bottom: {{ section.settings.header_margin_bottom | default: 30 }}px;
   }
 
-  .ui2-heading {
-    font-size: {{ section.settings.heading_size | default: 28 }}px;
-    font-weight: {{ section.settings.heading_weight | default: 600 }};
-    color: {{ section.settings.heading_color | default: '#1a1a1a' }};
+  .boat-carousel-title {
+    font-size: {{ section.settings.title_size | default: 32 }}px;
+    font-weight: {{ section.settings.title_weight | default: 700 }};
+    color: {{ section.settings.title_color | default: '#1a1a1a' }};
     margin: 0;
-    text-decoration: none;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
-  .view-all {
-    color: {{ section.settings.view_all_color | default: '#2f5b96' }};
-    font-size: {{ section.settings.view_all_size | default: 14 }}px;
-    font-weight: {{ section.settings.view_all_weight | default: 600 }};
+  .boat-view-all {
+    color: {{ section.settings.view_all_color | default: '#007aff' }};
     text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    font-weight: 500;
+    font-size: 16px;
+    transition: color 0.2s ease;
   }
 
-  /* boAt Product Grid */
+  .boat-view-all:hover {
+    color: {{ section.settings.view_all_hover_color | default: '#0051d0' }};
+  }
+
+  /* EXACT boat product list structure */
   .product-list__inner {
     display: grid;
-    grid-template-columns: repeat(var(--section-products-per-row), 1fr);
-    gap: {{ section.settings.grid_gap | default: 20 }}px;
+    grid-template-columns: repeat(auto-fit, minmax({{ section.settings.card_min_width | default: 280 }}px, 1fr));
+    gap: {{ section.settings.grid_gap | default: 24 }}px;
   }
 
-  /* boAt Product Card */
-  .product-item.two-point-o.product-item-vertical {
-    background: {{ section.settings.card_background | default: '#ffffff' }};
-    border-radius: {{ section.settings.card_border_radius | default: 8 }}px;
+  /* EXACT boat product-item styling */
+  .product-item {
+    background: #ffffff;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: {{ section.settings.card_shadow | default: '0 2px 8px rgba(0,0,0,0.1)' }};
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   }
 
-  .product-item.two-point-o.product-item-vertical:hover {
+  .product-item:hover {
     transform: translateY(-4px);
-    box-shadow: {{ section.settings.card_hover_shadow | default: '0 8px 20px rgba(0,0,0,0.15)' }};
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   }
 
-  /* Labels Styling */
-  .labels-wrapper {
+  .product__wrapper {
     position: relative;
   }
 
-  .metafeild-label.label--highlight.custom-label.label.ui-2 {
+  /* Labels system matching boat exactly */
+  .labels-wrapper {
     position: absolute;
-    top: 8px;
-    left: 8px;
-    background: {{ section.settings.feature_label_bg | default: '#007aff' }};
-    color: {{ section.settings.feature_label_color | default: '#ffffff' }};
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .metafeild-label {
+    background: {{ section.settings.spec_background | default: '#ffd700' }};
+    color: {{ section.settings.spec_color | default: '#1a1a1a' }};
     padding: 4px 8px;
     border-radius: 4px;
     font-size: 10px;
     font-weight: 600;
-    z-index: 3;
+    width: fit-content;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
-  /* Priority Labels */
-  .priority.label {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 10px;
-    font-weight: 600;
-    z-index: 2;
-  }
-
-  .bg-purple {
-    background: {{ section.settings.purple_label_bg | default: '#8b5cf6' }};
-    color: {{ section.settings.purple_label_color | default: '#ffffff' }};
-  }
-
-  .bg-orange {
-    background: {{ section.settings.orange_label_bg | default: '#f97316' }};
-    color: {{ section.settings.orange_label_color | default: '#ffffff' }};
-  }
-
-  .bg-green {
-    background: {{ section.settings.green_label_bg | default: '#10b981' }};
-    color: {{ section.settings.green_label_color | default: '#ffffff' }};
-  }
-
-  /* Rating Styling */
   .card--rating {
-    position: absolute;
-    bottom: 8px;
-    left: 8px;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 4px 6px;
-    border-radius: 4px;
-    z-index: 2;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    border-radius: 6px;
+    padding: 6px 8px;
+    width: fit-content;
+  }
+
+  .rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
 
   .rating__stars {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 2px;
     font-size: 12px;
     font-weight: 600;
+    color: #1a1a1a;
   }
 
   .rating__caption {
-    margin-top: 2px;
+    font-size: 11px !important;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 2px;
   }
 
-  /* Product Image */
+  /* Priority labels matching boat */
+  .priority.label {
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    width: fit-content;
+  }
+
+  .bg-purple {
+    background: #8b5cf6;
+    color: #ffffff;
+  }
+
+  .bg-orange {
+    background: #ff6647;
+    color: #ffffff;
+  }
+
+  .bg-green {
+    background: #00c896;
+    color: #ffffff;
+  }
+
+  /* Product image wrapper */
   .product-item__image-wrapper {
     position: relative;
     overflow: hidden;
-    border-radius: 8px 8px 0 0;
   }
 
   .product-item__aspect-ratio {
@@ -488,324 +178,423 @@
 
   .personalised-icon {
     position: absolute;
-    top: 8px;
-    right: 8px;
-    z-index: 4;
+    top: 12px;
+    right: 12px;
+    z-index: 5;
   }
 
-  /* Product Info */
+  /* Product info section */
   .product-item__info {
     padding: 16px;
   }
 
+  .product-item-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
   .product-item-meta__title {
-    font-size: {{ section.settings.product_title_size | default: 16 }}px;
-    font-weight: {{ section.settings.product_title_weight | default: 600 }};
-    color: {{ section.settings.product_title_color | default: '#1a1a1a' }};
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
     text-decoration: none;
-    display: block;
-    margin-bottom: 8px;
+    line-height: 1.4;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  .product-item-meta__title:hover {
+    color: #007aff;
   }
 
   .product__spliter {
     height: 1px;
-    background: {{ section.settings.splitter_color | default: '#e5e5e5' }};
+    background: #e5e5e5;
     margin: 8px 0;
   }
 
-  /* Pricing */
+  /* Price styling matching boat exactly */
   .price-list {
     display: flex;
-    align-items: baseline;
-    gap: 8px;
-    margin-bottom: 12px;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
   }
 
   .price--highlight {
-    font-size: {{ section.settings.price_size | default: 18 }}px;
-    font-weight: {{ section.settings.price_weight | default: 700 }};
-    color: {{ section.settings.price_color | default: '#1a1a1a' }};
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
   }
 
   .grid--price {
     display: flex;
-    flex-direction: column;
-    gap: 2px;
+    align-items: center;
+    gap: 8px;
   }
 
   .price--compare {
-    font-size: {{ section.settings.compare_price_size | default: 14 }}px;
-    color: {{ section.settings.compare_price_color | default: '#888' }};
+    font-size: 14px;
+    color: #999;
     text-decoration: line-through;
   }
 
   .off {
-    font-size: {{ section.settings.discount_size | default: 12 }}px;
-    color: {{ section.settings.discount_color | default: '#e53e3e' }};
+    font-size: 12px;
     font-weight: 600;
+    color: #00c896;
+    margin: 0;
   }
 
-  /* Color Swatches */
+  /* Color swatches matching boat exactly */
   .variants-list {
-    display: flex;
-    align-items: center;
-    gap: 6px;
     background: none;
     border: none;
     padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
     cursor: pointer;
   }
 
   .swatch-circle {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    border: 2px solid #fff;
-    box-shadow: 0 0 0 1px #ddd;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 0 1px #e0e0e0;
+    transition: transform 0.2s ease;
+  }
+
+  .swatch-circle:hover {
+    transform: scale(1.1);
   }
 
   .more-colors {
-    font-size: 12px;
-    color: {{ section.settings.more_colors_color | default: '#666' }};
-    font-weight: 500;
-  }
-
-  /* Responsive Visibility */
-  .hidden-tablet-and-up {
-    display: flex;
-  }
-
-  .hidden-phone {
-    display: none;
-  }
-
-  @media screen and (min-width: 768px) {
-    .hidden-tablet-and-up {
-      display: none;
-    }
-
-    .hidden-phone {
-      display: flex;
-    }
-  }
-
-  /* Utility Classes */
-  .m-0 {
-    margin: 0;
-  }
-
-  .visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-  }
-
-  .position-relative {
-    position: relative;
-  }
-
-  /* Fallback Placeholder */
-  .boat-carousel-placeholder {
-    text-align: center;
-    padding: 40px 20px;
+    font-size: 11px;
     color: #666;
+    font-weight: 500;
+    margin-left: 2px;
   }
-</style>
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .boat-carousel-title {
+      font-size: 24px;
+    }
+
+    .product-list__inner {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .boat-carousel-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .product-list__inner {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="boat-carousel-section">
+  <div class="boat-carousel-container">
+    {%- if section.settings.show_header -%}
+      <div class="boat-carousel-header">
+        {%- if section.settings.title != blank -%}
+          <h2 class="boat-carousel-title">{{ section.settings.title | escape }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.view_all_url != blank and section.settings.view_all_text != blank -%}
+          <a href="{{ section.settings.view_all_url }}" class="boat-view-all">
+            {{ section.settings.view_all_text | escape }}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="product-list__inner">
+      {%- if section.settings.collection != blank -%}
+        {%- assign collection = collections[section.settings.collection] -%}
+        {%- assign products_to_show = section.settings.products_count | default: 6 -%}
+
+        {%- for product in collection.products limit: products_to_show -%}
+          <product-item class="product-item two-point-o product-item-vertical">
+            <div class="product__wrapper">
+              <div class="labels-wrapper metafeild-label">
+                {%- comment -%} Product spec label {%- endcomment -%}
+                {%- if product.metafields.custom.spec_label != blank -%}
+                  <span class="metafeild-label label--highlight custom-label label ui-2">
+                    {{ product.metafields.custom.spec_label }}
+                  </span>
+                {%- elsif section.settings.show_default_spec -%}
+                  <span class="metafeild-label label--highlight custom-label label ui-2">
+                    {{ section.settings.default_spec_text | default: 'Premium Quality' }}
+                  </span>
+                {%- endif -%}
+
+                {%- comment -%} Rating display {%- endcomment -%}
+                {%- if section.settings.show_ratings -%}
+                  <div class="card--rating">
+                    <div class="rating">
+                      <div class="rating__stars" data-rating="4.8" role="img" aria-label="4.8 out of 5.0 stars">
+                        <span>
+                          <img
+                            src="https://cdn.shopify.com/s/files/1/0057/8938/4802/files/star-5.png?v=1722331088"
+                            alt="star"
+                            width="100"
+                            height="100"
+                            loading="lazy"
+                            style="width: 14px;display: inline-block;vertical-align: bottom;"
+                          >
+                        </span>
+                        {{ section.settings.default_rating | default: '4.8' }}
+                      </div>
+                      <span class="rating__caption plp-reviews">
+                        {{ section.settings.default_reviews | default: '150' -}}
+                        <span
+                          ><img
+                            src="https://cdn.shopify.com/s/files/1/0057/8938/4802/files/Mask_group-10.png?v=1677571152"
+                            style="width:11px;height:11px;"
+                            alt="verified reviews"
+                            width="11"
+                            height="11"
+                        ></span>
+                      </span>
+                    </div>
+                  </div>
+                {%- endif -%}
+
+                {%- comment -%} Priority labels {%- endcomment -%}
+                {%- if product.tags contains 'new-launch' or section.settings.show_new_launch_badge -%}
+                  <span
+                    class="priority label z-4 label--highlight custom-label bg-purple just launched"
+                    style="display: flex; align-items: center;"
+                  >
+                    🎉 {{ section.settings.new_launch_text | default: 'New Launch' }}
+                  </span>
+                {%- endif -%}
+
+                {%- if product.tags contains 'trending' or section.settings.show_trending_badge -%}
+                  <span
+                    class="priority label z-6 label--highlight custom-label bg-orange trending"
+                    style="display: flex; align-items: center;"
+                  >
+                    ✨{{ section.settings.trending_text | default: 'Trending' }}
+                  </span>
+                {%- endif -%}
+
+                {%- if product.tags contains 'engraving' or section.settings.show_engraving_badge -%}
+                  <span
+                    class="priority label z-10 label--highlight custom-label free-label bg-green"
+                    style="display: flex; align-items: center;"
+                  >
+                    ✍️ {{ section.settings.engraving_text | default: 'Engraving Available' }}
+                  </span>
+                {%- endif -%}
+
+                {%- if product.tags contains 'extra-off' or section.settings.show_extra_off_badge -%}
+                  <span
+                    class="priority label z-9-2 label--highlight custom-label free-label bg-green"
+                    style="display: flex; align-items: center;"
+                  >
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0057/8938/4802/files/offer_4000e398-1550-49a4-8cf7-00ae10d6b50d.png?v=1726470069"
+                      class="label--img"
+                      height="9"
+                      width="9"
+                      loading="lazy"
+                    >
+                    {{ section.settings.extra_off_text | default: 'EXTRA ₹100 OFF' }}
+                  </span>
+                {%- endif -%}
+
+                <div class="product-item__image-wrapper">
+                  {%- if product.tags contains 'personalised' or section.settings.show_personalised_icon -%}
+                    <span class="personalised-icon">
+                      <img
+                        src="https://cdn.shopify.com/s/files/1/0057/8938/4802/files/personalisation_ca8237cd-20ca-4da7-8ad2-7d8a50320b3c.png?v=1724308287"
+                        alt="Personalization"
+                        loading="lazy"
+                        width="29"
+                        height="29"
+                      >
+                    </span>
+                  {%- endif -%}
+
+                  <a
+                    href="{{ product.url }}"
+                    class="product-item__aspect-ratio aspect-ratio"
+                    style="padding-bottom: 100.0%; --aspect-ratio: 1"
+                  >
+                    {%- if product.featured_media -%}
+                      <img
+                        class="product-item__primary-image"
+                        loading="lazy"
+                        width="300"
+                        height="300"
+                        decoding="async"
+                        alt="{{ product.featured_media.alt | escape }}"
+                        src="{{ product.featured_media | image_url: width: 600 }}"
+                        srcset="
+                          {{ product.featured_media | image_url: width: 200 }} 200w,
+                          {{ product.featured_media | image_url: width: 400 }} 400w,
+                          {{ product.featured_media | image_url: width: 600 }} 600w
+                        "
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 300px"
+                      >
+                    {%- else -%}
+                      <div
+                        class="product-item__primary-image"
+                        style="background: #f5f5f5; display: flex; align-items: center; justify-content: center; color: #999;"
+                      >
+                        No Image
+                      </div>
+                    {%- endif -%}
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="product-item__info">
+              <div class="product-item-meta">
+                <span class="product-item-meta__reviews-badge text--small vertical-product__card">
+                  <a href="{{ product.url }}" class="product-item-meta__title tile-title">
+                    {{ product.title | escape }}
+                  </a>
+
+                  <div class="product__spliter"></div>
+
+                  <div class="product-item-meta__price-list-container">
+                    <div class="price-list price-list--centered">
+                      <span class="price price--highlight product-card-price" data-price="{{ product.price }}">
+                        <span class="visually-hidden">Sale price</span>{{ product.price | money }}
+                      </span>
+
+                      {%- if product.compare_at_price > product.price -%}
+                        <div class="grid--price">
+                          <span
+                            class="price price--compare line-through"
+                            data-compare-price="{{ product.compare_at_price }}"
+                          >
+                            <span class="visually-hidden">Regular price</span>{{ product.compare_at_price | money }}
+                          </span>
+                          {%- assign discount_percentage = product.compare_at_price
+                            | minus: product.price
+                            | times: 100
+                            | divided_by: product.compare_at_price
+                            | round
+                          -%}
+                          <p class="m-0 off">{{ discount_percentage }}% off</p>
+                        </div>
+                      {%- endif -%}
+                    </div>
+                  </div>
+
+                  {%- comment -%} Color variants {%- endcomment -%}
+                  {%- if product.options contains 'Color' and section.settings.show_color_swatches -%}
+                    {%- assign color_option = product.options_by_name.Color -%}
+                    {%- if color_option.values.size > 0 -%}
+                      <button aria-label="Open Drawer" class="variants-list">
+                        {%- assign colors_shown = 0 -%}
+                        {%- for value in color_option.values limit: 2 -%}
+                          {%- assign color_handle = value | handle -%}
+                          {%- assign color_value = value | downcase -%}
+                          <span class="swatch-circle" style="background:{{ color_value }}"></span>
+                          {%- assign colors_shown = colors_shown | plus: 1 -%}
+                        {%- endfor -%}
+
+                        {%- if color_option.values.size > 2 -%}
+                          <span class="more-colors">+{{ color_option.values.size | minus: 2 }}</span>
+                        {%- endif -%}
+                      </button>
+                    {%- endif -%}
+                  {%- endif -%}
+                </span>
+
+                <div class="position-relative"></div>
+              </div>
+            </div>
+          </product-item>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
 
 {% schema %}
 {
-  "name": "🚤 boAt Product Carousel (EXACT)",
+  "name": "🚤 Boat Product Carousel",
+  "tag": "section",
+  "class": "section",
   "settings": [
     {
       "type": "header",
-      "content": "🎯 boAt Exact Design Settings"
-    },
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Section Title",
-      "default": "Sale"
-    },
-    {
-      "type": "text",
-      "id": "title_bold",
-      "label": "Bold Title Part",
-      "default": "Is Live"
-    },
-    {
-      "type": "text",
-      "id": "view_all_text",
-      "label": "View All Text",
-      "default": "View All"
+      "content": "🎯 Section Settings"
     },
     {
       "type": "collection",
       "id": "collection",
-      "label": "Collection"
+      "label": "Collection",
+      "info": "Select collection to display products from"
     },
     {
       "type": "range",
-      "id": "products_to_show",
-      "min": 2,
-      "max": 20,
-      "step": 1,
+      "id": "products_count",
       "label": "Products to show",
-      "default": 8
-    },
-    {
-      "type": "header",
-      "content": "🎨 boAt Color Scheme"
-    },
-    {
-      "type": "color",
-      "id": "section_background",
-      "label": "Section Background",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "heading_color",
-      "label": "Heading Color",
-      "default": "#1a1a1a"
-    },
-    {
-      "type": "color",
-      "id": "view_all_color",
-      "label": "View All Color",
-      "default": "#2f5b96"
-    },
-    {
-      "type": "color",
-      "id": "card_background",
-      "label": "Card Background",
-      "default": "#ffffff"
-    },
-    {
-      "type": "header",
-      "content": "📐 Layout & Spacing"
-    },
-    {
-      "type": "range",
-      "id": "section_padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "label": "Section padding top",
-      "default": 40
-    },
-    {
-      "type": "range",
-      "id": "section_padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "label": "Section padding bottom",
-      "default": 40
-    },
-    {
-      "type": "range",
-      "id": "grid_gap",
-      "min": 10,
-      "max": 40,
-      "step": 2,
-      "label": "Grid gap",
-      "default": 20
-    },
-    {
-      "type": "range",
-      "id": "products_per_row_mobile",
-      "min": 1,
-      "max": 3,
-      "step": 1,
-      "label": "Products per row (Mobile)",
-      "default": 2
-    },
-    {
-      "type": "range",
-      "id": "products_per_row_tablet",
       "min": 2,
-      "max": 4,
+      "max": 12,
       "step": 1,
-      "label": "Products per row (Tablet)",
-      "default": 3
-    },
-    {
-      "type": "range",
-      "id": "products_per_row_desktop",
-      "min": 3,
-      "max": 6,
-      "step": 1,
-      "label": "Products per row (Desktop)",
-      "default": 4
+      "default": 6
     },
     {
       "type": "header",
-      "content": "🎪 boAt Card Design"
+      "content": "📱 Header Settings"
     },
     {
-      "type": "range",
-      "id": "card_border_radius",
-      "min": 0,
-      "max": 20,
-      "step": 1,
-      "label": "Card border radius",
-      "default": 8
+      "type": "checkbox",
+      "id": "show_header",
+      "label": "Show section header",
+      "default": true
     },
     {
       "type": "text",
-      "id": "card_shadow",
-      "label": "Card shadow",
-      "default": "0 2px 8px rgba(0,0,0,0.1)"
+      "id": "title",
+      "label": "Section title",
+      "default": "Featured Products"
     },
     {
       "type": "text",
-      "id": "card_hover_shadow",
-      "label": "Card hover shadow",
-      "default": "0 8px 20px rgba(0,0,0,0.15)"
+      "id": "view_all_text",
+      "label": "View all link text",
+      "default": "View All"
+    },
+    {
+      "type": "url",
+      "id": "view_all_url",
+      "label": "View all link URL"
     },
     {
       "type": "header",
-      "content": "🏷️ boAt Badge System"
+      "content": "🏷️ Labels & Badges"
     },
     {
-      "type": "color",
-      "id": "feature_label_bg",
-      "label": "Feature Label Background",
-      "default": "#007aff"
+      "type": "checkbox",
+      "id": "show_default_spec",
+      "label": "Show default spec label",
+      "default": true
     },
     {
-      "type": "color",
-      "id": "feature_label_color",
-      "label": "Feature Label Text",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "purple_label_bg",
-      "label": "Purple Label Background",
-      "default": "#8b5cf6"
-    },
-    {
-      "type": "color",
-      "id": "orange_label_bg",
-      "label": "Orange Label Background",
-      "default": "#f97316"
-    },
-    {
-      "type": "color",
-      "id": "green_label_bg",
-      "label": "Green Label Background",
-      "default": "#10b981"
-    },
-    {
-      "type": "header",
-      "content": "⭐ boAt Rating System"
+      "type": "text",
+      "id": "default_spec_text",
+      "label": "Default spec text",
+      "default": "Premium Quality"
     },
     {
       "type": "checkbox",
@@ -814,66 +603,74 @@
       "default": true
     },
     {
+      "type": "text",
+      "id": "default_rating",
+      "label": "Default rating",
+      "default": "4.8"
+    },
+    {
+      "type": "text",
+      "id": "default_reviews",
+      "label": "Default review count",
+      "default": "150"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_new_launch_badge",
+      "label": "Show New Launch badge",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "new_launch_text",
+      "label": "New Launch text",
+      "default": "New Launch"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trending_badge",
+      "label": "Show Trending badge",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "trending_text",
+      "label": "Trending text",
+      "default": "Trending"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_engraving_badge",
+      "label": "Show Engraving badge",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "engraving_text",
+      "label": "Engraving text",
+      "default": "Engraving Available"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_extra_off_badge",
+      "label": "Show Extra Off badge",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "extra_off_text",
+      "label": "Extra Off text",
+      "default": "EXTRA ₹100 OFF"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_personalised_icon",
+      "label": "Show personalisation icon",
+      "default": false
+    },
+    {
       "type": "header",
-      "content": "💰 boAt Price Display"
-    },
-    {
-      "type": "range",
-      "id": "price_size",
-      "min": 12,
-      "max": 24,
-      "step": 1,
-      "label": "Price font size",
-      "default": 18
-    },
-    {
-      "type": "range",
-      "id": "price_weight",
-      "min": 400,
-      "max": 800,
-      "step": 100,
-      "label": "Price font weight",
-      "default": 700
-    },
-    {
-      "type": "color",
-      "id": "price_color",
-      "label": "Price color",
-      "default": "#1a1a1a"
-    },
-    {
-      "type": "range",
-      "id": "compare_price_size",
-      "min": 10,
-      "max": 18,
-      "step": 1,
-      "label": "Compare price font size",
-      "default": 14
-    },
-    {
-      "type": "color",
-      "id": "compare_price_color",
-      "label": "Compare price color",
-      "default": "#888888"
-    },
-    {
-      "type": "range",
-      "id": "discount_size",
-      "min": 10,
-      "max": 16,
-      "step": 1,
-      "label": "Discount font size",
-      "default": 12
-    },
-    {
-      "type": "color",
-      "id": "discount_color",
-      "label": "Discount color",
-      "default": "#e53e3e"
-    },
-    {
-      "type": "header",
-      "content": "🎨 boAt Color Swatches"
+      "content": "🎨 Display Options"
     },
     {
       "type": "checkbox",
@@ -882,85 +679,142 @@
       "default": true
     },
     {
-      "type": "color",
-      "id": "more_colors_color",
-      "label": "More colors text color",
-      "default": "#666666"
-    },
-    {
       "type": "header",
-      "content": "📝 Typography"
-    },
-    {
-      "type": "range",
-      "id": "heading_size",
-      "min": 20,
-      "max": 40,
-      "step": 1,
-      "label": "Heading font size",
-      "default": 28
-    },
-    {
-      "type": "range",
-      "id": "heading_weight",
-      "min": 400,
-      "max": 800,
-      "step": 100,
-      "label": "Heading font weight",
-      "default": 600
-    },
-    {
-      "type": "range",
-      "id": "view_all_size",
-      "min": 12,
-      "max": 18,
-      "step": 1,
-      "label": "View all font size",
-      "default": 14
-    },
-    {
-      "type": "range",
-      "id": "view_all_weight",
-      "min": 400,
-      "max": 700,
-      "step": 100,
-      "label": "View all font weight",
-      "default": 600
-    },
-    {
-      "type": "range",
-      "id": "product_title_size",
-      "min": 12,
-      "max": 20,
-      "step": 1,
-      "label": "Product title font size",
-      "default": 16
-    },
-    {
-      "type": "range",
-      "id": "product_title_weight",
-      "min": 400,
-      "max": 700,
-      "step": 100,
-      "label": "Product title font weight",
-      "default": 600
+      "content": "🎨 Colors"
     },
     {
       "type": "color",
-      "id": "product_title_color",
-      "label": "Product title color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
       "default": "#1a1a1a"
     },
     {
       "type": "color",
-      "id": "splitter_color",
-      "label": "Splitter line color",
-      "default": "#e5e5e5"
+      "id": "view_all_color",
+      "label": "View all link color",
+      "default": "#007aff"
+    },
+    {
+      "type": "color",
+      "id": "view_all_hover_color",
+      "label": "View all hover color",
+      "default": "#0051d0"
+    },
+    {
+      "type": "color",
+      "id": "spec_background",
+      "label": "Spec label background",
+      "default": "#ffd700"
+    },
+    {
+      "type": "color",
+      "id": "spec_color",
+      "label": "Spec label text color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "header",
+      "content": "📐 Layout"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Section padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Section padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Content max width",
+      "min": 1000,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "default": 1400
+    },
+    {
+      "type": "range",
+      "id": "content_padding_x",
+      "label": "Content horizontal padding",
+      "min": 0,
+      "max": 50,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "header_margin_bottom",
+      "label": "Header margin bottom",
+      "min": 10,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title font size",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "title_weight",
+      "label": "Title font weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "default": 700
+    },
+    {
+      "type": "range",
+      "id": "card_min_width",
+      "label": "Card minimum width",
+      "min": 200,
+      "max": 350,
+      "step": 10,
+      "unit": "px",
+      "default": 280
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Grid gap",
+      "min": 12,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 24
     }
   ],
   "presets": [
     {
-      "name": "🚤 boAt Product Carousel (EXACT)"
+      "name": "🚤 Boat Product Carousel"
     }
   ]
 }
