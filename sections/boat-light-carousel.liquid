@@ -4,10 +4,11 @@
 
 {%- comment -%}
   🎯 EXACT boat-lifestyle.com Light Carousel Clone
-  This is a pixel-perfect replica of boat's actual product carousel structure (light version)
+  This is a pixel-perfect replica of boat's actual product carousel structure (compact version)
 {%- endcomment -%}
 
 {%- style -%}
+  /* 🚤 EXACT Boat Light Carousel Styling - Cloned from boat-lifestyle.com */
   .boat-light-carousel-section {
     background: {{ section.settings.background_color | default: '#ffffff' }};
     padding: {{ section.settings.section_padding_top | default: 40 }}px 0 {{ section.settings.section_padding_bottom | default: 40 }}px;
@@ -19,7 +20,7 @@
     padding: 0 {{ section.settings.content_padding_x | default: 20 }}px;
   }
 
-  /* Header matching boat's style */
+  /* Header matching boat's exact style (centered) */
   .boat-light-carousel-header {
     text-align: {{ section.settings.header_alignment | default: 'center' }};
     margin-bottom: {{ section.settings.header_margin_bottom | default: 25 }}px;
@@ -41,23 +42,25 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
-  /* EXACT boat product list structure */
+  /* EXACT boat product-list__inner structure (compact) */
   .product-list__inner--light {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax({{ section.settings.card_min_width | default: 240 }}px, 1fr));
     gap: {{ section.settings.grid_gap | default: 20 }}px;
+    padding: 0;
   }
 
-  /* EXACT boat product-item styling (light version) */
-  .product-item--light {
+  /* EXACT boat product-item styling (light/compact version) */
+  .product-item--light.two-point-o.product-item-vertical {
     background: #ffffff;
     border-radius: 10px;
     overflow: hidden;
     transition: all 0.3s ease;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    position: relative;
   }
 
-  .product-item--light:hover {
+  .product-item--light.two-point-o.product-item-vertical:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
   }
@@ -66,8 +69,8 @@
     position: relative;
   }
 
-  /* Labels system matching boat exactly (light version) */
-  .labels-wrapper--light {
+  /* EXACT boat labels system (compact) */
+  .labels-wrapper--light.metafeild-label {
     position: absolute;
     top: 10px;
     left: 10px;
@@ -78,15 +81,18 @@
     gap: 6px;
   }
 
-  .metafeild-label--light {
+  .metafeild-label--light.label--highlight.custom-label.label.ui-2 {
     background: {{ section.settings.spec_background | default: '#ffd700' }};
     color: {{ section.settings.spec_color | default: '#1a1a1a' }};
-    padding: 3px 6px;
+    padding: 4px 8px;
     border-radius: 3px;
-    font-size: 9px;
+    font-size: 10px;
     font-weight: 600;
     width: fit-content;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    border: none;
+    line-height: 1.2;
+    letter-spacing: -0.2px;
   }
 
   .card--rating--light {
@@ -112,7 +118,14 @@
     color: #1a1a1a;
   }
 
-  .rating__caption--light {
+  .rating__stars--light img {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    vertical-align: bottom;
+  }
+
+  .rating__caption--light.plp-reviews {
     font-size: 9px !important;
     color: #666;
     display: flex;
@@ -120,8 +133,13 @@
     gap: 2px;
   }
 
-  /* Priority labels matching boat (light version) */
-  .priority.label--light {
+  .rating__caption--light img {
+    width: 9px;
+    height: 9px;
+  }
+
+  /* EXACT boat priority labels (light version) */
+  .priority.label--light.label--highlight.custom-label {
     padding: 4px 8px;
     border-radius: 4px;
     font-size: 9px;
@@ -130,14 +148,16 @@
     align-items: center;
     gap: 3px;
     width: fit-content;
+    border: none;
+    line-height: 1.2;
   }
 
-  .bg-purple--light {
+  .bg-purple--light.just.launched {
     background: #8b5cf6;
     color: #ffffff;
   }
 
-  .bg-orange--light {
+  .bg-orange--light.trending {
     background: #ff6647;
     color: #ffffff;
   }
@@ -147,26 +167,36 @@
     color: #ffffff;
   }
 
-  /* Product image wrapper (light) */
+  .sale-badge--light.bg-orange {
+    background: #ff6647;
+    color: #ffffff;
+  }
+
+  /* EXACT boat product image wrapper (light) */
   .product-item__image-wrapper--light {
     position: relative;
     overflow: hidden;
   }
 
-  .product-item__aspect-ratio--light {
+  .product-item__aspect-ratio--light.aspect-ratio {
     display: block;
     position: relative;
     overflow: hidden;
+    padding-bottom: 100%;
+    --aspect-ratio: 1;
   }
 
   .product-item__primary-image--light {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
   }
 
-  .product-item--light:hover .product-item__primary-image--light {
+  .product-item--light.two-point-o.product-item-vertical:hover .product-item__primary-image--light {
     transform: scale(1.04);
   }
 
@@ -175,9 +205,16 @@
     top: 10px;
     right: 10px;
     z-index: 5;
+    cursor: pointer;
   }
 
-  /* Product info section (light) */
+  .personalised-icon--light img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+  }
+
+  /* EXACT boat product info section (light) */
   .product-item__info--light {
     padding: 14px;
   }
@@ -188,37 +225,53 @@
     gap: 10px;
   }
 
-  .product-item-meta__title--light {
+  .product-item-meta__reviews-badge--light.text--small.vertical-product__card {
+    display: grid;
+    grid-template:
+      'p_title p_title'
+      'p_price p_price'
+      'p_variants p_variants';
+    gap: 6px;
+  }
+
+  .product-item-meta__title--light.tile-title {
+    grid-area: p_title;
     font-size: 14px;
     font-weight: 600;
     color: #1a1a1a;
     text-decoration: none;
     line-height: 1.3;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    margin: 0;
   }
 
-  .product-item-meta__title--light:hover {
+  .product-item-meta__title--light.tile-title:hover {
     color: #007aff;
   }
 
   .product__spliter--light {
+    width: 100%;
     height: 1px;
-    background: #e5e5e5;
-    margin: 6px 0;
+    border: 1px dashed #e3e3e3;
+    margin: 3px 0;
   }
 
-  /* Price styling matching boat exactly (light) */
-  .price-list--light {
+  .product-item-meta__price-list-container--light {
+    grid-area: p_price;
+  }
+
+  .price-list--light.price-list--centered {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 6px;
     flex-wrap: wrap;
   }
 
-  .price--highlight--light {
+  .price--light.price--highlight.product-card-price {
     font-size: 16px;
     font-weight: 700;
     color: #1a1a1a;
+    margin: 0;
   }
 
   .grid--price--light {
@@ -227,27 +280,29 @@
     gap: 6px;
   }
 
-  .price--compare--light {
+  .price--light.price--compare.line-through {
     font-size: 12px;
     color: #999;
     text-decoration: line-through;
+    font-weight: 400;
   }
 
   .off--light {
-    font-size: 10px;
-    font-weight: 600;
-    color: #00c896;
     margin: 0;
+    font-size: 10px;
+    color: #ff6647;
+    font-weight: 600;
   }
 
-  /* Color swatches matching boat exactly (light) */
+  /* EXACT boat color variants (light) */
   .variants-list--light {
+    grid-area: p_variants;
+    display: flex;
+    align-items: center;
+    gap: 3px;
     background: none;
     border: none;
     padding: 0;
-    display: flex;
-    align-items: center;
-    gap: 5px;
     cursor: pointer;
   }
 
@@ -255,42 +310,54 @@
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    border: 2px solid #ffffff;
-    box-shadow: 0 0 0 1px #e0e0e0;
-    transition: transform 0.2s ease;
-  }
-
-  .swatch-circle--light:hover {
-    transform: scale(1.1);
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px #ddd;
   }
 
   .more-colors--light {
     font-size: 10px;
     color: #666;
     font-weight: 500;
-    margin-left: 2px;
   }
 
-  /* Responsive design */
-  @media (max-width: 768px) {
-    .boat-light-carousel-title {
-      font-size: 22px;
-    }
+  .position-relative--light {
+    position: relative;
+  }
 
+  .visually-hidden {
+    position: absolute !important;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+  }
+
+  /* Responsive adjustments (light) */
+  @media screen and (max-width: 768px) {
     .product-list__inner--light {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: 14px;
     }
 
-    .boat-light-carousel-header {
-      margin-bottom: 20px;
+    .product-item__info--light {
+      padding: 10px;
+    }
+
+    .product-item-meta__title--light.tile-title {
+      font-size: 12px;
+    }
+
+    .price--light.price--highlight.product-card-price {
+      font-size: 14px;
     }
   }
 
-  @media (max-width: 480px) {
-    .product-list__inner--light {
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 10px;
+  @media screen and (min-width: 1000px) {
+    .product-item--light.two-point-o.product-item-vertical .product-item__info--light {
+      padding: 14px;
     }
   }
 {%- endstyle -%}
@@ -299,10 +366,7 @@
   <div class="boat-light-carousel-container">
     {%- if section.settings.show_header -%}
       <div class="boat-light-carousel-header">
-        {%- if section.settings.title != blank -%}
-          <h2 class="boat-light-carousel-title">{{ section.settings.title | escape }}</h2>
-        {%- endif -%}
-
+        <h2 class="boat-light-carousel-title">{{ section.settings.title | escape }}</h2>
         {%- if section.settings.subtitle != blank -%}
           <p class="boat-light-carousel-subtitle">{{ section.settings.subtitle | escape }}</p>
         {%- endif -%}
@@ -311,33 +375,29 @@
 
     <div class="product-list__inner--light">
       {%- if section.settings.collection != blank -%}
-        {%- assign collection = collections[section.settings.collection] -%}
-        {%- assign products_to_show = section.settings.products_count | default: 4 -%}
-
-        {%- for product in collection.products limit: products_to_show -%}
+        {%- for product in section.settings.collection.products limit: section.settings.products_count -%}
           <product-item class="product-item--light two-point-o product-item-vertical">
             <div class="product__wrapper--light">
               <div class="labels-wrapper--light metafeild-label">
-                {%- comment -%} Product spec label {%- endcomment -%}
-                {%- if product.metafields.custom.spec_label != blank -%}
+                {%- comment -%} Spec Label (Light) {%- endcomment -%}
+                {%- if section.settings.show_default_spec -%}
+                  {%- assign spec_text = product.metafields.custom.spec_text
+                    | default: section.settings.default_spec_text
+                  -%}
                   <span class="metafeild-label--light label--highlight custom-label label ui-2">
-                    {{ product.metafields.custom.spec_label }}
-                  </span>
-                {%- elsif section.settings.show_default_spec -%}
-                  <span class="metafeild-label--light label--highlight custom-label label ui-2">
-                    {{ section.settings.default_spec_text | default: 'Premium Quality' }}
+                    {{ spec_text | escape }}
                   </span>
                 {%- endif -%}
 
-                {%- comment -%} Rating display {%- endcomment -%}
+                {%- comment -%} Rating (Light) {%- endcomment -%}
                 {%- if section.settings.show_ratings -%}
                   <div class="card--rating--light">
                     <div class="rating--light">
                       <div
                         class="rating__stars--light"
-                        data-rating="{{ section.settings.default_rating | default: '4.7' }}"
+                        data-rating="{{ section.settings.default_rating }}"
                         role="img"
-                        aria-label="{{ section.settings.default_rating | default: '4.7' }} {{ section.settings.rating_aria_label_suffix | default: 'out of 5.0 stars' }}"
+                        aria-label="{{ section.settings.default_rating }} {{ section.settings.rating_aria_label_suffix | default: 'out of 5.0 stars' }}"
                       >
                         <span>
                           <img
@@ -346,116 +406,111 @@
                             width="100"
                             height="100"
                             loading="lazy"
-                            style="width: 12px;display: inline-block;vertical-align: bottom;"
                           >
                         </span>
-                        {{ section.settings.default_rating | default: '4.7' }}
+                        {{ section.settings.default_rating }}
                       </div>
                       <span class="rating__caption--light plp-reviews">
-                        {{ section.settings.default_reviews | default: '89' }}
-                        <span
-                          ><img
+                        {{ section.settings.default_reviews }}
+                        <span>
+                          <img
                             src="https://cdn.shopify.com/s/files/1/0057/8938/4802/files/Mask_group-10.png?v=1677571152"
-                            style="width:9px;height:9px;"
                             alt="{{ section.settings.verified_reviews_alt_text | default: 'verified reviews' }}"
-                            width="9"
-                            height="9"
-                        ></span>
+                            width="11"
+                            height="11"
+                          >
+                        </span>
                       </span>
                     </div>
                   </div>
                 {%- endif -%}
+              </div>
 
-                {%- comment -%} Priority labels {%- endcomment -%}
-                {%- if product.tags contains 'new-launch' or section.settings.show_new_launch_badge -%}
-                  <span
-                    class="priority label--light z-4 label--highlight custom-label bg-purple--light just launched"
-                    style="display: flex; align-items: center;"
-                  >
-                    {{ section.settings.new_launch_emoji | default: '🎉' }}
-                    {{ section.settings.new_launch_text | default: 'New Launch' }}
+              {%- comment -%} Priority Labels (Light) {%- endcomment -%}
+              {%- if section.settings.show_new_launch_badge -%}
+                <span
+                  class="priority label--light label--highlight custom-label bg-purple--light just launched"
+                  style="display: flex; align-items: center;"
+                >
+                  {{ section.settings.new_launch_emoji | default: '🎉' }}
+                  {{ section.settings.new_launch_text | default: 'New Launch' }}
+                </span>
+              {%- endif -%}
+
+              {%- if section.settings.show_trending_badge -%}
+                <span
+                  class="priority label--light label--highlight custom-label bg-orange--light trending"
+                  style="display: flex; align-items: center;"
+                >
+                  {{ section.settings.trending_emoji | default: '✨' -}}
+                  {{- section.settings.trending_text | default: 'Trending' }}
+                </span>
+              {%- endif -%}
+
+              {%- if section.settings.show_sale_badge -%}
+                <span
+                  class="priority label--light label--highlight custom-label sale-badge--light bg-orange"
+                  style="display: flex; align-items: center;"
+                >
+                  {{ section.settings.sale_emoji | default: '💸' }}
+                  {{ section.settings.sale_text | default: 'Special Offer' }}
+                </span>
+              {%- endif -%}
+
+              <div class="product-item__image-wrapper--light">
+                {%- if section.settings.show_personalised_icon and product.metafields.custom.personalised == 'true' -%}
+                  <span class="personalised-icon--light">
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0057/8938/4802/files/personalisation_ca8237cd-20ca-4da7-8ad2-7d8a50320b3c.png?v=1724308287"
+                      alt="{{ section.settings.personalization_alt_text | default: 'Personalization' }}"
+                      loading="lazy"
+                      width="29"
+                      height="29"
+                    >
                   </span>
                 {%- endif -%}
 
-                {%- if product.tags contains 'trending' or section.settings.show_trending_badge -%}
-                  <span
-                    class="priority label--light z-6 label--highlight custom-label bg-orange--light trending"
-                    style="display: flex; align-items: center;"
-                  >
-                    {{ section.settings.trending_emoji | default: '✨' -}}
-                    {{- section.settings.trending_text | default: 'Trending' }}
-                  </span>
-                {%- endif -%}
-
-                {%- if product.tags contains 'sale' or section.settings.show_sale_badge -%}
-                  <span
-                    class="priority label--light z-10 label--highlight custom-label free-label bg-green--light"
-                    style="display: flex; align-items: center;"
-                  >
-                    {{ section.settings.sale_emoji | default: '💸' }}
-                    {{ section.settings.sale_text | default: 'Special Offer' }}
-                  </span>
-                {%- endif -%}
-
-                <div class="product-item__image-wrapper--light">
-                  {%- if product.tags contains 'personalised' or section.settings.show_personalised_icon -%}
-                    <span class="personalised-icon--light">
-                      <img
-                        src="https://cdn.shopify.com/s/files/1/0057/8938/4802/files/personalisation_ca8237cd-20ca-4da7-8ad2-7d8a50320b3c.png?v=1724308287"
-                        alt="{{ section.settings.personalization_alt_text | default: 'Personalization' }}"
-                        loading="lazy"
-                        width="25"
-                        height="25"
-                      >
-                    </span>
+                <a
+                  href="{{ product.url }}"
+                  class="product-item__aspect-ratio--light aspect-ratio"
+                  style="padding-bottom: 100.0%; --aspect-ratio: 1"
+                >
+                  {%- if product.featured_image -%}
+                    <img
+                      class="product-item__primary-image--light"
+                      loading="lazy"
+                      width="300"
+                      height="300"
+                      decoding="async"
+                      alt="{{ product.featured_image.alt | escape }}"
+                      src="{{ product.featured_image | image_url: width: 300 }}"
+                      srcset="{{ product.featured_image | image_url: width: 200 }} 200w, {{ product.featured_image | image_url: width: 400 }} 400w, {{ product.featured_image | image_url: width: 600 }} 600w"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 300px"
+                    >
+                  {%- else -%}
+                    <div
+                      class="product-item__primary-image--light"
+                      style="background: #f8f8f8; display: flex; align-items: center; justify-content: center; color: #999;"
+                    >
+                      {{ section.settings.no_image_text | default: 'No Image' }}
+                    </div>
                   {%- endif -%}
-
-                  <a
-                    href="{{ product.url }}"
-                    class="product-item__aspect-ratio--light aspect-ratio"
-                    style="padding-bottom: 100.0%; --aspect-ratio: 1"
-                  >
-                    {%- if product.featured_media -%}
-                      <img
-                        class="product-item__primary-image--light"
-                        loading="lazy"
-                        width="250"
-                        height="250"
-                        decoding="async"
-                        alt="{{ product.featured_media.alt | escape }}"
-                        src="{{ product.featured_media | image_url: width: 500 }}"
-                        srcset="
-                          {{ product.featured_media | image_url: width: 200 }} 200w,
-                          {{ product.featured_media | image_url: width: 300 }} 300w,
-                          {{ product.featured_media | image_url: width: 500 }} 500w
-                        "
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 250px"
-                      >
-                    {%- else -%}
-                      <div
-                        class="product-item__primary-image--light"
-                        style="background: #f5f5f5; display: flex; align-items: center; justify-content: center; color: #999;"
-                      >
-                        {{ section.settings.no_image_text | default: 'No Image' }}
-                      </div>
-                    {%- endif -%}
-                  </a>
-                </div>
+                </a>
               </div>
             </div>
 
             <div class="product-item__info--light">
               <div class="product-item-meta--light">
-                <span class="product-item-meta__reviews-badge text--small vertical-product__card">
+                <span class="product-item-meta__reviews-badge--light text--small vertical-product__card">
                   <a href="{{ product.url }}" class="product-item-meta__title--light tile-title">
                     {{ product.title | escape }}
                   </a>
 
                   <div class="product__spliter--light"></div>
 
-                  <div class="product-item-meta__price-list-container">
+                  <div class="product-item-meta__price-list-container--light">
                     <div class="price-list--light price-list--centered">
-                      <span class="price--highlight--light product-card-price" data-price="{{ product.price }}">
+                      <span class="price--light price--highlight product-card-price" data-price="{{ product.price }}">
                         <span class="visually-hidden">
                           {{- section.settings.sale_price_text | default: 'Sale price' -}}
                         </span>
@@ -465,7 +520,7 @@
                       {%- if product.compare_at_price > product.price -%}
                         <div class="grid--price--light">
                           <span
-                            class="price--compare--light line-through"
+                            class="price--light price--compare line-through"
                             data-compare-price="{{ product.compare_at_price }}"
                           >
                             <span class="visually-hidden">
@@ -488,7 +543,7 @@
                     </div>
                   </div>
 
-                  {%- comment -%} Color variants {%- endcomment -%}
+                  {%- comment -%} Color variants EXACT boat style (light) {%- endcomment -%}
                   {%- if product.options contains 'Color' and section.settings.show_color_swatches -%}
                     {%- assign color_option = product.options_by_name.Color -%}
                     {%- if color_option.values.size > 0 -%}
@@ -512,7 +567,7 @@
                   {%- endif -%}
                 </span>
 
-                <div class="position-relative"></div>
+                <div class="position-relative--light"></div>
               </div>
             </div>
           </product-item>
@@ -747,12 +802,12 @@
     {
       "type": "text",
       "id": "color_variants_aria_label",
-      "label": "Color variants button aria-label",
+      "label": "Color variants aria-label",
       "default": "Open Drawer"
     },
     {
       "type": "header",
-      "content": "🎨 Colors"
+      "content": "🎨 Design Settings"
     },
     {
       "type": "color",
@@ -786,27 +841,27 @@
     },
     {
       "type": "header",
-      "content": "📐 Layout"
+      "content": "📏 Layout Settings"
     },
     {
       "type": "range",
       "id": "section_padding_top",
       "label": "Section padding top",
       "min": 0,
-      "max": 80,
-      "step": 4,
-      "unit": "px",
-      "default": 40
+      "max": 100,
+      "step": 5,
+      "default": 40,
+      "unit": "px"
     },
     {
       "type": "range",
       "id": "section_padding_bottom",
       "label": "Section padding bottom",
       "min": 0,
-      "max": 80,
-      "step": 4,
-      "unit": "px",
-      "default": 40
+      "max": 100,
+      "step": 5,
+      "default": 40,
+      "unit": "px"
     },
     {
       "type": "range",
@@ -815,44 +870,44 @@
       "min": 1000,
       "max": 1600,
       "step": 50,
-      "unit": "px",
-      "default": 1400
+      "default": 1400,
+      "unit": "px"
     },
     {
       "type": "range",
       "id": "content_padding_x",
       "label": "Content horizontal padding",
-      "min": 0,
+      "min": 10,
       "max": 50,
-      "step": 4,
-      "unit": "px",
-      "default": 20
+      "step": 5,
+      "default": 20,
+      "unit": "px"
     },
     {
       "type": "range",
       "id": "header_margin_bottom",
       "label": "Header margin bottom",
       "min": 10,
-      "max": 50,
-      "step": 4,
-      "unit": "px",
-      "default": 25
+      "max": 60,
+      "step": 5,
+      "default": 25,
+      "unit": "px"
     },
     {
       "type": "range",
       "id": "title_size",
       "label": "Title font size",
-      "min": 18,
+      "min": 20,
       "max": 40,
       "step": 2,
-      "unit": "px",
-      "default": 28
+      "default": 28,
+      "unit": "px"
     },
     {
       "type": "range",
       "id": "title_weight",
       "label": "Title font weight",
-      "min": 300,
+      "min": 400,
       "max": 900,
       "step": 100,
       "default": 700
@@ -864,8 +919,8 @@
       "min": 0,
       "max": 20,
       "step": 2,
-      "unit": "px",
-      "default": 8
+      "default": 8,
+      "unit": "px"
     },
     {
       "type": "range",
@@ -874,15 +929,15 @@
       "min": 12,
       "max": 20,
       "step": 1,
-      "unit": "px",
-      "default": 16
+      "default": 16,
+      "unit": "px"
     },
     {
       "type": "range",
       "id": "subtitle_weight",
       "label": "Subtitle font weight",
       "min": 300,
-      "max": 700,
+      "max": 600,
       "step": 100,
       "default": 400
     },
@@ -893,18 +948,18 @@
       "min": 180,
       "max": 300,
       "step": 10,
-      "unit": "px",
-      "default": 240
+      "default": 240,
+      "unit": "px"
     },
     {
       "type": "range",
       "id": "grid_gap",
       "label": "Grid gap",
-      "min": 10,
+      "min": 8,
       "max": 30,
       "step": 2,
-      "unit": "px",
-      "default": 20
+      "default": 20,
+      "unit": "px"
     }
   ],
   "presets": [
