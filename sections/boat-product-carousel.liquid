@@ -4,302 +4,342 @@
 
 {%- style -%}
   .boat-carousel-section {
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 25%, #2d2d2d 50%, #1a1a1a 75%, #0a0a0a 100%);
-    padding: 60px 0;
-    margin: 20px 0;
+    background:
+      {%- if section.settings.background_style == 'gradient' -%}
+        linear-gradient({{ section.settings.gradient_direction | default: '135deg' }}, {{ section.settings.background_color_1 | default: '#0a0a0a' }} 0%, {{ section.settings.background_color_2 | default: '#1a1a1a' }} 25%, {{ section.settings.background_color_3 | default: '#2d2d2d' }} 50%, {{ section.settings.background_color_2 | default: '#1a1a1a' }} 75%, {{ section.settings.background_color_1 | default: '#0a0a0a' }} 100%)
+      {%- elsif section.settings.background_style == 'solid' -%}
+        {{ section.settings.background_color_solid | default: '#121212' }}
+      {%- else -%}
+        linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 25%, #2d2d2d 50%, #1a1a1a 75%, #0a0a0a 100%)
+      {%- endif -%};
+    padding: {{ section.settings.section_padding_y | default: 60 }}px {{ section.settings.section_padding_x | default: 0 }}px;
+    margin: {{ section.settings.section_margin_y | default: 20 }}px 0;
     position: relative;
+    {%- if section.settings.enable_pattern_overlay -%}
+      overflow: hidden;
+    {%- endif -%}
   }
+
+  {%- if section.settings.enable_pattern_overlay -%}
+    .boat-carousel-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(circle at 25% 25%, rgba({{ section.settings.pattern_color_1.red }}, {{ section.settings.pattern_color_1.green }}, {{ section.settings.pattern_color_1.blue }}, {{ section.settings.pattern_opacity | default: 10 | divided_by: 100.0 }}) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba({{ section.settings.pattern_color_2.red }}, {{ section.settings.pattern_color_2.green }}, {{ section.settings.pattern_color_2.blue }}, {{ section.settings.pattern_opacity | default: 10 | divided_by: 100.0 }}) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 1;
+    }
+  {%- endif -%}
 
   .boat-carousel-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 40px;
-    padding: 0 40px;
+    margin-bottom: {{ section.settings.header_margin_bottom | default: 40 }}px;
+    padding: 0 {{ section.settings.content_padding_x | default: 40 }}px;
+    position: relative;
+    z-index: 2;
   }
 
   .boat-carousel-title {
-    color: white;
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
+    color: {{ section.settings.title_color | default: '#ffffff' }};
+    font-size: clamp({{ section.settings.title_size_mobile | default: 1.5 }}rem, 3vw, {{ section.settings.title_size_desktop | default: 2.5 }}rem);
+    font-weight: {{ section.settings.title_font_weight | default: 700 }};
+    text-transform: {{ section.settings.title_text_transform | default: 'uppercase' }};
+    letter-spacing: {{ section.settings.title_letter_spacing | default: 0.02 }}em;
     margin: 0;
+    {%- if section.settings.title_gradient_enable -%}
+      background: linear-gradient(45deg, {{ section.settings.title_gradient_color_1 | default: '#ffffff' }} 0%, {{ section.settings.title_gradient_color_2 | default: '#d9232d' }} 50%, {{ section.settings.title_gradient_color_1 | default: '#ffffff' }} 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    {%- endif -%}
   }
 
   .boat-view-all {
-    color: #d9232d;
+    color: {{ section.settings.view_all_color | default: '#d9232d' }};
     text-decoration: none;
-    font-weight: 600;
-    font-size: 16px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    font-weight: {{ section.settings.view_all_font_weight | default: 600 }};
+    font-size: {{ section.settings.view_all_font_size | default: 16 }}px;
+    text-transform: {{ section.settings.view_all_text_transform | default: 'uppercase' }};
+    letter-spacing: {{ section.settings.view_all_letter_spacing | default: 0.5 }}px;
     transition: all 0.3s ease;
+    position: relative;
   }
 
   .boat-view-all:hover {
-    color: #ff4757;
-    transform: translateX(5px);
+    color: {{ section.settings.view_all_hover_color | default: '#ff4757' }};
+    transform: translateX({{ section.settings.view_all_hover_offset | default: 5 }}px);
   }
 
   .boat-products-grid {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 20px;
-    padding: 0 40px;
-    max-width: 1400px;
+    grid-template-columns: repeat({{ section.settings.columns_desktop | default: 6 }}, 1fr);
+    gap: {{ section.settings.grid_gap | default: 20 }}px;
+    padding: 0 {{ section.settings.content_padding_x | default: 40 }}px;
+    max-width: {{ section.settings.content_max_width | default: 1400 }}px;
     margin: 0 auto;
+    position: relative;
+    z-index: 2;
   }
 
   .boat-product-card {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 16px;
-    padding: 16px;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: {{ section.settings.card_background | default: 'rgba(255, 255, 255, 0.95)' }};
+    border-radius: {{ section.settings.card_border_radius | default: 16 }}px;
+    padding: {{ section.settings.card_padding | default: 16 }}px;
+    transition: all {{ section.settings.card_hover_duration | default: 0.4 }}s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: {{ section.settings.card_border_width | default: 1 }}px solid {{ section.settings.card_border_color | default: 'rgba(255, 255, 255, 0.1)' }};
     position: relative;
     overflow: hidden;
-    min-height: 380px;
+    min-height: {{ section.settings.card_min_height | default: 380 }}px;
     display: flex;
     flex-direction: column;
+    {%- if section.settings.card_shadow_enable -%}
+      box-shadow: {{ section.settings.card_shadow | default: '0 4px 20px rgba(0, 0, 0, 0.1)' }};
+    {%- endif -%}
   }
 
   .boat-product-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 30px rgba(217, 35, 45, 0.1);
+    transform: translateY(-{{ section.settings.card_hover_lift | default: 8 }}px) scale({{ section.settings.card_hover_scale | default: 1.02 }});
+    box-shadow: {{ section.settings.card_hover_shadow | default: '0 20px 40px rgba(0, 0, 0, 0.15), 0 0 30px rgba(217, 35, 45, 0.1)' }};
   }
 
   .boat-product-image-container {
     position: relative;
-    margin-bottom: 12px;
+    margin-bottom: {{ section.settings.image_margin_bottom | default: 12 }}px;
   }
 
   .boat-product-image {
     width: 100%;
-    height: 160px;
-    object-fit: cover;
-    border-radius: 12px;
-    transition: transform 0.3s ease;
+    height: {{ section.settings.image_height | default: 160 }}px;
+    object-fit: {{ section.settings.image_fit | default: 'cover' }};
+    border-radius: {{ section.settings.image_border_radius | default: 12 }}px;
+    transition: transform {{ section.settings.image_hover_duration | default: 0.3 }}s ease;
   }
 
   .boat-product-card:hover .boat-product-image {
-    transform: scale(1.05);
+    transform: scale({{ section.settings.image_hover_scale | default: 1.05 }});
   }
 
   /* Badge Styles */
   .boat-product-badge {
     position: absolute;
-    top: 8px;
-    left: 8px;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    top: {{ section.settings.badge_position_top | default: 8 }}px;
+    left: {{ section.settings.badge_position_left | default: 8 }}px;
+    padding: {{ section.settings.badge_padding_y | default: 4 }}px {{ section.settings.badge_padding_x | default: 8 }}px;
+    border-radius: {{ section.settings.badge_border_radius | default: 6 }}px;
+    font-size: {{ section.settings.badge_font_size | default: 10 }}px;
+    font-weight: {{ section.settings.badge_font_weight | default: 600 }};
+    text-transform: {{ section.settings.badge_text_transform | default: 'uppercase' }};
+    letter-spacing: {{ section.settings.badge_letter_spacing | default: 0.5 }}px;
     z-index: 2;
   }
 
   .boat-badge-new-launch {
-    background: linear-gradient(45deg, #000000, #333333);
-    color: white;
+    background: {{ section.settings.badge_new_launch_bg | default: 'linear-gradient(45deg, #000000, #333333)' }};
+    color: {{ section.settings.badge_new_launch_color | default: '#ffffff' }};
   }
 
   .boat-badge-trending {
-    background: linear-gradient(45deg, #ff6b35, #ff8c42);
-    color: white;
+    background: {{ section.settings.badge_trending_bg | default: 'linear-gradient(45deg, #ff6b35, #ff8c42)' }};
+    color: {{ section.settings.badge_trending_color | default: '#ffffff' }};
   }
 
   .boat-badge-engraving {
-    background: linear-gradient(45deg, #8b5cf6, #a855f7);
-    color: white;
+    background: {{ section.settings.badge_engraving_bg | default: 'linear-gradient(45deg, #8b5cf6, #a855f7)' }};
+    color: {{ section.settings.badge_engraving_color | default: '#ffffff' }};
   }
 
   .boat-badge-extra-off {
-    background: linear-gradient(45deg, #10b981, #059669);
-    color: white;
+    background: {{ section.settings.badge_extra_off_bg | default: 'linear-gradient(45deg, #10b981, #059669)' }};
+    color: {{ section.settings.badge_extra_off_color | default: '#ffffff' }};
   }
 
   /* Spec Display */
   .boat-product-spec {
     position: absolute;
-    bottom: 8px;
-    left: 8px;
-    background: rgba(255, 255, 255, 0.9);
-    color: #333;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 10px;
-    font-weight: 600;
+    bottom: {{ section.settings.spec_position_bottom | default: 8 }}px;
+    left: {{ section.settings.spec_position_left | default: 8 }}px;
+    background: {{ section.settings.spec_background | default: 'rgba(255, 255, 255, 0.9)' }};
+    color: {{ section.settings.spec_color | default: '#333333' }};
+    padding: {{ section.settings.spec_padding_y | default: 4 }}px {{ section.settings.spec_padding_x | default: 8 }}px;
+    border-radius: {{ section.settings.spec_border_radius | default: 4 }}px;
+    font-size: {{ section.settings.spec_font_size | default: 10 }}px;
+    font-weight: {{ section.settings.spec_font_weight | default: 600 }};
     backdrop-filter: blur(5px);
   }
 
   .boat-product-info {
-    color: #333;
+    color: {{ section.settings.product_info_color | default: '#333333' }};
     flex-grow: 1;
     display: flex;
     flex-direction: column;
   }
 
   .boat-product-title {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: #1a1a1a;
-    line-height: 1.3;
+    font-size: {{ section.settings.product_title_size | default: 14 }}px;
+    font-weight: {{ section.settings.product_title_weight | default: 600 }};
+    margin-bottom: {{ section.settings.product_title_margin | default: 8 }}px;
+    color: {{ section.settings.product_title_color | default: '#1a1a1a' }};
+    line-height: {{ section.settings.product_title_line_height | default: 1.3 }};
     flex-grow: 1;
   }
 
   /* Color Swatches */
   .boat-color-swatches {
     display: flex;
-    gap: 4px;
-    margin-bottom: 8px;
+    gap: {{ section.settings.color_swatch_gap | default: 4 }}px;
+    margin-bottom: {{ section.settings.color_swatch_margin | default: 8 }}px;
     align-items: center;
   }
 
   .boat-color-swatch {
-    width: 16px;
-    height: 16px;
+    width: {{ section.settings.color_swatch_size | default: 16 }}px;
+    height: {{ section.settings.color_swatch_size | default: 16 }}px;
     border-radius: 50%;
-    border: 2px solid #fff;
+    border: {{ section.settings.color_swatch_border_width | default: 2 }}px solid {{ section.settings.color_swatch_border_color | default: '#ffffff' }};
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: transform 0.2s ease;
   }
 
   .boat-color-swatch:hover {
-    transform: scale(1.2);
+    transform: scale({{ section.settings.color_swatch_hover_scale | default: 1.2 }});
   }
 
   .boat-color-swatch.active {
-    transform: scale(1.2);
-    box-shadow: 0 0 0 2px #d9232d;
+    transform: scale({{ section.settings.color_swatch_active_scale | default: 1.2 }});
+    box-shadow: 0 0 0 2px {{ section.settings.color_swatch_active_color | default: '#d9232d' }};
   }
 
   .boat-color-count {
-    font-size: 12px;
-    color: #666;
-    margin-left: 4px;
+    font-size: {{ section.settings.color_count_size | default: 12 }}px;
+    color: {{ section.settings.color_count_color | default: '#666666' }};
+    margin-left: {{ section.settings.color_count_margin | default: 4 }}px;
   }
 
   /* Rating */
   .boat-product-rating {
     display: flex;
     align-items: center;
-    gap: 6px;
-    margin-bottom: 8px;
+    gap: {{ section.settings.rating_gap | default: 6 }}px;
+    margin-bottom: {{ section.settings.rating_margin | default: 8 }}px;
   }
 
   .boat-rating-stars {
-    color: #fbbf24;
-    font-size: 12px;
+    color: {{ section.settings.rating_star_color | default: '#fbbf24' }};
+    font-size: {{ section.settings.rating_star_size | default: 12 }}px;
   }
 
   .boat-rating-number {
-    background: #10b981;
-    color: white;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: 600;
+    background: {{ section.settings.rating_bg | default: '#10b981' }};
+    color: {{ section.settings.rating_color | default: '#ffffff' }};
+    padding: {{ section.settings.rating_padding_y | default: 2 }}px {{ section.settings.rating_padding_x | default: 6 }}px;
+    border-radius: {{ section.settings.rating_border_radius | default: 4 }}px;
+    font-size: {{ section.settings.rating_font_size | default: 11 }}px;
+    font-weight: {{ section.settings.rating_font_weight | default: 600 }};
   }
 
   .boat-product-price {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 12px;
+    gap: {{ section.settings.price_gap | default: 8 }}px;
+    margin-bottom: {{ section.settings.price_margin | default: 12 }}px;
   }
 
   .boat-current-price {
-    font-size: 18px;
-    font-weight: 700;
-    color: #1a1a1a;
+    font-size: {{ section.settings.current_price_size | default: 18 }}px;
+    font-weight: {{ section.settings.current_price_weight | default: 700 }};
+    color: {{ section.settings.current_price_color | default: '#1a1a1a' }};
   }
 
   .boat-original-price {
-    font-size: 13px;
-    color: #888;
+    font-size: {{ section.settings.original_price_size | default: 13 }}px;
+    color: {{ section.settings.original_price_color | default: '#888888' }};
     text-decoration: line-through;
   }
 
   .boat-discount-percent {
-    background: linear-gradient(45d, #10b981, #059669);
-    color: white;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: 600;
+    background: {{ section.settings.discount_bg | default: 'linear-gradient(45deg, #10b981, #059669)' }};
+    color: {{ section.settings.discount_color | default: '#ffffff' }};
+    padding: {{ section.settings.discount_padding_y | default: 2 }}px {{ section.settings.discount_padding_x | default: 6 }}px;
+    border-radius: {{ section.settings.discount_border_radius | default: 4 }}px;
+    font-size: {{ section.settings.discount_font_size | default: 11 }}px;
+    font-weight: {{ section.settings.discount_font_weight | default: 600 }};
   }
 
   .boat-add-to-cart {
     width: 100%;
-    background: linear-gradient(45deg, #d9232d, #ff4757);
-    color: white;
+    background: {{ section.settings.button_bg | default: 'linear-gradient(45deg, #d9232d, #ff4757)' }};
+    color: {{ section.settings.button_color | default: '#ffffff' }};
     border: none;
-    padding: 10px;
-    border-radius: 8px;
-    font-weight: 600;
+    padding: {{ section.settings.button_padding_y | default: 10 }}px {{ section.settings.button_padding_x | default: 10 }}px;
+    border-radius: {{ section.settings.button_border_radius | default: 8 }}px;
+    font-weight: {{ section.settings.button_font_weight | default: 600 }};
     cursor: pointer;
     transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-size: 12px;
+    text-transform: {{ section.settings.button_text_transform | default: 'uppercase' }};
+    letter-spacing: {{ section.settings.button_letter_spacing | default: 0.5 }}px;
+    font-size: {{ section.settings.button_font_size | default: 12 }}px;
     margin-top: auto;
   }
 
   .boat-add-to-cart:hover {
-    background: linear-gradient(45deg, #b71c1c, #d9232d);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(217, 35, 45, 0.3);
+    background: {{ section.settings.button_hover_bg | default: 'linear-gradient(45deg, #b71c1c, #d9232d)' }};
+    transform: translateY(-{{ section.settings.button_hover_lift | default: 2 }}px);
+    box-shadow: 0 {{ section.settings.button_hover_shadow_y | default: 8 }}px {{ section.settings.button_hover_shadow_blur | default: 20 }}px rgba(217, 35, 45, {{ section.settings.button_hover_shadow_opacity | default: 30 | divided_by: 100.0 }});
   }
 
   /* Responsive Design */
   @media screen and (max-width: 1200px) {
     .boat-products-grid {
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat({{ section.settings.columns_tablet | default: 4 }}, 1fr);
     }
   }
 
   @media screen and (max-width: 989px) {
     .boat-products-grid {
-      grid-template-columns: repeat(3, 1fr);
-      padding: 0 20px;
+      grid-template-columns: repeat({{ section.settings.columns_mobile_large | default: 3 }}, 1fr);
+      padding: 0 {{ section.settings.content_padding_mobile | default: 20 }}px;
     }
 
     .boat-carousel-header {
-      padding: 0 20px;
-      flex-direction: column;
-      gap: 15px;
-      text-align: center;
+      padding: 0 {{ section.settings.content_padding_mobile | default: 20 }}px;
+      flex-direction: {{ section.settings.header_layout_mobile | default: 'column' }};
+      gap: {{ section.settings.header_gap_mobile | default: 15 }}px;
+      text-align: {{ section.settings.header_align_mobile | default: 'center' }};
     }
   }
 
   @media screen and (max-width: 749px) {
     .boat-products-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
+      grid-template-columns: repeat({{ section.settings.columns_mobile | default: 2 }}, 1fr);
+      gap: {{ section.settings.grid_gap_mobile | default: 15 }}px;
     }
 
     .boat-product-card {
-      padding: 12px;
-      min-height: 320px;
+      padding: {{ section.settings.card_padding_mobile | default: 12 }}px;
+      min-height: {{ section.settings.card_min_height_mobile | default: 320 }}px;
     }
 
     .boat-product-image {
-      height: 140px;
+      height: {{ section.settings.image_height_mobile | default: 140 }}px;
     }
   }
 
   @media screen and (max-width: 549px) {
     .boat-products-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+      grid-template-columns: repeat({{ section.settings.columns_small_mobile | default: 2 }}, 1fr);
+      gap: {{ section.settings.grid_gap_small_mobile | default: 12 }}px;
     }
 
     .boat-product-image {
-      height: 120px;
+      height: {{ section.settings.image_height_small_mobile | default: 120 }}px;
     }
   }
 {%- endstyle -%}
@@ -325,28 +365,45 @@
       endif
 
       assign products_to_show = section.settings.products_to_show | default: 6
-      assign badge_types = 'new-launch,trending,engraving,extra-off' | split: ','
-      assign badge_labels = 'New Launch,🔥 Trending,⚡ Engraving Available,💚 EXTRA ₹100 OFF' | split: ','
-      assign specs = '50 Hours Playback,20 Hours Playback,40 Hours Playback,BT Calling,12 Hours Playback,10000mAh Battery' | split: ','
+
+      if section.settings.enable_custom_badges
+        assign badge_types = section.settings.badge_types | split: ','
+        assign badge_labels = section.settings.badge_labels | split: ','
+      else
+        assign badge_types = 'new-launch,trending,engraving,extra-off' | split: ','
+        assign badge_labels = 'New Launch,🔥 Trending,⚡ Engraving Available,💚 EXTRA ₹100 OFF' | split: ','
+      endif
+
+      if section.settings.enable_custom_specs
+        assign specs = section.settings.product_specs | split: ','
+      else
+        assign specs = '50 Hours Playback,20 Hours Playback,40 Hours Playback,BT Calling,12 Hours Playback,10000mAh Battery' | split: ','
+      endif
     -%}
 
     {%- for product in collection.products limit: products_to_show -%}
-      {%- assign random_badge = forloop.index0 | modulo: 4 -%}
-      {%- assign random_spec = forloop.index0 | modulo: 6 -%}
-      {%- assign random_rating = '4.6,4.9,4.8,5.0,4.8,5.0' | split: ',' -%}
-      {%- assign product_rating = random_rating[forloop.index0] | default: '4.8' -%}
+      {%- assign random_badge = forloop.index0 | modulo: badge_types.size -%}
+      {%- assign random_spec = forloop.index0 | modulo: specs.size -%}
+      {%- if section.settings.enable_custom_ratings -%}
+        {%- assign product_rating = section.settings.custom_ratings | split: ',' | first -%}
+      {%- else -%}
+        {%- assign random_rating = '4.6,4.9,4.8,5.0,4.8,5.0' | split: ',' -%}
+        {%- assign product_rating = random_rating[forloop.index0] | default: '4.8' -%}
+      {%- endif -%}
 
       <div class="boat-product-card">
         <div class="boat-product-image-container">
-          {%- comment -%} Product Badge {%- endcomment -%}
-          <div class="boat-product-badge boat-badge-{{ badge_types[random_badge] }}">
-            {{ badge_labels[random_badge] }}
-          </div>
+          {%- if section.settings.show_badges -%}
+            <div class="boat-product-badge boat-badge-{{ badge_types[random_badge] }}">
+              {{ badge_labels[random_badge] }}
+            </div>
+          {%- endif -%}
 
-          {%- comment -%} Product Spec {%- endcomment -%}
-          <div class="boat-product-spec">
-            {{ specs[random_spec] }}
-          </div>
+          {%- if section.settings.show_specs -%}
+            <div class="boat-product-spec">
+              {{ specs[random_spec] }}
+            </div>
+          {%- endif -%}
 
           <a href="{{ product.url }}">
             <img
@@ -364,58 +421,60 @@
             <a href="{{ product.url }}">{{ product.title }}</a>
           </h3>
 
-          {%- comment -%} Color Swatches {%- endcomment -%}
-          {%- if product.options contains 'Color' -%}
-            <div class="boat-color-swatches">
-              {%- assign color_count = 0 -%}
-              {%- for option in product.options -%}
-                {%- if option == 'Color' -%}
-                  {%- assign color_values = product.option_by_name[option].values -%}
-                  {%- assign color_count = color_values.size -%}
-                  {%- for color in color_values limit: 3 -%}
-                    {%- assign color_lower = color | downcase -%}
-                    {%- assign color_hex = '#000000' -%}
-                    {%- case color_lower -%}
-                      {%- when 'black' -%}
-                        {%- assign color_hex = '#000000' -%}
-                      {%- when 'blue' -%}
-                        {%- assign color_hex = '#3b82f6' -%}
-                      {%- when 'green' -%}
-                        {%- assign color_hex = '#10b981' -%}
-                      {%- when 'red' -%}
-                        {%- assign color_hex = '#ef4444' -%}
-                      {%- when 'white' -%}
-                        {%- assign color_hex = '#ffffff' -%}
-                      {%- when 'gray', 'grey' -%}
-                        {%- assign color_hex = '#6b7280' -%}
-                      {%- else -%}
-                        {%- assign color_hex = '#8b5cf6' -%}
-                    {%- endcase -%}
-                    <div
-                      class="boat-color-swatch{% if forloop.first %} active{% endif %}"
-                      style="background-color: {{ color_hex }};"
-                    ></div>
-                  {%- endfor -%}
-                  {%- if color_count > 3 -%}
-                    <span class="boat-color-count">+{{ color_count | minus: 3 }}</span>
+          {%- if section.settings.show_color_swatches -%}
+            {%- if product.options contains 'Color' -%}
+              <div class="boat-color-swatches">
+                {%- assign color_count = 0 -%}
+                {%- for option in product.options -%}
+                  {%- if option == 'Color' -%}
+                    {%- assign color_values = product.option_by_name[option].values -%}
+                    {%- assign color_count = color_values.size -%}
+                    {%- for color in color_values limit: 3 -%}
+                      {%- assign color_lower = color | downcase -%}
+                      {%- assign color_hex = '#000000' -%}
+                      {%- case color_lower -%}
+                        {%- when 'black' -%}
+                          {%- assign color_hex = '#000000' -%}
+                        {%- when 'blue' -%}
+                          {%- assign color_hex = '#3b82f6' -%}
+                        {%- when 'green' -%}
+                          {%- assign color_hex = '#10b981' -%}
+                        {%- when 'red' -%}
+                          {%- assign color_hex = '#ef4444' -%}
+                        {%- when 'white' -%}
+                          {%- assign color_hex = '#ffffff' -%}
+                        {%- when 'gray', 'grey' -%}
+                          {%- assign color_hex = '#6b7280' -%}
+                        {%- else -%}
+                          {%- assign color_hex = '#8b5cf6' -%}
+                      {%- endcase -%}
+                      <div
+                        class="boat-color-swatch{% if forloop.first %} active{% endif %}"
+                        style="background-color: {{ color_hex }};"
+                      ></div>
+                    {%- endfor -%}
+                    {%- if color_count > 3 -%}
+                      <span class="boat-color-count">+{{ color_count | minus: 3 }}</span>
+                    {%- endif -%}
                   {%- endif -%}
-                {%- endif -%}
-              {%- endfor -%}
-            </div>
-          {%- else -%}
-            {%- comment -%} Default color swatches if no color option {%- endcomment -%}
-            <div class="boat-color-swatches">
-              <div class="boat-color-swatch active" style="background-color: #000000;"></div>
-              <div class="boat-color-swatch" style="background-color: #3b82f6;"></div>
-              <span class="boat-color-count">+{{ forloop.index | modulo: 3 | plus: 1 }}</span>
-            </div>
+                {%- endfor -%}
+              </div>
+            {%- else -%}
+              {%- comment -%} Default color swatches if no color option {%- endcomment -%}
+              <div class="boat-color-swatches">
+                <div class="boat-color-swatch active" style="background-color: #000000;"></div>
+                <div class="boat-color-swatch" style="background-color: #3b82f6;"></div>
+                <span class="boat-color-count">+{{ forloop.index | modulo: 3 | plus: 1 }}</span>
+              </div>
+            {%- endif -%}
           {%- endif -%}
 
-          {%- comment -%} Rating {%- endcomment -%}
-          <div class="boat-product-rating">
-            <div class="boat-rating-stars">★</div>
-            <div class="boat-rating-number">{{ product_rating }}</div>
-          </div>
+          {%- if section.settings.show_ratings -%}
+            <div class="boat-product-rating">
+              <div class="boat-rating-stars">★</div>
+              <div class="boat-rating-number">{{ product_rating }}</div>
+            </div>
+          {%- endif -%}
 
           <div class="boat-product-price">
             <span class="boat-current-price">{{ product.price | money }}</span>
@@ -431,10 +490,14 @@
             {%- endif -%}
           </div>
 
-          <form action="/cart/add" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-            <button type="submit" class="boat-add-to-cart">Add to Cart</button>
-          </form>
+          {%- if section.settings.show_add_to_cart -%}
+            <form action="/cart/add" method="post" enctype="multipart/form-data">
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+              <button type="submit" class="boat-add-to-cart">
+                {{ section.settings.add_to_cart_text | default: 'Add to Cart' }}
+              </button>
+            </form>
+          {%- endif -%}
         </div>
       </div>
     {%- endfor -%}
@@ -445,6 +508,10 @@
 {
   "name": "boAt Product Carousel",
   "settings": [
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
     {
       "type": "text",
       "id": "title",
@@ -476,6 +543,309 @@
       "id": "view_all_text",
       "label": "View all text",
       "default": "View All"
+    },
+    {
+      "type": "header",
+      "content": "Background & Layout"
+    },
+    {
+      "type": "select",
+      "id": "background_style",
+      "label": "Background Style",
+      "options": [
+        { "value": "gradient", "label": "Gradient" },
+        { "value": "solid", "label": "Solid Color" }
+      ],
+      "default": "gradient"
+    },
+    {
+      "type": "color",
+      "id": "background_color_1",
+      "label": "Background Color 1 (Gradient)",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "background_color_2",
+      "label": "Background Color 2 (Gradient)",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "background_color_3",
+      "label": "Background Color 3 (Gradient)",
+      "default": "#2d2d2d"
+    },
+    {
+      "type": "color",
+      "id": "background_color_solid",
+      "label": "Background Color (Solid)",
+      "default": "#121212"
+    },
+    {
+      "type": "select",
+      "id": "gradient_direction",
+      "label": "Gradient Direction",
+      "options": [
+        { "value": "135deg", "label": "Diagonal" },
+        { "value": "90deg", "label": "Vertical" },
+        { "value": "0deg", "label": "Horizontal" }
+      ],
+      "default": "135deg"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_pattern_overlay",
+      "label": "Enable Pattern Overlay",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "pattern_color_1",
+      "label": "Pattern Color 1",
+      "default": "#d9232d"
+    },
+    {
+      "type": "color",
+      "id": "pattern_color_2",
+      "label": "Pattern Color 2",
+      "default": "#00b594"
+    },
+    {
+      "type": "range",
+      "id": "pattern_opacity",
+      "min": 0,
+      "max": 30,
+      "step": 5,
+      "label": "Pattern Opacity",
+      "default": 10,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "title_gradient_enable",
+      "label": "Enable Title Gradient",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "title_gradient_color_1",
+      "label": "Title Gradient Color 1",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_gradient_color_2",
+      "label": "Title Gradient Color 2",
+      "default": "#d9232d"
+    },
+    {
+      "type": "color",
+      "id": "view_all_color",
+      "label": "View All Color",
+      "default": "#d9232d"
+    },
+    {
+      "type": "color",
+      "id": "view_all_hover_color",
+      "label": "View All Hover Color",
+      "default": "#ff4757"
+    },
+    {
+      "type": "header",
+      "content": "Product Cards"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card Background",
+      "default": "rgba(255, 255, 255, 0.95)"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "label": "Card Border Radius",
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_hover_lift",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "label": "Card Hover Lift",
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_hover_scale",
+      "min": 1.0,
+      "max": 1.1,
+      "step": 0.01,
+      "label": "Card Hover Scale",
+      "default": 1.02
+    },
+    {
+      "type": "header",
+      "content": "Product Elements"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badges",
+      "label": "Show Product Badges",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_specs",
+      "label": "Show Product Specs",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_color_swatches",
+      "label": "Show Color Swatches",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_ratings",
+      "label": "Show Ratings",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_add_to_cart",
+      "label": "Show Add to Cart Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "add_to_cart_text",
+      "label": "Add to Cart Button Text",
+      "default": "Add to Cart"
+    },
+    {
+      "type": "header",
+      "content": "Custom Badges"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_custom_badges",
+      "label": "Enable Custom Badges",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "badge_types",
+      "label": "Badge Types (comma-separated)",
+      "default": "new-launch,trending,engraving,extra-off"
+    },
+    {
+      "type": "text",
+      "id": "badge_labels",
+      "label": "Badge Labels (comma-separated)",
+      "default": "New Launch,🔥 Trending,⚡ Engraving Available,💚 EXTRA ₹100 OFF"
+    },
+    {
+      "type": "header",
+      "content": "Custom Specs"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_custom_specs",
+      "label": "Enable Custom Specs",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "product_specs",
+      "label": "Product Specs (comma-separated)",
+      "default": "50 Hours Playback,20 Hours Playback,40 Hours Playback,BT Calling"
+    },
+    {
+      "type": "header",
+      "content": "Grid Layout"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 3,
+      "max": 8,
+      "step": 1,
+      "label": "Columns (Desktop)",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "columns_tablet",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "label": "Columns (Tablet)",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile_large",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "Columns (Mobile Large)",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Columns (Mobile)",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "columns_small_mobile",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "label": "Columns (Small Mobile)",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "label": "Grid Gap (Desktop)",
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_mobile",
+      "min": 8,
+      "max": 25,
+      "step": 1,
+      "label": "Grid Gap (Mobile)",
+      "default": 15,
+      "unit": "px"
     }
   ],
   "presets": [

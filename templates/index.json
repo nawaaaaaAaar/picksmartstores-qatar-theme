@@ -1,130 +1,285 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
+  "name": "boAt Homepage",
   "sections": {
-    "boat_hero": {
+    "boat_hero_main": {
       "type": "boat-hero-section",
       "settings": {
         "title": "BOATHEAD DAYS",
-        "subtitle": "get up to 75% OFF",
+        "subtitle": "UP TO 75% OFF",
         "description": "EXTRA 5% OFF | USE CODE: BOATHEAD",
         "button_1_text": "SHOP NOW",
         "button_1_link": "/collections/all",
         "button_2_text": "VIEW ALL DEALS",
-        "button_2_link": "/collections/all"
+        "button_2_link": "/collections/sale",
+        "background_image": "",
+        "overlay_opacity": 70,
+        "overlay_color_1": "#000000",
+        "overlay_color_2": "#141414",
+        "title_gradient_enable": true,
+        "title_gradient_color_1": "#ffffff",
+        "title_gradient_color_2": "#ff6b6b",
+        "title_gradient_color_3": "#ffffff",
+        "subtitle_color": "#d9232d",
+        "description_color": "#ffffff",
+        "primary_button_color_1": "#d9232d",
+        "primary_button_color_2": "#ff4757",
+        "secondary_button_border_color": "#00b594",
+        "enable_gradient_effects": true
       }
     },
-    "big_deals": {
+    "boat_products_new_launches": {
       "type": "boat-product-carousel",
       "settings": {
-        "title": "Big Deals",
+        "title": "NEW LAUNCHES",
         "collection": "",
         "products_to_show": 6,
         "show_view_all": true,
-        "view_all_text": "View All"
+        "view_all_text": "View All",
+        "background_style": "gradient",
+        "background_color_1": "#0a0a0a",
+        "background_color_2": "#1a1a1a",
+        "background_color_3": "#2d2d2d",
+        "enable_pattern_overlay": true,
+        "pattern_color_1": "#d9232d",
+        "pattern_color_2": "#00b594",
+        "title_color": "#ffffff",
+        "show_badges": true,
+        "show_specs": true,
+        "show_color_swatches": true,
+        "show_ratings": true,
+        "show_add_to_cart": true,
+        "columns_desktop": 6,
+        "columns_tablet": 4,
+        "columns_mobile": 2
       }
     },
-    "promo_banner_1": {
+    "boat_promo_mid": {
       "type": "boat-promotional-banner",
       "settings": {
-        "title": "75% OFF",
-        "subtitle": "boAthead DAYS SALE",
-        "description": "Extra 5% off on all your favorite boat products",
-        "button_text": "SHOP COLLECTION",
-        "button_link": "/collections/all",
-        "promo_code": "Use Code: BOATHEAD"
+        "title": "MEGA SALE",
+        "subtitle": "LIMITED TIME OFFER",
+        "description": "Get the best deals on premium audio products",
+        "button_text": "GRAB NOW",
+        "button_link": "/collections/sale",
+        "promo_code": "Use Code: MEGA75",
+        "background_style": "gradient",
+        "background_color_1": "#1a1a1a",
+        "background_color_2": "#2d2d2d",
+        "background_color_3": "#121212",
+        "enable_pattern_effects": true,
+        "pattern_color_1": "#d9232d",
+        "pattern_color_2": "#00b594",
+        "title_gradient_enable": true,
+        "title_gradient_color_1": "#d9232d",
+        "title_gradient_color_2": "#ff4757",
+        "title_gradient_color_3": "#d9232d",
+        "button_style": "gradient",
+        "button_color_1": "#d9232d",
+        "button_color_2": "#ff4757",
+        "enable_button_effects": true,
+        "enable_promo_code_animation": false
       }
     },
-    "top_tws_offers": {
+    "boat_products_trending": {
       "type": "boat-product-carousel",
       "settings": {
-        "title": "Top TWS Offers",
+        "title": "TRENDING NOW",
         "collection": "",
         "products_to_show": 6,
         "show_view_all": true,
-        "view_all_text": "View All"
+        "view_all_text": "Explore Trending",
+        "background_style": "gradient",
+        "background_color_1": "#0a0a0a",
+        "background_color_2": "#1a1a1a",
+        "background_color_3": "#2d2d2d",
+        "enable_pattern_overlay": true,
+        "pattern_color_1": "#ff6b35",
+        "pattern_color_2": "#8b5cf6",
+        "title_color": "#ffffff",
+        "title_gradient_enable": true,
+        "title_gradient_color_1": "#ffffff",
+        "title_gradient_color_2": "#ff6b35",
+        "show_badges": true,
+        "show_specs": true,
+        "show_color_swatches": true,
+        "show_ratings": true,
+        "show_add_to_cart": true,
+        "columns_desktop": 6,
+        "columns_tablet": 4,
+        "columns_mobile": 2
       }
     },
-    "choose_your_offer": {
+    "boat_light_carousel": {
       "type": "boat-light-carousel",
       "settings": {
-        "title": "Choose Your Offer",
+        "title": "CUSTOMER FAVORITES",
         "collection": "",
-        "products_to_show": 5,
+        "products_to_show": 8,
         "show_view_all": true,
-        "view_all_text": "View All"
+        "view_all_text": "See All Favorites"
       }
     },
-    "promo_banner_2": {
-      "type": "boat-promotional-banner",
-      "settings": {
-        "title": "75% OFF",
-        "subtitle": "Limited Time Offer",
-        "description": "Don't miss out on these incredible deals",
-        "button_text": "SHOP NOW",
-        "button_link": "/collections/all",
-        "promo_code": "Code: BOAT75"
-      }
-    },
-    "unbelievable_prices": {
-      "type": "boat-product-carousel",
-      "settings": {
-        "title": "Unbelievable at best Prices",
-        "collection": "",
-        "products_to_show": 6,
-        "show_view_all": true,
-        "view_all_text": "View All"
-      }
-    },
-    "promo_banner_3": {
+    "boat_promo_secondary": {
       "type": "boat-promotional-banner",
       "settings": {
         "title": "EXCLUSIVE DEALS",
-        "subtitle": "Best Prices Guaranteed",
-        "description": "Get the latest boat products at unbeatable prices",
-        "button_text": "EXPLORE DEALS",
-        "button_link": "/collections/all",
-        "promo_code": "Code: EXCLUSIVE"
+        "subtitle": "BOATHEAD MEMBERS ONLY",
+        "description": "Join the boAthead community and unlock exclusive benefits",
+        "button_text": "JOIN NOW",
+        "button_link": "/account/register",
+        "promo_code": "Member Code: EXCLUSIVE",
+        "background_style": "gradient",
+        "background_color_1": "#2d1b2e",
+        "background_color_2": "#1a237e",
+        "background_color_3": "#0d1421",
+        "enable_pattern_effects": true,
+        "pattern_color_1": "#8b5cf6",
+        "pattern_color_2": "#00b594",
+        "title_gradient_enable": true,
+        "title_gradient_color_1": "#8b5cf6",
+        "title_gradient_color_2": "#a855f7",
+        "title_gradient_color_3": "#8b5cf6",
+        "button_style": "gradient",
+        "button_color_1": "#8b5cf6",
+        "button_color_2": "#a855f7",
+        "promo_code_color": "#8b5cf6",
+        "promo_code_border_color": "#8b5cf6"
       }
     },
-    "home_audio_steals": {
+    "boat_products_bestsellers": {
       "type": "boat-product-carousel",
       "settings": {
-        "title": "Exclusive Home Audio Steals",
+        "title": "BESTSELLERS",
         "collection": "",
         "products_to_show": 6,
         "show_view_all": true,
-        "view_all_text": "View All"
+        "view_all_text": "Shop Bestsellers",
+        "background_style": "gradient",
+        "background_color_1": "#0a0a0a",
+        "background_color_2": "#1a1a1a",
+        "background_color_3": "#2d2d2d",
+        "enable_pattern_overlay": true,
+        "pattern_color_1": "#10b981",
+        "pattern_color_2": "#d9232d",
+        "title_color": "#ffffff",
+        "title_gradient_enable": true,
+        "title_gradient_color_1": "#ffffff",
+        "title_gradient_color_2": "#10b981",
+        "show_badges": true,
+        "show_specs": true,
+        "show_color_swatches": true,
+        "show_ratings": true,
+        "show_add_to_cart": true,
+        "columns_desktop": 6,
+        "columns_tablet": 4,
+        "columns_mobile": 2
       }
     },
-    "accessories_deals": {
-      "type": "boat-product-carousel",
+    "newsletter_signup": {
+      "type": "newsletter",
       "settings": {
-        "title": "Best Deals on Accessories",
-        "collection": "",
-        "products_to_show": 6,
-        "show_view_all": true,
-        "view_all_text": "View All"
+        "color_scheme": "background-2",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "rich_text_brand": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "DO WHAT FLOATS YOUR BOAT",
+            "heading_size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>At boAt, we believe in living life king-size. Our premium audio products are crafted for the young, ambitious, and fearless. Join the boAthead community and experience sound like never before.</p>"
+          }
+        }
+      },
+      "block_order": ["heading", "text"],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "background-1",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "trust_badges": {
+      "type": "multicolumn",
+      "blocks": {
+        "warranty": {
+          "type": "column",
+          "settings": {
+            "title": "1 Year Warranty",
+            "text": "<p>Comprehensive warranty on all products</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "shipping": {
+          "type": "column",
+          "settings": {
+            "title": "Free Shipping",
+            "text": "<p>Free delivery on orders above ₹999</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "support": {
+          "type": "column",
+          "settings": {
+            "title": "24/7 Support",
+            "text": "<p>Round-the-clock customer assistance</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "returns": {
+          "type": "column",
+          "settings": {
+            "title": "Easy Returns",
+            "text": "<p>Hassle-free 7-day return policy</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": ["warranty", "shipping", "support", "returns"],
+      "settings": {
+        "title": "Why Choose boAt?",
+        "heading_size": "h1",
+        "image_width": "third",
+        "image_ratio": "adapt",
+        "columns_desktop": 4,
+        "column_alignment": "center",
+        "background_style": "primary",
+        "button_label": "",
+        "button_link": "",
+        "color_scheme": "background-1",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     }
   },
   "order": [
-    "boat_hero",
-    "big_deals",
-    "promo_banner_1",
-    "top_tws_offers",
-    "choose_your_offer",
-    "promo_banner_2",
-    "unbelievable_prices",
-    "promo_banner_3",
-    "home_audio_steals",
-    "accessories_deals"
+    "boat_hero_main",
+    "boat_products_new_launches", 
+    "boat_promo_mid",
+    "boat_products_trending",
+    "boat_light_carousel",
+    "boat_promo_secondary",
+    "boat_products_bestsellers",
+    "newsletter_signup",
+    "rich_text_brand",
+    "trust_badges"
   ]
 }

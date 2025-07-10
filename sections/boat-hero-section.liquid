@@ -2,113 +2,188 @@
 
 {%- style -%}
   .boat-hero-section {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(20, 20, 20, 0.8) 50%, rgba(0, 0, 0, 0.9) 100%),
-      url('https://user-gen-media-assets.s3.amazonaws.com/gpt4o_images/fd7a7665-7b62-4e1a-bfde-83246ca1de40.png');
+    background:
+      {%- if section.settings.overlay_opacity > 0 -%}
+        linear-gradient(
+          {{ section.settings.overlay_direction | default: '135deg' }},
+          rgba({{ section.settings.overlay_color_1.red }}, {{ section.settings.overlay_color_1.green }}, {{ section.settings.overlay_color_1.blue }}, {{ section.settings.overlay_opacity | divided_by: 100.0 }}) 0%,
+          rgba({{ section.settings.overlay_color_2.red }}, {{ section.settings.overlay_color_2.green }}, {{ section.settings.overlay_color_2.blue }}, {{ section.settings.overlay_opacity | divided_by: 100.0 }}) 50%,
+          rgba({{ section.settings.overlay_color_1.red }}, {{ section.settings.overlay_color_1.green }}, {{ section.settings.overlay_color_1.blue }}, {{ section.settings.overlay_opacity | divided_by: 100.0 }}) 100%
+        )
+        {%- if section.settings.background_image != blank -%},{%- endif -%}
+      {%- endif -%}
+      {%- if section.settings.background_image != blank -%}
+        url('{{ section.settings.background_image | image_url: width: 1920 }}')
+      {%- else -%}
+        url('https://user-gen-media-assets.s3.amazonaws.com/gpt4o_images/fd7a7665-7b62-4e1a-bfde-83246ca1de40.png')
+      {%- endif -%};
     background-size: cover;
-    background-position: center;
-    min-height: 600px;
+    background-position: {{ section.settings.background_position | default: 'center' }};
+    min-height: {{ section.settings.section_height | default: 600 }}px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: {{ section.settings.content_alignment_vertical | default: 'center' }};
+    justify-content: {{ section.settings.content_alignment_horizontal | default: 'center' }};
     position: relative;
     overflow: hidden;
+    margin: {{ section.settings.section_margin_top | default: 0 }}px 0 {{ section.settings.section_margin_bottom | default: 0 }}px 0;
+  }
+
+  .boat-hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      {%- if section.settings.enable_gradient_effects -%}
+        radial-gradient(circle at 30% 50%, rgba(217, 35, 45, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 70% 30%, rgba(0, 181, 148, 0.1) 0%, transparent 50%)
+      {%- endif -%};
+    pointer-events: none;
+    z-index: 1;
   }
 
   .boat-hero-content {
-    text-align: center;
-    color: white;
+    text-align: {{ section.settings.text_alignment | default: 'center' }};
+    color: {{ section.settings.text_color | default: '#ffffff' }};
     z-index: 2;
-    max-width: 800px;
+    max-width: {{ section.settings.content_max_width | default: 800 }}px;
     padding: 0 2rem;
+    position: relative;
   }
 
   .boat-hero-title {
-    font-size: clamp(3rem, 8vw, 6rem);
-    font-weight: 900;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    background: linear-gradient(45deg, #ffffff 0%, #ff6b6b 50%, #ffffff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: clamp({{ section.settings.title_size_mobile | default: 3 }}rem, 8vw, {{ section.settings.title_size_desktop | default: 6 }}rem);
+    font-weight: {{ section.settings.title_font_weight | default: 900 }};
+    margin-bottom: {{ section.settings.title_margin_bottom | default: 1 }}rem;
+    text-transform: {{ section.settings.title_text_transform | default: 'uppercase' }};
+    letter-spacing: {{ section.settings.title_letter_spacing | default: 0.02 }}em;
+    {%- if section.settings.title_gradient_enable -%}
+      background: linear-gradient(45deg, {{ section.settings.title_gradient_color_1 | default: '#ffffff' }} 0%, {{ section.settings.title_gradient_color_2 | default: '#ff6b6b' }} 50%, {{ section.settings.title_gradient_color_3 | default: '#ffffff' }} 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    {%- else -%}
+      color: {{ section.settings.title_color | default: '#ffffff' }};
+    {%- endif -%}
+    line-height: {{ section.settings.title_line_height | default: 1.1 }};
   }
 
   .boat-hero-subtitle {
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: #d9232d;
+    font-size: clamp({{ section.settings.subtitle_size_mobile | default: 1.5 }}rem, 4vw, {{ section.settings.subtitle_size_desktop | default: 2.5 }}rem);
+    font-weight: {{ section.settings.subtitle_font_weight | default: 700 }};
+    margin-bottom: {{ section.settings.subtitle_margin_bottom | default: 1 }}rem;
+    color: {{ section.settings.subtitle_color | default: '#d9232d' }};
+    text-transform: {{ section.settings.subtitle_text_transform | default: 'none' }};
+    letter-spacing: {{ section.settings.subtitle_letter_spacing | default: 0 }}em;
   }
 
   .boat-hero-description {
-    font-size: clamp(1rem, 2vw, 1.25rem);
-    font-weight: 600;
-    margin-bottom: 2rem;
-    color: #ffffff;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    font-size: clamp({{ section.settings.description_size_mobile | default: 1 }}rem, 2vw, {{ section.settings.description_size_desktop | default: 1.25 }}rem);
+    font-weight: {{ section.settings.description_font_weight | default: 600 }};
+    margin-bottom: {{ section.settings.description_margin_bottom | default: 2 }}rem;
+    color: {{ section.settings.description_color | default: '#ffffff' }};
+    text-transform: {{ section.settings.description_text_transform | default: 'uppercase' }};
+    letter-spacing: {{ section.settings.description_letter_spacing | default: 0.05 }}em;
+    max-width: {{ section.settings.description_max_width | default: 600 }}px;
+    {%- if section.settings.text_alignment == 'center' -%}margin-left: auto; margin-right: auto;{%- endif -%}
   }
 
   .boat-hero-buttons {
     display: flex;
-    gap: 1rem;
-    justify-content: center;
+    gap: {{ section.settings.button_gap | default: 1 }}rem;
+    justify-content: {{ section.settings.button_alignment | default: 'center' }};
     flex-wrap: wrap;
+    margin-bottom: {{ section.settings.buttons_margin_bottom | default: 0 }}rem;
   }
 
   .boat-btn {
-    padding: 15px 30px;
-    font-size: 16px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    padding: {{ section.settings.button_padding_y | default: 15 }}px {{ section.settings.button_padding_x | default: 30 }}px;
+    font-size: {{ section.settings.button_font_size | default: 16 }}px;
+    font-weight: {{ section.settings.button_font_weight | default: 700 }};
+    text-transform: {{ section.settings.button_text_transform | default: 'uppercase' }};
+    letter-spacing: {{ section.settings.button_letter_spacing | default: 0.5 }}px;
     border: none;
-    border-radius: 8px;
+    border-radius: {{ section.settings.button_border_radius | default: 8 }}px;
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
     display: inline-block;
-    min-width: 150px;
+    min-width: {{ section.settings.button_min_width | default: 150 }}px;
   }
 
   .boat-btn-primary {
-    background: linear-gradient(45deg, #d9232d, #ff4757);
-    color: white;
+    background: linear-gradient(45deg, {{ section.settings.primary_button_color_1 | default: '#d9232d' }}, {{ section.settings.primary_button_color_2 | default: '#ff4757' }});
+    color: {{ section.settings.primary_button_text_color | default: '#ffffff' }};
+    {%- if section.settings.primary_button_border_enable -%}
+      border: {{ section.settings.primary_button_border_width | default: 2 }}px solid {{ section.settings.primary_button_border_color | default: 'transparent' }};
+    {%- endif -%}
   }
 
   .boat-btn-primary:hover {
-    background: linear-gradient(45deg, #b71c1c, #d9232d);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(217, 35, 45, 0.3);
+    background: linear-gradient(45deg, {{ section.settings.primary_button_hover_color_1 | default: '#b71c1c' }}, {{ section.settings.primary_button_hover_color_2 | default: '#d9232d' }});
+    transform: translateY(-{{ section.settings.button_hover_lift | default: 2 }}px);
+    box-shadow: 0 {{ section.settings.button_hover_shadow_y | default: 8 }}px {{ section.settings.button_hover_shadow_blur | default: 25 }}px rgba(217, 35, 45, {{ section.settings.button_hover_shadow_opacity | default: 30 | divided_by: 100.0 }});
   }
 
   .boat-btn-secondary {
-    background: transparent;
-    color: white;
-    border: 2px solid #00b594;
+    background: {{ section.settings.secondary_button_bg | default: 'transparent' }};
+    color: {{ section.settings.secondary_button_text_color | default: '#ffffff' }};
+    border: {{ section.settings.secondary_button_border_width | default: 2 }}px solid {{ section.settings.secondary_button_border_color | default: '#00b594' }};
   }
 
   .boat-btn-secondary:hover {
-    background: #00b594;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 181, 148, 0.3);
+    background: {{ section.settings.secondary_button_hover_bg | default: '#00b594' }};
+    color: {{ section.settings.secondary_button_hover_text_color | default: '#ffffff' }};
+    transform: translateY(-{{ section.settings.button_hover_lift | default: 2 }}px);
+    box-shadow: 0 {{ section.settings.button_hover_shadow_y | default: 8 }}px {{ section.settings.button_hover_shadow_blur | default: 25 }}px rgba(0, 181, 148, {{ section.settings.button_hover_shadow_opacity | default: 30 | divided_by: 100.0 }});
+  }
+
+  /* Additional Content Areas */
+  .boat-hero-features {
+    display: flex;
+    justify-content: {{ section.settings.features_alignment | default: 'center' }};
+    gap: {{ section.settings.features_gap | default: 2 }}rem;
+    margin-top: {{ section.settings.features_margin_top | default: 3 }}rem;
+    flex-wrap: wrap;
+  }
+
+  .boat-hero-feature {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: {{ section.settings.features_color | default: '#ffffff' }};
+    font-size: {{ section.settings.features_font_size | default: 14 }}px;
+    font-weight: {{ section.settings.features_font_weight | default: 600 }};
+  }
+
+  .boat-hero-feature-icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
   }
 
   @media screen and (max-width: 749px) {
     .boat-hero-section {
-      min-height: 500px;
+      min-height: {{ section.settings.section_height_mobile | default: 500 }}px;
       padding: 2rem 0;
     }
 
     .boat-hero-buttons {
-      flex-direction: column;
+      flex-direction: {{ section.settings.button_layout_mobile | default: 'column' }};
       align-items: center;
     }
 
     .boat-btn {
-      width: 100%;
-      max-width: 250px;
+      width: {{ section.settings.button_width_mobile | default: 100 }}%;
+      max-width: {{ section.settings.button_max_width_mobile | default: 250 }}px;
+    }
+
+    .boat-hero-features {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
     }
   }
 {%- endstyle -%}
@@ -140,6 +215,22 @@
         </a>
       {%- endif -%}
     </div>
+
+    {%- if section.settings.show_features -%}
+      <div class="boat-hero-features">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'feature' -%}
+              <div class="boat-hero-feature">
+                {%- if block.settings.icon != blank -%}
+                  <div class="boat-hero-feature-icon">{{ block.settings.icon }}</div>
+                {%- endif -%}
+                <span>{{ block.settings.text }}</span>
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
   </div>
 </div>
 
@@ -147,6 +238,10 @@
 {
   "name": "boAt Hero Section",
   "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
     {
       "type": "text",
       "id": "title",
@@ -160,10 +255,14 @@
       "default": "get up to 75% OFF"
     },
     {
-      "type": "text",
+      "type": "textarea",
       "id": "description",
       "label": "Description",
       "default": "EXTRA 5% OFF | USE CODE: BOATHEAD"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
     },
     {
       "type": "text",
@@ -186,6 +285,218 @@
       "type": "url",
       "id": "button_2_link",
       "label": "Secondary Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Background & Layout"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "select",
+      "id": "background_position",
+      "label": "Background Position",
+      "options": [
+        { "value": "center", "label": "Center" },
+        { "value": "top", "label": "Top" },
+        { "value": "bottom", "label": "Bottom" },
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "min": 400,
+      "max": 800,
+      "step": 50,
+      "label": "Section Height (Desktop)",
+      "default": 600,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_height_mobile",
+      "min": 300,
+      "max": 600,
+      "step": 25,
+      "label": "Section Height (Mobile)",
+      "default": 500,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Overlay Settings"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color_1",
+      "label": "Overlay Color 1",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color_2",
+      "label": "Overlay Color 2",
+      "default": "#141414"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "label": "Overlay Opacity",
+      "default": 70,
+      "unit": "%"
+    },
+    {
+      "type": "select",
+      "id": "overlay_direction",
+      "label": "Overlay Direction",
+      "options": [
+        { "value": "135deg", "label": "Diagonal (Default)" },
+        { "value": "90deg", "label": "Vertical" },
+        { "value": "0deg", "label": "Horizontal" },
+        { "value": "45deg", "label": "Diagonal Alt" }
+      ],
+      "default": "135deg"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_gradient_effects",
+      "label": "Enable Gradient Effects",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "checkbox",
+      "id": "title_gradient_enable",
+      "label": "Enable Title Gradient",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "title_gradient_color_1",
+      "label": "Title Gradient Color 1",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_gradient_color_2",
+      "label": "Title Gradient Color 2",
+      "default": "#ff6b6b"
+    },
+    {
+      "type": "color",
+      "id": "title_gradient_color_3",
+      "label": "Title Gradient Color 3",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color (if gradient disabled)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle Color",
+      "default": "#d9232d"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "General Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Button Styling"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_color_1",
+      "label": "Primary Button Color 1",
+      "default": "#d9232d"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_color_2",
+      "label": "Primary Button Color 2",
+      "default": "#ff4757"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_text_color",
+      "label": "Primary Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_border_color",
+      "label": "Secondary Button Border Color",
+      "default": "#00b594"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_text_color",
+      "label": "Secondary Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_hover_bg",
+      "label": "Secondary Button Hover Background",
+      "default": "#00b594"
+    },
+    {
+      "type": "header",
+      "content": "Features"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_features",
+      "label": "Show Features",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "features_color",
+      "label": "Features Text Color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Feature Text"
+        },
+        {
+          "type": "html",
+          "id": "icon",
+          "label": "Icon SVG (Optional)"
+        }
+      ]
     }
   ],
   "presets": [

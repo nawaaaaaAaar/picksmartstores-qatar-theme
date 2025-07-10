@@ -434,7 +434,7 @@
             {%- endif -%}
           </div>
 
-          <form action="/cart/add" method="post" enctype="multipart/form-data">
+          <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
             <button type="submit" class="boat-light-add-cart">Add to Cart</button>
           </form>

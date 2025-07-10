@@ -1,104 +1,272 @@
 {%- style -%}
   .boat-promo-banner {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 25%, #121212 50%, #2d2d2d 75%, #1a1a1a 100%);
-    padding: 60px 20px;
-    text-align: center;
+    background:
+      {%- if section.settings.background_style == 'gradient' -%}
+        linear-gradient({{ section.settings.gradient_direction | default: '135deg' }}, {{ section.settings.background_color_1 | default: '#1a1a1a' }} 0%, {{ section.settings.background_color_2 | default: '#2d2d2d' }} 25%, {{ section.settings.background_color_3 | default: '#121212' }} 50%, {{ section.settings.background_color_2 | default: '#2d2d2d' }} 75%, {{ section.settings.background_color_1 | default: '#1a1a1a' }} 100%)
+      {%- elsif section.settings.background_style == 'solid' -%}
+        {{ section.settings.background_color_solid | default: '#121212' }}
+      {%- elsif section.settings.background_style == 'image' and section.settings.background_image != blank -%}
+        {%- if section.settings.overlay_opacity > 0 -%}
+          linear-gradient(rgba({{ section.settings.overlay_color.red }}, {{ section.settings.overlay_color.green }}, {{ section.settings.overlay_color.blue }}, {{ section.settings.overlay_opacity | divided_by: 100.0 }}), rgba({{ section.settings.overlay_color.red }}, {{ section.settings.overlay_color.green }}, {{ section.settings.overlay_color.blue }}, {{ section.settings.overlay_opacity | divided_by: 100.0 }})),
+        {%- endif -%}
+        url('{{ section.settings.background_image | image_url: width: 1920 }}')
+      {%- else -%}
+        linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 25%, #121212 50%, #2d2d2d 75%, #1a1a1a 100%)
+      {%- endif -%};
+
+    {%- if section.settings.background_style == 'image' -%}
+      background-size: {{ section.settings.background_size | default: 'cover' }};
+      background-position: {{ section.settings.background_position | default: 'center' }};
+      background-repeat: no-repeat;
+    {%- endif -%}
+
+    padding: {{ section.settings.section_padding_y | default: 60 }}px {{ section.settings.section_padding_x | default: 20 }}px;
+    text-align: {{ section.settings.text_alignment | default: 'center' }};
     position: relative;
     overflow: hidden;
-    margin: 20px 0;
+    margin: {{ section.settings.section_margin_y | default: 20 }}px 0;
+    min-height: {{ section.settings.min_height | default: 'auto' }};
+    display: flex;
+    align-items: {{ section.settings.vertical_alignment | default: 'center' }};
+    justify-content: {{ section.settings.horizontal_alignment | default: 'center' }};
   }
 
-  .boat-promo-banner::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 30% 50%, rgba(217, 35, 45, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 70% 30%, rgba(0, 181, 148, 0.1) 0%, transparent 50%);
-    pointer-events: none;
-  }
+  {%- if section.settings.enable_pattern_effects -%}
+    .boat-promo-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(circle at {{ section.settings.pattern_1_position | default: '30% 50%' }}, rgba({{ section.settings.pattern_color_1.red }}, {{ section.settings.pattern_color_1.green }}, {{ section.settings.pattern_color_1.blue }}, {{ section.settings.pattern_opacity | default: 10 | divided_by: 100.0 }}) 0%, transparent {{ section.settings.pattern_size | default: 50 }}%),
+        radial-gradient(circle at {{ section.settings.pattern_2_position | default: '70% 30%' }}, rgba({{ section.settings.pattern_color_2.red }}, {{ section.settings.pattern_color_2.green }}, {{ section.settings.pattern_color_2.blue }}, {{ section.settings.pattern_opacity | default: 10 | divided_by: 100.0 }}) 0%, transparent {{ section.settings.pattern_size | default: 50 }}%);
+      pointer-events: none;
+      z-index: 1;
+      {%- if section.settings.enable_pattern_animation -%}
+        animation: patternFloat {{ section.settings.pattern_animation_speed | default: 8 }}s ease-in-out infinite;
+      {%- endif -%}
+    }
+  {%- endif -%}
 
   .boat-promo-content {
     position: relative;
     z-index: 2;
-    max-width: 800px;
+    max-width: {{ section.settings.content_max_width | default: 800 }}px;
     margin: 0 auto;
+    width: 100%;
   }
 
   .boat-promo-title {
-    font-size: clamp(2rem, 5vw, 4rem);
-    font-weight: 900;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    background: linear-gradient(45deg, #d9232d 0%, #ff4757 50%, #d9232d 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: clamp({{ section.settings.title_size_mobile | default: 2 }}rem, 5vw, {{ section.settings.title_size_desktop | default: 4 }}rem);
+    font-weight: {{ section.settings.title_font_weight | default: 900 }};
+    margin-bottom: {{ section.settings.title_margin_bottom | default: 20 }}px;
+    text-transform: {{ section.settings.title_text_transform | default: 'uppercase' }};
+    letter-spacing: {{ section.settings.title_letter_spacing | default: 0.02 }}em;
+    line-height: {{ section.settings.title_line_height | default: 1.1 }};
+
+    {%- if section.settings.title_gradient_enable -%}
+      background: linear-gradient({{ section.settings.title_gradient_direction | default: '45deg' }}, {{ section.settings.title_gradient_color_1 | default: '#d9232d' }} 0%, {{ section.settings.title_gradient_color_2 | default: '#ff4757' }} 50%, {{ section.settings.title_gradient_color_3 | default: '#d9232d' }} 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    {%- else -%}
+      color: {{ section.settings.title_color | default: '#ffffff' }};
+    {%- endif -%}
+
+    {%- if section.settings.enable_title_animation -%}
+      animation: titlePulse {{ section.settings.title_animation_speed | default: 2 }}s ease-in-out infinite;
+    {%- endif -%}
   }
 
   .boat-promo-subtitle {
-    font-size: clamp(1rem, 2.5vw, 1.5rem);
-    font-weight: 600;
-    color: white;
-    margin-bottom: 30px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    font-size: clamp({{ section.settings.subtitle_size_mobile | default: 1 }}rem, 2.5vw, {{ section.settings.subtitle_size_desktop | default: 1.5 }}rem);
+    font-weight: {{ section.settings.subtitle_font_weight | default: 600 }};
+    color: {{ section.settings.subtitle_color | default: '#ffffff' }};
+    margin-bottom: {{ section.settings.subtitle_margin_bottom | default: 30 }}px;
+    text-transform: {{ section.settings.subtitle_text_transform | default: 'uppercase' }};
+    letter-spacing: {{ section.settings.subtitle_letter_spacing | default: 0.05 }}em;
+    line-height: {{ section.settings.subtitle_line_height | default: 1.3 }};
   }
 
   .boat-promo-description {
-    font-size: clamp(0.9rem, 2vw, 1.1rem);
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 30px;
-    line-height: 1.5;
+    font-size: clamp({{ section.settings.description_size_mobile | default: 0.9 }}rem, 2vw, {{ section.settings.description_size_desktop | default: 1.1 }}rem);
+    color: {{ section.settings.description_color | default: 'rgba(255, 255, 255, 0.8)' }};
+    margin-bottom: {{ section.settings.description_margin_bottom | default: 30 }}px;
+    line-height: {{ section.settings.description_line_height | default: 1.5 }};
+    font-weight: {{ section.settings.description_font_weight | default: 400 }};
+    max-width: {{ section.settings.description_max_width | default: 600 }}px;
+    {%- if section.settings.text_alignment == 'center' -%}margin-left: auto; margin-right: auto;{%- endif -%}
   }
 
   .boat-promo-button {
     display: inline-block;
-    background: linear-gradient(45deg, #d9232d, #ff4757);
-    color: white;
-    padding: 15px 40px;
+    background:
+      {%- if section.settings.button_style == 'gradient' -%}
+        linear-gradient({{ section.settings.button_gradient_direction | default: '45deg' }}, {{ section.settings.button_color_1 | default: '#d9232d' }}, {{ section.settings.button_color_2 | default: '#ff4757' }})
+      {%- else -%}
+        {{ section.settings.button_background | default: '#d9232d' }}
+      {%- endif -%};
+    color: {{ section.settings.button_text_color | default: '#ffffff' }};
+    padding: {{ section.settings.button_padding_y | default: 15 }}px {{ section.settings.button_padding_x | default: 40 }}px;
     text-decoration: none;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    border: none;
+    font-weight: {{ section.settings.button_font_weight | default: 700 }};
+    text-transform: {{ section.settings.button_text_transform | default: 'uppercase' }};
+    letter-spacing: {{ section.settings.button_letter_spacing | default: 0.5 }}px;
+    border-radius: {{ section.settings.button_border_radius | default: 8 }}px;
+    transition: all {{ section.settings.button_transition_duration | default: 0.3 }}s ease;
+    border: {{ section.settings.button_border_width | default: 0 }}px solid {{ section.settings.button_border_color | default: 'transparent' }};
     cursor: pointer;
-    font-size: 16px;
+    font-size: {{ section.settings.button_font_size | default: 16 }}px;
+    position: relative;
+    overflow: hidden;
+    {%- if section.settings.button_shadow_enable -%}
+      box-shadow: {{ section.settings.button_shadow | default: '0 4px 15px rgba(217, 35, 45, 0.3)' }};
+    {%- endif -%}
   }
 
+  {%- if section.settings.enable_button_effects -%}
+    .boat-promo-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left {{ section.settings.button_effect_speed | default: 0.5 }}s ease;
+    }
+
+    .boat-promo-button:hover::before {
+      left: 100%;
+    }
+  {%- endif -%}
+
   .boat-promo-button:hover {
-    background: linear-gradient(45deg, #b71c1c, #d9232d);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(217, 35, 45, 0.4);
+    background:
+      {%- if section.settings.button_style == 'gradient' -%}
+        linear-gradient({{ section.settings.button_gradient_direction | default: '45deg' }}, {{ section.settings.button_hover_color_1 | default: '#b71c1c' }}, {{ section.settings.button_hover_color_2 | default: '#d9232d' }})
+      {%- else -%}
+        {{ section.settings.button_hover_background | default: '#b71c1c' }}
+      {%- endif -%};
+    transform: translateY(-{{ section.settings.button_hover_lift | default: 3 }}px) scale({{ section.settings.button_hover_scale | default: 1.05 }});
+    {%- if section.settings.button_shadow_enable -%}
+      box-shadow: {{ section.settings.button_hover_shadow | default: '0 10px 30px rgba(217, 35, 45, 0.4)' }};
+    {%- endif -%}
+    color: {{ section.settings.button_hover_text_color | default: '#ffffff' }};
   }
 
   .boat-promo-code {
     display: inline-block;
-    background: rgba(255, 255, 255, 0.1);
-    color: #00b594;
-    padding: 8px 16px;
-    border: 2px dashed #00b594;
-    border-radius: 6px;
-    font-family: 'Courier New', monospace;
-    font-weight: 700;
-    margin-top: 20px;
-    font-size: 14px;
-    letter-spacing: 1px;
+    background: {{ section.settings.promo_code_background | default: 'rgba(255, 255, 255, 0.1)' }};
+    color: {{ section.settings.promo_code_color | default: '#00b594' }};
+    padding: {{ section.settings.promo_code_padding_y | default: 8 }}px {{ section.settings.promo_code_padding_x | default: 16 }}px;
+    border: {{ section.settings.promo_code_border_width | default: 2 }}px {{ section.settings.promo_code_border_style | default: 'dashed' }} {{ section.settings.promo_code_border_color | default: '#00b594' }};
+    border-radius: {{ section.settings.promo_code_border_radius | default: 6 }}px;
+    font-family: {{ section.settings.promo_code_font_family | default: "'Courier New', monospace" }};
+    font-weight: {{ section.settings.promo_code_font_weight | default: 700 }};
+    margin-top: {{ section.settings.promo_code_margin_top | default: 20 }}px;
+    font-size: {{ section.settings.promo_code_font_size | default: 14 }}px;
+    letter-spacing: {{ section.settings.promo_code_letter_spacing | default: 1 }}px;
+    text-transform: {{ section.settings.promo_code_text_transform | default: 'uppercase' }};
+    {%- if section.settings.enable_promo_code_animation -%}
+      animation: codeGlow {{ section.settings.promo_code_animation_speed | default: 2 }}s ease-in-out infinite alternate;
+    {%- endif -%}
   }
 
+  /* Additional Content Elements */
+  .boat-promo-features {
+    display: flex;
+    justify-content: {{ section.settings.features_alignment | default: 'center' }};
+    gap: {{ section.settings.features_gap | default: 2 }}rem;
+    margin-top: {{ section.settings.features_margin_top | default: 2 }}rem;
+    flex-wrap: wrap;
+  }
+
+  .boat-promo-feature {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: {{ section.settings.features_color | default: '#ffffff' }};
+    font-size: {{ section.settings.features_font_size | default: 14 }}px;
+    font-weight: {{ section.settings.features_font_weight | default: 600 }};
+    opacity: {{ section.settings.features_opacity | default: 90 | divided_by: 100.0 }};
+  }
+
+  .boat-promo-feature-icon {
+    width: {{ section.settings.feature_icon_size | default: 18 }}px;
+    height: {{ section.settings.feature_icon_size | default: 18 }}px;
+    fill: currentColor;
+  }
+
+  /* Animations */
+  {%- if section.settings.enable_title_animation -%}
+    @keyframes titlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale({{ section.settings.title_pulse_scale | default: 1.02 }}); }
+    }
+  {%- endif -%}
+
+  {%- if section.settings.enable_pattern_animation -%}
+    @keyframes patternFloat {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(10px, -5px) rotate(1deg); }
+      66% { transform: translate(-5px, 10px) rotate(-1deg); }
+    }
+  {%- endif -%}
+
+  {%- if section.settings.enable_promo_code_animation -%}
+    @keyframes codeGlow {
+      0% { box-shadow: 0 0 5px {{ section.settings.promo_code_border_color | default: '#00b594' }}; }
+      100% { box-shadow: 0 0 20px {{ section.settings.promo_code_border_color | default: '#00b594' }}, 0 0 30px {{ section.settings.promo_code_border_color | default: '#00b594' }}; }
+    }
+  {%- endif -%}
+
+  /* Responsive Design */
   @media screen and (max-width: 749px) {
     .boat-promo-banner {
-      padding: 40px 15px;
+      padding: {{ section.settings.section_padding_mobile_y | default: 40 }}px {{ section.settings.section_padding_mobile_x | default: 15 }}px;
+      margin: {{ section.settings.section_margin_mobile_y | default: 15 }}px 0;
     }
 
     .boat-promo-button {
-      padding: 12px 30px;
-      font-size: 14px;
+      padding: {{ section.settings.button_padding_mobile_y | default: 12 }}px {{ section.settings.button_padding_mobile_x | default: 30 }}px;
+      font-size: {{ section.settings.button_font_size_mobile | default: 14 }}px;
+      {%- if section.settings.button_full_width_mobile -%}
+        width: 100%;
+        max-width: {{ section.settings.button_max_width_mobile | default: 300 }}px;
+      {%- endif -%}
+    }
+
+    .boat-promo-features {
+      flex-direction: {{ section.settings.features_layout_mobile | default: 'column' }};
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+
+  @media screen and (max-width: 549px) {
+    .boat-promo-banner {
+      padding: {{ section.settings.section_padding_small_mobile_y | default: 30 }}px {{ section.settings.section_padding_small_mobile_x | default: 10 }}px;
+    }
+  }
+
+  /* Accessibility and Performance */
+  @media (prefers-reduced-motion: reduce) {
+    .boat-promo-banner,
+    .boat-promo-banner::before,
+    .boat-promo-title,
+    .boat-promo-button,
+    .boat-promo-code {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+  @media (prefers-contrast: high) {
+    .boat-promo-banner {
+      border: 2px solid {{ section.settings.high_contrast_border | default: '#ffffff' }};
     }
   }
 {%- endstyle -%}
@@ -126,6 +294,22 @@
     {%- if section.settings.promo_code != blank -%}
       <div class="boat-promo-code">{{ section.settings.promo_code }}</div>
     {%- endif -%}
+
+    {%- if section.settings.show_features -%}
+      <div class="boat-promo-features">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'feature' -%}
+              <div class="boat-promo-feature">
+                {%- if block.settings.icon != blank -%}
+                  <div class="boat-promo-feature-icon">{{ block.settings.icon }}</div>
+                {%- endif -%}
+                <span>{{ block.settings.text }}</span>
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
   </div>
 </div>
 
@@ -133,6 +317,10 @@
 {
   "name": "boAt Promotional Banner",
   "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
     {
       "type": "text",
       "id": "title",
@@ -167,6 +355,461 @@
       "id": "promo_code",
       "label": "Promo Code",
       "default": "Use Code: BOATHEAD"
+    },
+    {
+      "type": "header",
+      "content": "Background & Layout"
+    },
+    {
+      "type": "select",
+      "id": "background_style",
+      "label": "Background Style",
+      "options": [
+        { "value": "gradient", "label": "Gradient" },
+        { "value": "solid", "label": "Solid Color" },
+        { "value": "image", "label": "Background Image" }
+      ],
+      "default": "gradient"
+    },
+    {
+      "type": "color",
+      "id": "background_color_1",
+      "label": "Background Color 1 (Gradient)",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "background_color_2",
+      "label": "Background Color 2 (Gradient)",
+      "default": "#2d2d2d"
+    },
+    {
+      "type": "color",
+      "id": "background_color_3",
+      "label": "Background Color 3 (Gradient)",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "background_color_solid",
+      "label": "Background Color (Solid)",
+      "default": "#121212"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "select",
+      "id": "background_size",
+      "label": "Background Size",
+      "options": [
+        { "value": "cover", "label": "Cover" },
+        { "value": "contain", "label": "Contain" },
+        { "value": "auto", "label": "Auto" }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "select",
+      "id": "background_position",
+      "label": "Background Position",
+      "options": [
+        { "value": "center", "label": "Center" },
+        { "value": "top", "label": "Top" },
+        { "value": "bottom", "label": "Bottom" },
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Image Overlay Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "label": "Image Overlay Opacity",
+      "default": 50,
+      "unit": "%"
+    },
+    {
+      "type": "select",
+      "id": "gradient_direction",
+      "label": "Gradient Direction",
+      "options": [
+        { "value": "135deg", "label": "Diagonal" },
+        { "value": "90deg", "label": "Vertical" },
+        { "value": "0deg", "label": "Horizontal" },
+        { "value": "45deg", "label": "Diagonal Alt" }
+      ],
+      "default": "135deg"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "vertical_alignment",
+      "label": "Vertical Alignment",
+      "options": [
+        { "value": "flex-start", "label": "Top" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Bottom" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Pattern Effects"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_pattern_effects",
+      "label": "Enable Pattern Effects",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "pattern_color_1",
+      "label": "Pattern Color 1",
+      "default": "#d9232d"
+    },
+    {
+      "type": "color",
+      "id": "pattern_color_2",
+      "label": "Pattern Color 2",
+      "default": "#00b594"
+    },
+    {
+      "type": "range",
+      "id": "pattern_opacity",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "label": "Pattern Opacity",
+      "default": 10,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "pattern_size",
+      "min": 30,
+      "max": 80,
+      "step": 5,
+      "label": "Pattern Size",
+      "default": 50,
+      "unit": "%"
+    },
+    {
+      "type": "text",
+      "id": "pattern_1_position",
+      "label": "Pattern 1 Position",
+      "default": "30% 50%"
+    },
+    {
+      "type": "text",
+      "id": "pattern_2_position",
+      "label": "Pattern 2 Position",
+      "default": "70% 30%"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "checkbox",
+      "id": "title_gradient_enable",
+      "label": "Enable Title Gradient",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "title_gradient_color_1",
+      "label": "Title Gradient Color 1",
+      "default": "#d9232d"
+    },
+    {
+      "type": "color",
+      "id": "title_gradient_color_2",
+      "label": "Title Gradient Color 2",
+      "default": "#ff4757"
+    },
+    {
+      "type": "color",
+      "id": "title_gradient_color_3",
+      "label": "Title Gradient Color 3",
+      "default": "#d9232d"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color (if gradient disabled)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "title_size_desktop",
+      "min": 2,
+      "max": 8,
+      "step": 0.5,
+      "label": "Title Size (Desktop)",
+      "default": 4,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 1.5,
+      "max": 4,
+      "step": 0.25,
+      "label": "Title Size (Mobile)",
+      "default": 2,
+      "unit": "rem"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "rgba(255, 255, 255, 0.8)"
+    },
+    {
+      "type": "header",
+      "content": "Button Styling"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button Style",
+      "options": [
+        { "value": "gradient", "label": "Gradient" },
+        { "value": "solid", "label": "Solid Color" }
+      ],
+      "default": "gradient"
+    },
+    {
+      "type": "color",
+      "id": "button_color_1",
+      "label": "Button Color 1 (Gradient)",
+      "default": "#d9232d"
+    },
+    {
+      "type": "color",
+      "id": "button_color_2",
+      "label": "Button Color 2 (Gradient)",
+      "default": "#ff4757"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button Background (Solid)",
+      "default": "#d9232d"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color_1",
+      "label": "Button Hover Color 1",
+      "default": "#b71c1c"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color_2",
+      "label": "Button Hover Color 2",
+      "default": "#d9232d"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "label": "Button Border Radius",
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "button_hover_lift",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "label": "Button Hover Lift",
+      "default": 3,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "button_hover_scale",
+      "min": 1.0,
+      "max": 1.2,
+      "step": 0.01,
+      "label": "Button Hover Scale",
+      "default": 1.05
+    },
+    {
+      "type": "checkbox",
+      "id": "button_shadow_enable",
+      "label": "Enable Button Shadow",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_button_effects",
+      "label": "Enable Button Shine Effect",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "button_full_width_mobile",
+      "label": "Full Width Button on Mobile",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Promo Code Styling"
+    },
+    {
+      "type": "color",
+      "id": "promo_code_background",
+      "label": "Promo Code Background",
+      "default": "rgba(255, 255, 255, 0.1)"
+    },
+    {
+      "type": "color",
+      "id": "promo_code_color",
+      "label": "Promo Code Color",
+      "default": "#00b594"
+    },
+    {
+      "type": "color",
+      "id": "promo_code_border_color",
+      "label": "Promo Code Border Color",
+      "default": "#00b594"
+    },
+    {
+      "type": "select",
+      "id": "promo_code_border_style",
+      "label": "Promo Code Border Style",
+      "options": [
+        { "value": "dashed", "label": "Dashed" },
+        { "value": "solid", "label": "Solid" },
+        { "value": "dotted", "label": "Dotted" }
+      ],
+      "default": "dashed"
+    },
+    {
+      "type": "header",
+      "content": "Animation Effects"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_title_animation",
+      "label": "Enable Title Animation",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_pattern_animation",
+      "label": "Enable Pattern Animation",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_promo_code_animation",
+      "label": "Enable Promo Code Animation",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "title_animation_speed",
+      "min": 1,
+      "max": 5,
+      "step": 0.5,
+      "label": "Title Animation Speed",
+      "default": 2,
+      "unit": "s"
+    },
+    {
+      "type": "range",
+      "id": "pattern_animation_speed",
+      "min": 5,
+      "max": 15,
+      "step": 1,
+      "label": "Pattern Animation Speed",
+      "default": 8,
+      "unit": "s"
+    },
+    {
+      "type": "header",
+      "content": "Features"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_features",
+      "label": "Show Features",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "features_color",
+      "label": "Features Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "features_alignment",
+      "label": "Features Alignment",
+      "options": [
+        { "value": "flex-start", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Right" }
+      ],
+      "default": "center"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Feature Text"
+        },
+        {
+          "type": "html",
+          "id": "icon",
+          "label": "Icon SVG (Optional)"
+        }
+      ]
     }
   ],
   "presets": [
