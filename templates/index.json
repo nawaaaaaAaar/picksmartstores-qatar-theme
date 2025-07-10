@@ -50,7 +50,7 @@
       "type": "boat-product-carousel",
       "settings": {
         "title": "NEW LAUNCHES",
-        "collection": "",
+        "collection": "all",
         "products_to_show": 6,
         "show_view_all": true,
         "view_all_text": "View All",
@@ -107,7 +107,7 @@
       "type": "boat-product-carousel",
       "settings": {
         "title": "TRENDING NOW",
-        "collection": "",
+        "collection": "all",
         "products_to_show": 6,
         "show_view_all": true,
         "view_all_text": "Explore Trending",
@@ -154,7 +154,7 @@
       "settings": {
         "title": "CUSTOMER FAVORITES",
         "subtitle": "",
-        "collection": "",
+        "collection": "all",
         "products_to_show": 8,
         "show_add_to_cart": true,
         "background_color": "#ffffff",
@@ -207,7 +207,7 @@
       "type": "boat-product-carousel",
       "settings": {
         "title": "BESTSELLERS",
-        "collection": "",
+        "collection": "all",
         "products_to_show": 6,
         "show_view_all": true,
         "view_all_text": "Shop Bestsellers",
