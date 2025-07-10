@@ -343,11 +343,16 @@
                 {%- if section.settings.show_ratings -%}
                   <div class="card--rating">
                     <div class="rating">
-                      <div class="rating__stars" data-rating="4.8" role="img" aria-label="4.8 out of 5.0 stars">
+                      <div
+                        class="rating__stars"
+                        data-rating="{{ section.settings.default_rating | default: '4.8' }}"
+                        role="img"
+                        aria-label="{{ section.settings.default_rating | default: '4.8' }} {{ section.settings.rating_aria_label_suffix | default: 'out of 5.0 stars' }}"
+                      >
                         <span>
                           <img
                             src="https://cdn.shopify.com/s/files/1/0057/8938/4802/files/star-5.png?v=1722331088"
-                            alt="star"
+                            alt="{{ section.settings.star_alt_text | default: 'star' }}"
                             width="100"
                             height="100"
                             loading="lazy"
@@ -362,7 +367,7 @@
                           ><img
                             src="https://cdn.shopify.com/s/files/1/0057/8938/4802/files/Mask_group-10.png?v=1677571152"
                             style="width:11px;height:11px;"
-                            alt="verified reviews"
+                            alt="{{ section.settings.verified_reviews_alt_text | default: 'verified reviews' }}"
                             width="11"
                             height="11"
                         ></span>
@@ -377,7 +382,8 @@
                     class="priority label z-4 label--highlight custom-label bg-purple just launched"
                     style="display: flex; align-items: center;"
                   >
-                    🎉 {{ section.settings.new_launch_text | default: 'New Launch' }}
+                    {{ section.settings.new_launch_emoji | default: '🎉' }}
+                    {{ section.settings.new_launch_text | default: 'New Launch' }}
                   </span>
                 {%- endif -%}
 
@@ -386,7 +392,8 @@
                     class="priority label z-6 label--highlight custom-label bg-orange trending"
                     style="display: flex; align-items: center;"
                   >
-                    ✨{{ section.settings.trending_text | default: 'Trending' }}
+                    {{ section.settings.trending_emoji | default: '✨' -}}
+                    {{- section.settings.trending_text | default: 'Trending' }}
                   </span>
                 {%- endif -%}
 
@@ -395,7 +402,8 @@
                     class="priority label z-10 label--highlight custom-label free-label bg-green"
                     style="display: flex; align-items: center;"
                   >
-                    ✍️ {{ section.settings.engraving_text | default: 'Engraving Available' }}
+                    {{ section.settings.engraving_emoji | default: '✍️' }}
+                    {{ section.settings.engraving_text | default: 'Engraving Available' }}
                   </span>
                 {%- endif -%}
 
@@ -420,7 +428,7 @@
                     <span class="personalised-icon">
                       <img
                         src="https://cdn.shopify.com/s/files/1/0057/8938/4802/files/personalisation_ca8237cd-20ca-4da7-8ad2-7d8a50320b3c.png?v=1724308287"
-                        alt="Personalization"
+                        alt="{{ section.settings.personalization_alt_text | default: 'Personalization' }}"
                         loading="lazy"
                         width="29"
                         height="29"
@@ -454,7 +462,7 @@
                         class="product-item__primary-image"
                         style="background: #f5f5f5; display: flex; align-items: center; justify-content: center; color: #999;"
                       >
-                        No Image
+                        {{ section.settings.no_image_text | default: 'No Image' }}
                       </div>
                     {%- endif -%}
                   </a>
@@ -474,7 +482,10 @@
                   <div class="product-item-meta__price-list-container">
                     <div class="price-list price-list--centered">
                       <span class="price price--highlight product-card-price" data-price="{{ product.price }}">
-                        <span class="visually-hidden">Sale price</span>{{ product.price | money }}
+                        <span class="visually-hidden">
+                          {{- section.settings.sale_price_text | default: 'Sale price' -}}
+                        </span>
+                        {{- product.price | money }}
                       </span>
 
                       {%- if product.compare_at_price > product.price -%}
@@ -483,7 +494,10 @@
                             class="price price--compare line-through"
                             data-compare-price="{{ product.compare_at_price }}"
                           >
-                            <span class="visually-hidden">Regular price</span>{{ product.compare_at_price | money }}
+                            <span class="visually-hidden">
+                              {{- section.settings.regular_price_text | default: 'Regular price' -}}
+                            </span>
+                            {{- product.compare_at_price | money }}
                           </span>
                           {%- assign discount_percentage = product.compare_at_price
                             | minus: product.price
@@ -491,7 +505,10 @@
                             | divided_by: product.compare_at_price
                             | round
                           -%}
-                          <p class="m-0 off">{{ discount_percentage }}% off</p>
+                          <p class="m-0 off">
+                            {{ discount_percentage -}}
+                            {{- section.settings.discount_suffix | default: '% off' }}
+                          </p>
                         </div>
                       {%- endif -%}
                     </div>
@@ -501,7 +518,10 @@
                   {%- if product.options contains 'Color' and section.settings.show_color_swatches -%}
                     {%- assign color_option = product.options_by_name.Color -%}
                     {%- if color_option.values.size > 0 -%}
-                      <button aria-label="Open Drawer" class="variants-list">
+                      <button
+                        aria-label="{{ section.settings.color_variants_aria_label | default: 'Open Drawer' }}"
+                        class="variants-list"
+                      >
                         {%- assign colors_shown = 0 -%}
                         {%- for value in color_option.values limit: 2 -%}
                           {%- assign color_handle = value | handle -%}
@@ -677,6 +697,82 @@
       "id": "show_color_swatches",
       "label": "Show color swatches",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "💬 Customizable Text"
+    },
+    {
+      "type": "text",
+      "id": "new_launch_emoji",
+      "label": "New Launch emoji",
+      "default": "🎉"
+    },
+    {
+      "type": "text",
+      "id": "trending_emoji",
+      "label": "Trending emoji",
+      "default": "✨"
+    },
+    {
+      "type": "text",
+      "id": "engraving_emoji",
+      "label": "Engraving emoji",
+      "default": "✍️"
+    },
+    {
+      "type": "text",
+      "id": "no_image_text",
+      "label": "No image placeholder text",
+      "default": "No Image"
+    },
+    {
+      "type": "text",
+      "id": "sale_price_text",
+      "label": "Sale price label (accessibility)",
+      "default": "Sale price"
+    },
+    {
+      "type": "text",
+      "id": "regular_price_text",
+      "label": "Regular price label (accessibility)",
+      "default": "Regular price"
+    },
+    {
+      "type": "text",
+      "id": "discount_suffix",
+      "label": "Discount suffix text",
+      "default": "% off"
+    },
+    {
+      "type": "text",
+      "id": "star_alt_text",
+      "label": "Star icon alt text",
+      "default": "star"
+    },
+    {
+      "type": "text",
+      "id": "verified_reviews_alt_text",
+      "label": "Verified reviews icon alt text",
+      "default": "verified reviews"
+    },
+    {
+      "type": "text",
+      "id": "rating_aria_label_suffix",
+      "label": "Rating aria-label suffix",
+      "default": "out of 5.0 stars"
+    },
+    {
+      "type": "text",
+      "id": "personalization_alt_text",
+      "label": "Personalization icon alt text",
+      "default": "Personalization"
+    },
+    {
+      "type": "text",
+      "id": "color_variants_aria_label",
+      "label": "Color variants button aria-label",
+      "default": "Open Drawer"
     },
     {
       "type": "header",
