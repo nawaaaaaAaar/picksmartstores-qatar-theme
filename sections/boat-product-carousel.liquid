@@ -3,19 +3,21 @@
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 
 {%- comment -%}
-  🎯 EXACT boat-lifestyle.com Product Carousel Clone
+  🚤 EXACT boat-lifestyle.com Product Carousel Clone
   This is a pixel-perfect replica of boat's actual product carousel structure
+  Based on analysis of downloaded boat-lifestyle.com website files
 {%- endcomment -%}
 
 {%- style -%}
-  /* 🚤 EXACT Boat Carousel Styling - Cloned from boat-lifestyle.com */
+  /* 🚤 EXACT Boat Carousel Styling - Cloned from boat-lifestyle.com CSS */
   .boat-carousel-section {
     background: {{ section.settings.background_color | default: '#ffffff' }};
-    padding: {{ section.settings.section_padding_top | default: 60 }}px 0 {{ section.settings.section_padding_bottom | default: 60 }}px;
+    padding: {{ section.settings.section_padding_top | default: 32 }}px 0 {{ section.settings.section_padding_bottom | default: 40 }}px;
+    margin: {{ section.settings.section_margin_top | default: 40 }}px auto {{ section.settings.section_margin_bottom | default: 40 }}px;
   }
 
   .boat-carousel-container {
-    max-width: {{ section.settings.content_max_width | default: 1400 }}px;
+    max-width: {{ section.settings.content_max_width | default: 1200 }}px;
     margin: 0 auto;
     padding: 0 {{ section.settings.content_padding_x | default: 20 }}px;
   }
@@ -25,50 +27,54 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: {{ section.settings.header_margin_bottom | default: 30 }}px;
+    margin-bottom: {{ section.settings.header_margin_bottom | default: 20 }}px;
   }
 
   .boat-carousel-title {
-    font-size: {{ section.settings.title_size | default: 32 }}px;
+    font-size: {{ section.settings.title_size | default: 18 }}px;
     font-weight: {{ section.settings.title_weight | default: 700 }};
-    color: {{ section.settings.title_color | default: '#1a1a1a' }};
+    color: {{ section.settings.title_color | default: '#000000' }};
     margin: 0;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: Metropolis, -apple-system, BlinkMacSystemFont, sans-serif;
+    text-align: {{ section.settings.title_alignment | default: 'left' }};
+    text-transform: {{ section.settings.title_transform | default: 'none' }};
   }
 
   .boat-view-all {
-    color: {{ section.settings.view_all_color | default: '#007aff' }};
+    color: {{ section.settings.view_all_color | default: '#fe0000' }};
     text-decoration: none;
-    font-weight: 500;
-    font-size: 16px;
+    font-weight: 700;
+    font-size: 15px;
     transition: color 0.2s ease;
+    text-transform: uppercase;
   }
 
   .boat-view-all:hover {
-    color: {{ section.settings.view_all_hover_color | default: '#0051d0' }};
+    color: {{ section.settings.view_all_hover_color | default: '#c74338' }};
   }
 
   /* EXACT boat product-list__inner structure */
   .product-list__inner {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax({{ section.settings.card_min_width | default: 280 }}px, 1fr));
-    gap: {{ section.settings.grid_gap | default: 24 }}px;
+    grid-template-columns: repeat(auto-fit, minmax({{ section.settings.card_min_width | default: 200 }}px, 1fr));
+    gap: {{ section.settings.grid_gap | default: 16 }}px;
     padding: 0;
   }
 
   /* EXACT boat product-item styling */
   .product-item.two-point-o.product-item-vertical {
     background: #ffffff;
-    border-radius: 12px;
+    border-radius: 10px;
     overflow: hidden;
     transition: all 0.3s ease;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     position: relative;
+    border: 1px solid #e7e7e7;
   }
 
   .product-item.two-point-o.product-item-vertical:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   }
 
   .product__wrapper {
@@ -78,27 +84,40 @@
   /* EXACT boat labels system */
   .labels-wrapper.metafeild-label {
     position: absolute;
-    top: 12px;
-    left: 12px;
-    right: 12px;
+    top: 8px;
+    left: 8px;
+    right: 8px;
     z-index: 10;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
   }
 
-  .metafeild-label.label--highlight.custom-label.label.ui-2 {
+  span.metafeild-label.label--highlight.custom-label.label.ui-2 {
     background: {{ section.settings.spec_background | default: '#ffd700' }};
     color: {{ section.settings.spec_color | default: '#1a1a1a' }};
-    padding: 6px 10px;
-    border-radius: 4px;
-    font-size: 12px;
+    padding: 15px !important;
+    border-radius: 0;
+    font-size: 12px !important;
     font-weight: 600;
     width: fit-content;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: Metropolis, -apple-system, BlinkMacSystemFont, sans-serif;
     border: none;
-    line-height: 1.2;
-    letter-spacing: -0.24px;
+    line-height: normal;
+    letter-spacing: -0.48px;
+    position: absolute;
+    bottom: -6px;
+    max-width: 100% !important;
+    z-index: 0;
+    border-top-right-radius: 8px !important;
+    border-top-left-radius: 8px !important;
+    align-items: center;
+    display: flex;
+    justify-content: flex-start !important;
+    width: 96% !important;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 10px 10px !important;
   }
 
   .card--rating {
@@ -107,32 +126,38 @@
     border-radius: 6px;
     padding: 6px 8px;
     width: fit-content;
+    position: absolute;
+    bottom: -7px;
+    right: 10px;
+    height: 20px;
+    line-height: 15px;
   }
 
   .rating {
     display: flex;
     align-items: center;
     gap: 4px;
+    padding-inline: 7px;
   }
 
   .rating__stars {
     display: flex;
-    align-items: center;
+    align-items: end;
     gap: 2px;
-    font-size: 12px;
+    font-size: 10px !important;
     font-weight: 600;
     color: #1a1a1a;
   }
 
   .rating__stars img {
-    width: 14px;
-    height: 14px;
+    width: 13px !important;
+    height: 13px;
     display: inline-block;
     vertical-align: bottom;
   }
 
   .rating__caption.plp-reviews {
-    font-size: 12px !important;
+    font-size: 10px !important;
     color: #666;
     display: flex;
     align-items: center;
@@ -140,15 +165,15 @@
   }
 
   .rating__caption img {
-    width: 11px;
-    height: 11px;
+    width: 9px;
+    height: 9px;
   }
 
   /* EXACT boat priority labels */
-  .priority.label.label--highlight.custom-label {
+  span.priority.label.label--highlight.custom-label {
     padding: 6px 10px;
     border-radius: 6px;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 600;
     display: flex;
     align-items: center;
@@ -156,6 +181,11 @@
     width: fit-content;
     border: none;
     line-height: 1.2;
+    letter-spacing: normal !important;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 5;
   }
 
   .bg-purple.just.launched {
@@ -182,6 +212,11 @@
   .product-item__image-wrapper {
     position: relative;
     overflow: hidden;
+    border-radius: 10px;
+    margin: 0 2rem;
+    width: 84%;
+    max-height: 240px;
+    border: 1px solid #e7e7e7;
   }
 
   .product-item__aspect-ratio.aspect-ratio {
@@ -197,19 +232,20 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: 80%;
+    margin-top: 8%;
+    object-fit: contain;
     transition: transform 0.3s ease;
   }
 
   .product-item.two-point-o.product-item-vertical:hover .product-item__primary-image {
-    transform: scale(1.05);
+    transform: scale(1.02);
   }
 
   .personalised-icon {
     position: absolute;
-    top: 12px;
-    right: 12px;
+    bottom: 22px;
+    right: 8px;
     z-index: 5;
     cursor: pointer;
   }
@@ -222,13 +258,19 @@
 
   /* EXACT boat product info section */
   .product-item__info {
-    padding: 16px;
+    text-align: center;
+    background: #f5f5f5;
+    padding: 10rem 5rem 0.5rem;
+    margin-top: -10rem;
+    border-radius: 5px;
+    border: 1px solid #e7e7e7;
+    padding: 4px 4px 4px 9px !important;
   }
 
   .product-item-meta {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
   }
 
   .product-item-meta__reviews-badge.text--small.vertical-product__card {
@@ -238,17 +280,21 @@
       'p_price p_price'
       'p_variants p_variants';
     gap: 8px;
+    padding-bottom: 0;
+    border-bottom: none;
   }
 
   .product-item-meta__title.tile-title {
     grid-area: p_title;
-    font-size: 16px;
+    font-size: 15px !important;
     font-weight: 600;
     color: #1a1a1a;
     text-decoration: none;
     line-height: 1.3;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: Metropolis, -apple-system, BlinkMacSystemFont, sans-serif;
     margin: 0;
+    margin-top: 19px;
+    min-height: 28px;
   }
 
   .product-item-meta__title.tile-title:hover {
@@ -264,6 +310,7 @@
 
   .product-item-meta__price-list-container {
     grid-area: p_price;
+    padding-bottom: 8px;
   }
 
   .price-list.price-list--centered {
@@ -271,10 +318,15 @@
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
+    width: 100%;
+    flex-wrap: nowrap !important;
+    width: 99%;
+    gap: 8%;
+    padding-bottom: 0.5rem;
   }
 
-  .price.price--highlight.product-card-price {
-    font-size: 18px;
+  span.price.price--highlight.product-card-price {
+    font-size: 18px !important;
     font-weight: 700;
     color: #1a1a1a;
     margin: 0;
@@ -295,9 +347,11 @@
 
   .off {
     margin: 0;
-    font-size: 12px;
+    font-size: 10px !important;
     color: #ff6647;
     font-weight: 600;
+    display: inline-block;
+    width: max-content;
   }
 
   /* EXACT boat color variants */
@@ -310,18 +364,19 @@
     border: none;
     padding: 0;
     cursor: pointer;
+    margin-right: 5px;
   }
 
-  .swatch-circle {
-    width: 20px;
-    height: 20px;
+  span.swatch-circle {
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
     border: 2px solid #fff;
     box-shadow: 0 0 0 1px #ddd;
   }
 
   .more-colors {
-    font-size: 12px;
+    font-size: 14px;
     color: #666;
     font-weight: 500;
   }
@@ -345,25 +400,40 @@
   @media screen and (max-width: 768px) {
     .product-list__inner {
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 16px;
+      gap: 12px;
     }
 
     .product-item__info {
-      padding: 12px;
+      padding: 8px;
     }
 
     .product-item-meta__title.tile-title {
-      font-size: 14px;
+      font-size: 13px !important;
     }
 
     .price.price--highlight.product-card-price {
+      font-size: 16px !important;
+    }
+
+    .boat-carousel-title {
       font-size: 16px;
     }
   }
 
   @media screen and (min-width: 1000px) {
     .product-item.two-point-o.product-item-vertical .product-item__info {
-      padding: 16px;
+      padding: 4px 4px 4px 9px !important;
+    }
+
+    .product-item {
+      max-width: 16%;
+      min-width: 16%;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .boat-carousel-title {
+      font-size: 20px;
     }
   }
 {%- endstyle -%}
@@ -386,8 +456,30 @@
         {%- for product in section.settings.collection.products limit: section.settings.products_count -%}
           <product-item class="product-item two-point-o product-item-vertical">
             <div class="product__wrapper">
+              {%- comment -%} Priority Labels - Boat Style {%- endcomment -%}
+              {%- if section.settings.show_new_launch_badge -%}
+                <span class="priority label label--highlight custom-label bg-purple just launched">
+                  {{ section.settings.new_launch_emoji | default: '🎉' }}
+                  {{ section.settings.new_launch_text | default: 'New Launch' }}
+                </span>
+              {%- endif -%}
+
+              {%- if section.settings.show_trending_badge -%}
+                <span class="priority label label--highlight custom-label bg-orange trending">
+                  {{ section.settings.trending_emoji | default: '✨' }}
+                  {{ section.settings.trending_text | default: 'Trending' }}
+                </span>
+              {%- endif -%}
+
+              {%- if section.settings.show_engraving_badge -%}
+                <span class="priority label label--highlight custom-label free-label bg-green">
+                  {{ section.settings.engraving_emoji | default: '✍️' }}
+                  {{ section.settings.engraving_text | default: 'Engraving Available' }}
+                </span>
+              {%- endif -%}
+
               <div class="labels-wrapper metafeild-label">
-                {%- comment -%} Spec Label {%- endcomment -%}
+                {%- comment -%} Spec Label - Boat Style {%- endcomment -%}
                 {%- if section.settings.show_default_spec -%}
                   {%- assign spec_text = product.metafields.custom.spec_text
                     | default: section.settings.default_spec_text
@@ -397,7 +489,7 @@
                   </span>
                 {%- endif -%}
 
-                {%- comment -%} Rating {%- endcomment -%}
+                {%- comment -%} Rating - Boat Style {%- endcomment -%}
                 {%- if section.settings.show_ratings -%}
                   <div class="card--rating">
                     <div class="rating">
@@ -433,46 +525,6 @@
                   </div>
                 {%- endif -%}
               </div>
-
-              {%- comment -%} Priority Labels {%- endcomment -%}
-              {%- if section.settings.show_new_launch_badge -%}
-                <span
-                  class="priority label label--highlight custom-label bg-purple just launched"
-                  style="display: flex; align-items: center;"
-                >
-                  {{ section.settings.new_launch_emoji | default: '🎉' }}
-                  {{ section.settings.new_launch_text | default: 'New Launch' }}
-                </span>
-              {%- endif -%}
-
-              {%- if section.settings.show_trending_badge -%}
-                <span
-                  class="priority label label--highlight custom-label bg-orange trending"
-                  style="display: flex; align-items: center;"
-                >
-                  {{ section.settings.trending_emoji | default: '✨' -}}
-                  {{- section.settings.trending_text | default: 'Trending' }}
-                </span>
-              {%- endif -%}
-
-              {%- if section.settings.show_engraving_badge -%}
-                <span
-                  class="priority label label--highlight custom-label free-label bg-green"
-                  style="display: flex; align-items: center;"
-                >
-                  {{ section.settings.engraving_emoji | default: '✍️' }}
-                  {{ section.settings.engraving_text | default: 'Engraving Available' }}
-                </span>
-              {%- endif -%}
-
-              {%- if section.settings.show_extra_off_badge -%}
-                <span
-                  class="priority label label--highlight custom-label bg-orange"
-                  style="display: flex; align-items: center;"
-                >
-                  {{ section.settings.extra_off_text | default: 'EXTRA ₹100 OFF' }}
-                </span>
-              {%- endif -%}
 
               <div class="product-item__image-wrapper">
                 {%- if section.settings.show_personalised_icon and product.metafields.custom.personalised == 'true' -%}
@@ -531,7 +583,7 @@
                         <span class="visually-hidden">
                           {{- section.settings.sale_price_text | default: 'Sale price' -}}
                         </span>
-                        {{- product.price | money }}
+                        {{ product.price | money }}
                       </span>
 
                       {%- if product.compare_at_price > product.price -%}
@@ -543,7 +595,7 @@
                             <span class="visually-hidden">
                               {{- section.settings.regular_price_text | default: 'Regular price' -}}
                             </span>
-                            {{- product.compare_at_price | money }}
+                            {{ product.compare_at_price | money }}
                           </span>
                           {%- assign discount_percentage = product.compare_at_price
                             | minus: product.price
@@ -574,7 +626,6 @@
                           <span class="swatch-circle" style="background:{{ color_value }}"></span>
                           {%- assign colors_shown = colors_shown | plus: 1 -%}
                         {%- endfor -%}
-
                         {%- if color_option.values.size > 2 -%}
                           <span class="more-colors">+{{ color_option.values.size | minus: 2 }}</span>
                         {%- endif -%}
@@ -633,6 +684,29 @@
       "id": "title",
       "label": "Section title",
       "default": "Featured Products"
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "Title alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "title_transform",
+      "label": "Title text transform",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "uppercase", "label": "Uppercase" },
+        { "value": "lowercase", "label": "Lowercase" },
+        { "value": "capitalize", "label": "Capitalize" }
+      ],
+      "default": "none"
     },
     {
       "type": "text",
@@ -717,18 +791,6 @@
     },
     {
       "type": "checkbox",
-      "id": "show_extra_off_badge",
-      "label": "Show Extra Off badge",
-      "default": false
-    },
-    {
-      "type": "text",
-      "id": "extra_off_text",
-      "label": "Extra Off text",
-      "default": "EXTRA ₹100 OFF"
-    },
-    {
-      "type": "checkbox",
       "id": "show_personalised_icon",
       "label": "Show personalisation icon",
       "default": false
@@ -745,7 +807,7 @@
     },
     {
       "type": "header",
-      "content": "💬 Customizable Text"
+      "content": "💬 Customizable Text & Emojis"
     },
     {
       "type": "text",
@@ -833,19 +895,19 @@
       "type": "color",
       "id": "title_color",
       "label": "Title color",
-      "default": "#1a1a1a"
+      "default": "#000000"
     },
     {
       "type": "color",
       "id": "view_all_color",
       "label": "View all link color",
-      "default": "#007aff"
+      "default": "#fe0000"
     },
     {
       "type": "color",
       "id": "view_all_hover_color",
       "label": "View all link hover color",
-      "default": "#0051d0"
+      "default": "#c74338"
     },
     {
       "type": "color",
@@ -870,7 +932,7 @@
       "min": 0,
       "max": 100,
       "step": 5,
-      "default": 60,
+      "default": 32,
       "unit": "px"
     },
     {
@@ -880,7 +942,27 @@
       "min": 0,
       "max": 100,
       "step": 5,
-      "default": 60,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "label": "Section margin top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "label": "Section margin bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40,
       "unit": "px"
     },
     {
@@ -890,7 +972,7 @@
       "min": 1000,
       "max": 1600,
       "step": 50,
-      "default": 1400,
+      "default": 1200,
       "unit": "px"
     },
     {
@@ -910,17 +992,17 @@
       "min": 10,
       "max": 60,
       "step": 5,
-      "default": 30,
+      "default": 20,
       "unit": "px"
     },
     {
       "type": "range",
       "id": "title_size",
       "label": "Title font size",
-      "min": 20,
-      "max": 48,
+      "min": 14,
+      "max": 32,
       "step": 2,
-      "default": 32,
+      "default": 18,
       "unit": "px"
     },
     {
@@ -936,20 +1018,20 @@
       "type": "range",
       "id": "card_min_width",
       "label": "Card minimum width",
-      "min": 200,
-      "max": 350,
+      "min": 160,
+      "max": 300,
       "step": 10,
-      "default": 280,
+      "default": 200,
       "unit": "px"
     },
     {
       "type": "range",
       "id": "grid_gap",
       "label": "Grid gap",
-      "min": 10,
-      "max": 40,
+      "min": 8,
+      "max": 32,
       "step": 2,
-      "default": 24,
+      "default": 16,
       "unit": "px"
     }
   ],

@@ -3,66 +3,70 @@
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 
 {%- comment -%}
-  🎯 EXACT boat-lifestyle.com Light Carousel Clone
+  🚤 EXACT boat-lifestyle.com Light Carousel Clone
   This is a pixel-perfect replica of boat's actual product carousel structure (compact version)
+  Based on analysis of downloaded boat-lifestyle.com website files
 {%- endcomment -%}
 
 {%- style -%}
-  /* 🚤 EXACT Boat Light Carousel Styling - Cloned from boat-lifestyle.com */
+  /* 🚤 EXACT Boat Light Carousel Styling - Cloned from boat-lifestyle.com CSS */
   .boat-light-carousel-section {
     background: {{ section.settings.background_color | default: '#ffffff' }};
-    padding: {{ section.settings.section_padding_top | default: 40 }}px 0 {{ section.settings.section_padding_bottom | default: 40 }}px;
+    padding: {{ section.settings.section_padding_top | default: 20 }}px 0 {{ section.settings.section_padding_bottom | default: 20 }}px;
+    margin: {{ section.settings.section_margin_top | default: 20 }}px auto {{ section.settings.section_margin_bottom | default: 20 }}px;
   }
 
   .boat-light-carousel-container {
-    max-width: {{ section.settings.content_max_width | default: 1400 }}px;
+    max-width: {{ section.settings.content_max_width | default: 1200 }}px;
     margin: 0 auto;
     padding: 0 {{ section.settings.content_padding_x | default: 20 }}px;
   }
 
-  /* Header matching boat's exact style (centered) */
+  /* Header matching boat's exact style (centered/compact) */
   .boat-light-carousel-header {
     text-align: {{ section.settings.header_alignment | default: 'center' }};
-    margin-bottom: {{ section.settings.header_margin_bottom | default: 25 }}px;
+    margin-bottom: {{ section.settings.header_margin_bottom | default: 16 }}px;
   }
 
   .boat-light-carousel-title {
-    font-size: {{ section.settings.title_size | default: 28 }}px;
+    font-size: {{ section.settings.title_size | default: 16 }}px;
     font-weight: {{ section.settings.title_weight | default: 700 }};
-    color: {{ section.settings.title_color | default: '#1a1a1a' }};
+    color: {{ section.settings.title_color | default: '#000000' }};
     margin: 0 0 {{ section.settings.title_margin_bottom | default: 8 }}px 0;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: Metropolis, -apple-system, BlinkMacSystemFont, sans-serif;
+    text-transform: {{ section.settings.title_transform | default: 'none' }};
   }
 
   .boat-light-carousel-subtitle {
     color: {{ section.settings.subtitle_color | default: '#666666' }};
-    font-size: {{ section.settings.subtitle_size | default: 16 }}px;
+    font-size: {{ section.settings.subtitle_size | default: 14 }}px;
     font-weight: {{ section.settings.subtitle_weight | default: 400 }};
     margin: 0;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: Metropolis, -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
   /* EXACT boat product-list__inner structure (compact) */
   .product-list__inner--light {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax({{ section.settings.card_min_width | default: 240 }}px, 1fr));
-    gap: {{ section.settings.grid_gap | default: 20 }}px;
+    grid-template-columns: repeat(auto-fit, minmax({{ section.settings.card_min_width | default: 180 }}px, 1fr));
+    gap: {{ section.settings.grid_gap | default: 12 }}px;
     padding: 0;
   }
 
   /* EXACT boat product-item styling (light/compact version) */
   .product-item--light.two-point-o.product-item-vertical {
     background: #ffffff;
-    border-radius: 10px;
+    border-radius: 8px;
     overflow: hidden;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
     position: relative;
+    border: 1px solid #e7e7e7;
   }
 
   .product-item--light.two-point-o.product-item-vertical:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
   }
 
   .product__wrapper--light {
@@ -72,84 +76,108 @@
   /* EXACT boat labels system (compact) */
   .labels-wrapper--light.metafeild-label {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    right: 10px;
+    top: 6px;
+    left: 6px;
+    right: 6px;
     z-index: 10;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
   }
 
-  .metafeild-label--light.label--highlight.custom-label.label.ui-2 {
+  span.metafeild-label--light.label--highlight.custom-label.label.ui-2 {
     background: {{ section.settings.spec_background | default: '#ffd700' }};
     color: {{ section.settings.spec_color | default: '#1a1a1a' }};
-    padding: 4px 8px;
-    border-radius: 3px;
-    font-size: 10px;
+    padding: 12px !important;
+    border-radius: 0;
+    font-size: 10px !important;
     font-weight: 600;
     width: fit-content;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: Metropolis, -apple-system, BlinkMacSystemFont, sans-serif;
     border: none;
-    line-height: 1.2;
-    letter-spacing: -0.2px;
+    line-height: normal;
+    letter-spacing: -0.4px;
+    position: absolute;
+    bottom: -4px;
+    max-width: 100% !important;
+    z-index: 0;
+    border-top-right-radius: 6px !important;
+    border-top-left-radius: 6px !important;
+    align-items: center;
+    display: flex;
+    justify-content: flex-start !important;
+    width: 94% !important;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 3px 8px 8px !important;
   }
 
   .card--rating--light {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(6px);
-    border-radius: 5px;
+    border-radius: 4px;
     padding: 4px 6px;
     width: fit-content;
+    position: absolute;
+    bottom: -5px;
+    right: 8px;
+    height: 16px;
+    line-height: 12px;
   }
 
   .rating--light {
     display: flex;
     align-items: center;
     gap: 3px;
+    padding-inline: 5px;
   }
 
   .rating__stars--light {
     display: flex;
-    align-items: center;
+    align-items: end;
     gap: 1px;
-    font-size: 10px;
+    font-size: 8px !important;
     font-weight: 600;
     color: #1a1a1a;
   }
 
   .rating__stars--light img {
-    width: 12px;
-    height: 12px;
+    width: 11px !important;
+    height: 11px;
     display: inline-block;
     vertical-align: bottom;
   }
 
   .rating__caption--light.plp-reviews {
-    font-size: 9px !important;
+    font-size: 8px !important;
     color: #666;
     display: flex;
     align-items: center;
-    gap: 2px;
+    gap: 1px;
   }
 
   .rating__caption--light img {
-    width: 9px;
-    height: 9px;
+    width: 8px;
+    height: 8px;
   }
 
   /* EXACT boat priority labels (light version) */
-  .priority.label--light.label--highlight.custom-label {
+  span.priority.label--light.label--highlight.custom-label {
     padding: 4px 8px;
     border-radius: 4px;
-    font-size: 9px;
+    font-size: 8px;
     font-weight: 600;
     display: flex;
     align-items: center;
-    gap: 3px;
+    gap: 2px;
     width: fit-content;
     border: none;
     line-height: 1.2;
+    letter-spacing: normal !important;
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    z-index: 5;
   }
 
   .bg-purple--light.just.launched {
@@ -176,6 +204,11 @@
   .product-item__image-wrapper--light {
     position: relative;
     overflow: hidden;
+    border-radius: 8px;
+    margin: 0 1rem;
+    width: 88%;
+    max-height: 180px;
+    border: 1px solid #e7e7e7;
   }
 
   .product-item__aspect-ratio--light.aspect-ratio {
@@ -191,19 +224,20 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: 75%;
+    margin-top: 10%;
+    object-fit: contain;
     transition: transform 0.3s ease;
   }
 
   .product-item--light.two-point-o.product-item-vertical:hover .product-item__primary-image--light {
-    transform: scale(1.04);
+    transform: scale(1.02);
   }
 
   .personalised-icon--light {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    bottom: 18px;
+    right: 6px;
     z-index: 5;
     cursor: pointer;
   }
@@ -216,13 +250,19 @@
 
   /* EXACT boat product info section (light) */
   .product-item__info--light {
-    padding: 14px;
+    text-align: center;
+    background: #f8f8f8;
+    padding: 8rem 3rem 0.3rem;
+    margin-top: -8rem;
+    border-radius: 4px;
+    border: 1px solid #e7e7e7;
+    padding: 3px 3px 3px 6px !important;
   }
 
   .product-item-meta--light {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 6px;
   }
 
   .product-item-meta__reviews-badge--light.text--small.vertical-product__card {
@@ -232,17 +272,21 @@
       'p_price p_price'
       'p_variants p_variants';
     gap: 6px;
+    padding-bottom: 0;
+    border-bottom: none;
   }
 
   .product-item-meta__title--light.tile-title {
     grid-area: p_title;
-    font-size: 14px;
+    font-size: 12px !important;
     font-weight: 600;
     color: #1a1a1a;
     text-decoration: none;
     line-height: 1.3;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: Metropolis, -apple-system, BlinkMacSystemFont, sans-serif;
     margin: 0;
+    margin-top: 12px;
+    min-height: 24px;
   }
 
   .product-item-meta__title--light.tile-title:hover {
@@ -253,11 +297,12 @@
     width: 100%;
     height: 1px;
     border: 1px dashed #e3e3e3;
-    margin: 3px 0;
+    margin: 2px 0;
   }
 
   .product-item-meta__price-list-container--light {
     grid-area: p_price;
+    padding-bottom: 6px;
   }
 
   .price-list--light.price-list--centered {
@@ -265,10 +310,15 @@
     align-items: center;
     gap: 6px;
     flex-wrap: wrap;
+    width: 100%;
+    flex-wrap: nowrap !important;
+    width: 99%;
+    gap: 6%;
+    padding-bottom: 0.3rem;
   }
 
-  .price--light.price--highlight.product-card-price {
-    font-size: 16px;
+  span.price--light.price--highlight.product-card-price {
+    font-size: 14px !important;
     font-weight: 700;
     color: #1a1a1a;
     margin: 0;
@@ -281,7 +331,7 @@
   }
 
   .price--light.price--compare.line-through {
-    font-size: 12px;
+    font-size: 11px;
     color: #999;
     text-decoration: line-through;
     font-weight: 400;
@@ -289,9 +339,11 @@
 
   .off--light {
     margin: 0;
-    font-size: 10px;
+    font-size: 8px !important;
     color: #ff6647;
     font-weight: 600;
+    display: inline-block;
+    width: max-content;
   }
 
   /* EXACT boat color variants (light) */
@@ -304,13 +356,14 @@
     border: none;
     padding: 0;
     cursor: pointer;
+    margin-right: 3px;
   }
 
-  .swatch-circle--light {
-    width: 16px;
-    height: 16px;
+  span.swatch-circle--light {
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    border: 2px solid #fff;
+    border: 1px solid #fff;
     box-shadow: 0 0 0 1px #ddd;
   }
 
@@ -339,25 +392,40 @@
   @media screen and (max-width: 768px) {
     .product-list__inner--light {
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 14px;
+      gap: 10px;
     }
 
     .product-item__info--light {
-      padding: 10px;
+      padding: 6px;
     }
 
     .product-item-meta__title--light.tile-title {
-      font-size: 12px;
+      font-size: 11px !important;
     }
 
     .price--light.price--highlight.product-card-price {
+      font-size: 13px !important;
+    }
+
+    .boat-light-carousel-title {
       font-size: 14px;
     }
   }
 
   @media screen and (min-width: 1000px) {
     .product-item--light.two-point-o.product-item-vertical .product-item__info--light {
-      padding: 14px;
+      padding: 3px 3px 3px 6px !important;
+    }
+
+    .product-item--light {
+      max-width: 20%;
+      min-width: 20%;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .boat-light-carousel-title {
+      font-size: 18px;
     }
   }
 {%- endstyle -%}
@@ -378,8 +446,30 @@
         {%- for product in section.settings.collection.products limit: section.settings.products_count -%}
           <product-item class="product-item--light two-point-o product-item-vertical">
             <div class="product__wrapper--light">
+              {%- comment -%} Priority Labels - Boat Light Style {%- endcomment -%}
+              {%- if section.settings.show_new_launch_badge -%}
+                <span class="priority label--light label--highlight custom-label bg-purple--light just launched">
+                  {{ section.settings.new_launch_emoji | default: '🎉' }}
+                  {{ section.settings.new_launch_text | default: 'New Launch' }}
+                </span>
+              {%- endif -%}
+
+              {%- if section.settings.show_trending_badge -%}
+                <span class="priority label--light label--highlight custom-label bg-orange--light trending">
+                  {{ section.settings.trending_emoji | default: '✨' }}
+                  {{ section.settings.trending_text | default: 'Trending' }}
+                </span>
+              {%- endif -%}
+
+              {%- if section.settings.show_sale_badge -%}
+                <span class="priority label--light label--highlight custom-label sale-badge--light bg-orange">
+                  {{ section.settings.sale_emoji | default: '💸' }}
+                  {{ section.settings.sale_text | default: 'Special Offer' }}
+                </span>
+              {%- endif -%}
+
               <div class="labels-wrapper--light metafeild-label">
-                {%- comment -%} Spec Label (Light) {%- endcomment -%}
+                {%- comment -%} Spec Label - Boat Light Style {%- endcomment -%}
                 {%- if section.settings.show_default_spec -%}
                   {%- assign spec_text = product.metafields.custom.spec_text
                     | default: section.settings.default_spec_text
@@ -389,7 +479,7 @@
                   </span>
                 {%- endif -%}
 
-                {%- comment -%} Rating (Light) {%- endcomment -%}
+                {%- comment -%} Rating - Boat Light Style {%- endcomment -%}
                 {%- if section.settings.show_ratings -%}
                   <div class="card--rating--light">
                     <div class="rating--light">
@@ -425,37 +515,6 @@
                   </div>
                 {%- endif -%}
               </div>
-
-              {%- comment -%} Priority Labels (Light) {%- endcomment -%}
-              {%- if section.settings.show_new_launch_badge -%}
-                <span
-                  class="priority label--light label--highlight custom-label bg-purple--light just launched"
-                  style="display: flex; align-items: center;"
-                >
-                  {{ section.settings.new_launch_emoji | default: '🎉' }}
-                  {{ section.settings.new_launch_text | default: 'New Launch' }}
-                </span>
-              {%- endif -%}
-
-              {%- if section.settings.show_trending_badge -%}
-                <span
-                  class="priority label--light label--highlight custom-label bg-orange--light trending"
-                  style="display: flex; align-items: center;"
-                >
-                  {{ section.settings.trending_emoji | default: '✨' -}}
-                  {{- section.settings.trending_text | default: 'Trending' }}
-                </span>
-              {%- endif -%}
-
-              {%- if section.settings.show_sale_badge -%}
-                <span
-                  class="priority label--light label--highlight custom-label sale-badge--light bg-orange"
-                  style="display: flex; align-items: center;"
-                >
-                  {{ section.settings.sale_emoji | default: '💸' }}
-                  {{ section.settings.sale_text | default: 'Special Offer' }}
-                </span>
-              {%- endif -%}
 
               <div class="product-item__image-wrapper--light">
                 {%- if section.settings.show_personalised_icon and product.metafields.custom.personalised == 'true' -%}
@@ -514,7 +573,7 @@
                         <span class="visually-hidden">
                           {{- section.settings.sale_price_text | default: 'Sale price' -}}
                         </span>
-                        {{- product.price | money }}
+                        {{ product.price | money }}
                       </span>
 
                       {%- if product.compare_at_price > product.price -%}
@@ -526,7 +585,7 @@
                             <span class="visually-hidden">
                               {{- section.settings.regular_price_text | default: 'Regular price' -}}
                             </span>
-                            {{- product.compare_at_price | money }}
+                            {{ product.compare_at_price | money }}
                           </span>
                           {%- assign discount_percentage = product.compare_at_price
                             | minus: product.price
@@ -557,7 +616,6 @@
                           <span class="swatch-circle--light" style="background:{{ color_value }}"></span>
                           {%- assign colors_shown = colors_shown | plus: 1 -%}
                         {%- endfor -%}
-
                         {%- if color_option.values.size > 2 -%}
                           <span class="more-colors--light">+{{ color_option.values.size | minus: 2 }}</span>
                         {%- endif -%}
@@ -627,20 +685,23 @@
       "id": "header_alignment",
       "label": "Header alignment",
       "options": [
-        {
-          "value": "left",
-          "label": "Left"
-        },
-        {
-          "value": "center",
-          "label": "Center"
-        },
-        {
-          "value": "right",
-          "label": "Right"
-        }
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
       ],
       "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "title_transform",
+      "label": "Title text transform",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "uppercase", "label": "Uppercase" },
+        { "value": "lowercase", "label": "Lowercase" },
+        { "value": "capitalize", "label": "Capitalize" }
+      ],
+      "default": "none"
     },
     {
       "type": "header",
@@ -730,7 +791,7 @@
     },
     {
       "type": "header",
-      "content": "💬 Customizable Text"
+      "content": "💬 Customizable Text & Emojis"
     },
     {
       "type": "text",
@@ -818,7 +879,7 @@
       "type": "color",
       "id": "title_color",
       "label": "Title color",
-      "default": "#1a1a1a"
+      "default": "#000000"
     },
     {
       "type": "color",
@@ -847,9 +908,9 @@
       "id": "section_padding_top",
       "label": "Section padding top",
       "min": 0,
-      "max": 100,
+      "max": 80,
       "step": 5,
-      "default": 40,
+      "default": 20,
       "unit": "px"
     },
     {
@@ -857,9 +918,29 @@
       "id": "section_padding_bottom",
       "label": "Section padding bottom",
       "min": 0,
-      "max": 100,
+      "max": 80,
       "step": 5,
-      "default": 40,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "label": "Section margin top",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "label": "Section margin bottom",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "default": 20,
       "unit": "px"
     },
     {
@@ -869,7 +950,7 @@
       "min": 1000,
       "max": 1600,
       "step": 50,
-      "default": 1400,
+      "default": 1200,
       "unit": "px"
     },
     {
@@ -886,20 +967,20 @@
       "type": "range",
       "id": "header_margin_bottom",
       "label": "Header margin bottom",
-      "min": 10,
-      "max": 60,
-      "step": 5,
-      "default": 25,
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "default": 16,
       "unit": "px"
     },
     {
       "type": "range",
       "id": "title_size",
       "label": "Title font size",
-      "min": 20,
-      "max": 40,
+      "min": 12,
+      "max": 24,
       "step": 2,
-      "default": 28,
+      "default": 16,
       "unit": "px"
     },
     {
@@ -916,7 +997,7 @@
       "id": "title_margin_bottom",
       "label": "Title margin bottom",
       "min": 0,
-      "max": 20,
+      "max": 16,
       "step": 2,
       "default": 8,
       "unit": "px"
@@ -925,10 +1006,10 @@
       "type": "range",
       "id": "subtitle_size",
       "label": "Subtitle font size",
-      "min": 12,
-      "max": 20,
+      "min": 10,
+      "max": 18,
       "step": 1,
-      "default": 16,
+      "default": 14,
       "unit": "px"
     },
     {
@@ -944,20 +1025,20 @@
       "type": "range",
       "id": "card_min_width",
       "label": "Card minimum width",
-      "min": 180,
-      "max": 300,
+      "min": 140,
+      "max": 240,
       "step": 10,
-      "default": 240,
+      "default": 180,
       "unit": "px"
     },
     {
       "type": "range",
       "id": "grid_gap",
       "label": "Grid gap",
-      "min": 8,
-      "max": 30,
+      "min": 6,
+      "max": 24,
       "step": 2,
-      "default": 20,
+      "default": 12,
       "unit": "px"
     }
   ],
