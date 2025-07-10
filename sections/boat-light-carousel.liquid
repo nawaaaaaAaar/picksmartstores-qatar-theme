@@ -553,7 +553,6 @@
                       >
                         {%- assign colors_shown = 0 -%}
                         {%- for value in color_option.values limit: 2 -%}
-                          {%- assign color_handle = value | handle -%}
                           {%- assign color_value = value | downcase -%}
                           <span class="swatch-circle--light" style="background:{{ color_value }}"></span>
                           {%- assign colors_shown = colors_shown | plus: 1 -%}
