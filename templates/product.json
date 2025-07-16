@@ -84,18 +84,7 @@
             "share_label": "Share"
           }
         },
-        "delivery-check": {
-          "type": "delivery-check"
-        },
-        "tiered-pricing": {
-          "type": "tiered-pricing"
-        },
-        "payment-offers": {
-          "type": "payment-offers"
-        },
-        "trust-badges": {
-          "type": "trust-badges"
-        }
+
       },
       "block_order": [
         "vendor",
@@ -105,11 +94,7 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
-        "delivery-check",
-        "tiered-pricing",
-        "payment-offers",
         "description",
-        "trust-badges",
         "collapsible-row-0",
         "collapsible-row-1",
         "collapsible-row-2",
