@@ -1,0 +1,58 @@
+/* 
+ * Boat Theme Font Definitions
+ * Optimized font loading - only essential weights for performance
+ */
+
+/* Metropolis Font Family - Primary brand font (essential weights only) */
+@import url('https://fonts.googleapis.com/css2?family=Metropolis:wght@400;600;700&display=swap');
+
+/* Montserrat Font Family - Secondary brand font (essential weights only) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+/* Font family definitions with fallbacks */
+.font-metropolis {
+  font-family: 'Metropolis', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.font-montserrat {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Apply fonts to common elements based on boat-lifestyle.com */
+body {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6,
+.heading,
+.product-title,
+.section-title {
+  font-family: 'Metropolis', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 700;
+}
+
+/* Brand text and special elements */
+.brand-text,
+.logo-text,
+.boat-brand {
+  font-family: 'Metropolis', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 700;
+}
+
+/* Button text styling */
+.btn,
+.button,
+.add-to-cart-btn {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Font weight utilities */
+.font-weight-light { font-weight: 300; }
+.font-weight-regular { font-weight: 400; }
+.font-weight-medium { font-weight: 500; }
+.font-weight-semibold { font-weight: 600; }
+.font-weight-bold { font-weight: 700; } 

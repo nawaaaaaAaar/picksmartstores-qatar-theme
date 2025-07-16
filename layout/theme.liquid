@@ -24,7 +24,7 @@
     {%- endunless -%}
 
     {%- comment -%} Optimized font loading for boat theme {%- endcomment -%}
-    {{ 'boat-fonts.css' | asset_url | stylesheet_tag: preload: true }}
+    {{ 'custom-fonts.css' | asset_url | stylesheet_tag: preload: true }}
 
     <title>
       {{ page_title }}
@@ -233,20 +233,7 @@
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'custom.css' | asset_url | stylesheet_tag }}
 
-    {%- unless settings.type_body_font.system? -%}
-      {%- if settings.type_body_font -%}
-        {{ settings.type_body_font | font_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
-      {%- endif -%}
-    {%- endunless -%}
-    {%- unless settings.type_header_font.system? -%}
-      {%- if settings.type_header_font -%}
-        {{
-          settings.type_header_font
-          | font_url
-          | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous'
-        }}
-      {%- endif -%}
-    {%- endunless -%}
+    {%- comment -%} Theme fonts handled by boat-fonts.css {%- endcomment -%}
 
     {%- if localization.available_countries.size > 1 or localization.available_languages.size > 1 -%}
       {{ 'component-localization-form.css' | asset_url | stylesheet_tag: preload: true }}
