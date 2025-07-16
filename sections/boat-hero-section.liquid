@@ -1,24 +1,17 @@
 {{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
 
-{%- style -%}
-  #shopify-section-{{ section.id }} {
-    --boat-hero-text-color: {{ section.settings.text_color }};
-    --boat-hero-background: {{ section.settings.background_color }};
-    --boat-hero-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
-    margin-bottom: {{ section.settings.section_margin }}px;
-  }
-
-  #shopify-section-{{ section.id }} .boat-hero {
-    background: var(--boat-hero-background);
+<style>
+  .boat-hero-section {
     position: relative;
-    overflow: hidden;
-    min-height: {{ section.settings.section_height }}px;
+    min-height: {{ section.settings.section_height | default: 500 }}px;
     display: flex;
-    align-items: {{ section.settings.content_alignment }};
-    justify-content: {{ section.settings.content_position }};
+    align-items: center;
+    justify-content: center;
+    background: {{ section.settings.background_color | default: '#f8f8f8' }};
+    overflow: hidden;
   }
 
-  #shopify-section-{{ section.id }} .boat-hero__background {
+  .boat-hero-section__background {
     position: absolute;
     top: 0;
     left: 0;
@@ -27,270 +20,170 @@
     z-index: 1;
   }
 
-  #shopify-section-{{ section.id }} .boat-hero__background img {
+  .boat-hero-section__background img {
     width: 100%;
     height: 100%;
-    object-fit: {{ section.settings.image_fit }};
-    object-position: {{ section.settings.image_position }};
+    object-fit: cover;
   }
 
-  #shopify-section-{{ section.id }} .boat-hero__overlay {
+  .boat-hero-section__overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: {{ section.settings.overlay_color }};
-    opacity: var(--boat-hero-overlay-opacity);
+    background: rgba(0, 0, 0, {{ section.settings.overlay_opacity | default: 0 | divided_by: 100.0 }});
     z-index: 2;
   }
 
-  #shopify-section-{{ section.id }} .boat-hero__content {
+  .boat-hero-section__content {
     position: relative;
     z-index: 3;
-    color: var(--boat-hero-text-color);
-    text-align: {{ section.settings.text_alignment }};
-    max-width: {{ section.settings.content_width }}px;
-    padding: {{ section.settings.content_padding }}px;
+    text-align: center;
+    color: {{ section.settings.text_color | default: '#000' }};
+    max-width: 800px;
+    padding: 0 20px;
   }
 
-  #shopify-section-{{ section.id }} .boat-hero__title {
-    font-family: var(--boat-font-primary);
-    font-size: {{ section.settings.title_size }}px;
-    font-weight: {{ section.settings.title_weight }};
-    line-height: {{ section.settings.title_line_height }};
-    letter-spacing: {{ section.settings.title_letter_spacing }}px;
-    text-transform: {{ section.settings.title_transform }};
-    margin-bottom: {{ section.settings.title_margin }}px;
-    {% if section.settings.title_gradient %}
-      background: linear-gradient({{ section.settings.title_gradient }});
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    {% endif %}
+  .boat-hero-section__subtitle {
+    font-size: {{ section.settings.subtitle_size | default: 16 }}px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 
-  #shopify-section-{{ section.id }} .boat-hero__subtitle {
-    font-family: var(--boat-font-primary);
-    font-size: {{ section.settings.subtitle_size }}px;
-    font-weight: {{ section.settings.subtitle_weight }};
-    line-height: {{ section.settings.subtitle_line_height }};
-    margin-bottom: {{ section.settings.subtitle_margin }}px;
-    opacity: {{ section.settings.subtitle_opacity | divided_by: 100.0 }};
+  .boat-hero-section__title {
+    font-size: {{ section.settings.title_size | default: 48 }}px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
   }
 
-  #shopify-section-{{ section.id }} .boat-hero__description {
-    font-family: var(--boat-font-primary);
-    font-size: {{ section.settings.description_size }}px;
-    font-weight: {{ section.settings.description_weight }};
-    line-height: {{ section.settings.description_line_height }};
-    margin-bottom: {{ section.settings.description_margin }}px;
-    max-width: {{ section.settings.description_width }}px;
-    margin-left: auto;
-    margin-right: auto;
+  .boat-hero-section__description {
+    font-size: {{ section.settings.description_size | default: 16 }}px;
+    margin-bottom: 30px;
+    line-height: 1.6;
   }
 
-  #shopify-section-{{ section.id }} .boat-hero__buttons {
+  .boat-hero-section__buttons {
     display: flex;
-    gap: {{ section.settings.button_gap }}px;
-    justify-content: {{ section.settings.button_alignment }};
+    gap: 15px;
+    justify-content: center;
     flex-wrap: wrap;
-    margin-top: {{ section.settings.button_margin_top }}px;
   }
 
-  #shopify-section-{{ section.id }} .boat-hero__button {
+  .boat-hero-section__button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: {{ section.settings.button_padding_y }}px {{ section.settings.button_padding_x }}px;
-    font-family: var(--boat-font-primary);
-    font-size: {{ section.settings.button_text_size }}px;
-    font-weight: {{ section.settings.button_text_weight }};
+    padding: 12px 30px;
     text-decoration: none;
-    border-radius: {{ section.settings.button_border_radius }}px;
+    border-radius: 5px;
+    font-weight: 600;
     transition: all 0.3s ease;
-    text-transform: {{ section.settings.button_text_transform }};
-    letter-spacing: {{ section.settings.button_letter_spacing }}px;
-    min-height: {{ section.settings.button_height }}px;
-    border: {{ section.settings.button_border_width }}px solid transparent;
+    min-width: 140px;
   }
 
-  #shopify-section-{{ section.id }} .boat-hero__button--primary {
-    background: {{ section.settings.primary_button_bg }};
-    color: {{ section.settings.primary_button_text_color }};
-    border-color: {{ section.settings.primary_button_border }};
+  .boat-hero-section__button--primary {
+    background: {{ section.settings.primary_button_bg | default: '#fe0000' }};
+    color: {{ section.settings.primary_button_text | default: '#fff' }};
   }
 
-  #shopify-section-{{ section.id }} .boat-hero__button--primary:hover {
-    background: {{ section.settings.primary_button_bg_hover }};
-    color: {{ section.settings.primary_button_text_hover }};
-    border-color: {{ section.settings.primary_button_border_hover }};
+  .boat-hero-section__button--primary:hover {
+    background: {{ section.settings.primary_button_bg_hover | default: '#e60000' }};
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   }
 
-  #shopify-section-{{ section.id }} .boat-hero__button--secondary {
-    background: {{ section.settings.secondary_button_bg }};
-    color: {{ section.settings.secondary_button_text_color }};
-    border-color: {{ section.settings.secondary_button_border }};
+  .boat-hero-section__button--secondary {
+    background: transparent;
+    color: {{ section.settings.secondary_button_text | default: '#000' }};
+    border: 2px solid {{ section.settings.secondary_button_border | default: '#000' }};
   }
 
-  #shopify-section-{{ section.id }} .boat-hero__button--secondary:hover {
-    background: {{ section.settings.secondary_button_bg_hover }};
-    color: {{ section.settings.secondary_button_text_hover }};
-    border-color: {{ section.settings.secondary_button_border_hover }};
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  .boat-hero-section__button--secondary:hover {
+    background: {{ section.settings.secondary_button_border | default: '#000' }};
+    color: #fff;
   }
 
-  {% if section.settings.enable_animations %}
-    #shopify-section-{{ section.id }} .boat-hero__content > * {
-      opacity: 0;
-      transform: translateY(30px);
-      animation: boatFadeInUp 0.8s ease-out forwards;
+  @media (max-width: 768px) {
+    .boat-hero-section {
+      min-height: {{ section.settings.mobile_height | default: 400 }}px;
     }
 
-    #shopify-section-{{ section.id }} .boat-hero__title {
-      animation-delay: 0.2s;
+    .boat-hero-section__title {
+      font-size: {{ section.settings.mobile_title_size | default: 32 }}px;
     }
 
-    #shopify-section-{{ section.id }} .boat-hero__subtitle {
-      animation-delay: 0.4s;
+    .boat-hero-section__buttons {
+      flex-direction: column;
+      align-items: center;
     }
 
-    #shopify-section-{{ section.id }} .boat-hero__description {
-      animation-delay: 0.6s;
-    }
-
-    #shopify-section-{{ section.id }} .boat-hero__buttons {
-      animation-delay: 0.8s;
-    }
-
-    @keyframes boatFadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  {% endif %}
-
-  @media screen and (max-width: 767px) {
-    #shopify-section-{{ section.id }} .boat-hero {
-      min-height: {{ section.settings.mobile_height }}px;
-      padding: {{ section.settings.mobile_padding }}px 0;
-    }
-
-    #shopify-section-{{ section.id }} .boat-hero__content {
-      max-width: 100%;
-      padding: {{ section.settings.mobile_content_padding }}px;
-    }
-
-    #shopify-section-{{ section.id }} .boat-hero__title {
-      font-size: {{ section.settings.mobile_title_size }}px;
-    }
-
-    #shopify-section-{{ section.id }} .boat-hero__subtitle {
-      font-size: {{ section.settings.mobile_subtitle_size }}px;
-    }
-
-    #shopify-section-{{ section.id }} .boat-hero__description {
-      font-size: {{ section.settings.mobile_description_size }}px;
-    }
-
-    #shopify-section-{{ section.id }} .boat-hero__buttons {
-      flex-direction: {{ section.settings.mobile_button_direction }};
-      justify-content: {{ section.settings.mobile_button_alignment }};
-    }
-
-    #shopify-section-{{ section.id }} .boat-hero__button {
-      {% if section.settings.mobile_full_width_buttons %}
-        width: 100%;
-      {% endif %}
-      font-size: {{ section.settings.mobile_button_size }}px;
-      padding: {{ section.settings.mobile_button_padding }}px;
+    .boat-hero-section__button {
+      width: 100%;
+      max-width: 250px;
     }
   }
-{%- endstyle -%}
+</style>
 
-<div class="boat-hero">
+<div class="boat-hero-section">
   {% if section.settings.background_image %}
-    <div class="boat-hero__background">
-      {%- liquid
-        assign sizes = '100vw'
-        assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
-      -%}
-      {{
-        section.settings.background_image
-        | image_url: width: 3840
-        | image_tag: loading: 'lazy', sizes: sizes, widths: widths, alt: section.settings.background_image.alt
-        | escape
-      }}
+    <div class="boat-hero-section__background">
+      {{ section.settings.background_image | image_url: width: 1920 | image_tag: loading: 'lazy' }}
     </div>
   {% endif %}
 
   {% if section.settings.overlay_opacity > 0 %}
-    <div class="boat-hero__overlay"></div>
+    <div class="boat-hero-section__overlay"></div>
   {% endif %}
 
-  <div class="boat-container">
-    <div class="boat-hero__content">
-      {% if section.settings.subtitle != blank %}
-        <p class="boat-hero__subtitle">{{ section.settings.subtitle }}</p>
-      {% endif %}
+  <div class="boat-hero-section__content">
+    {% if section.settings.subtitle != blank %}
+      <div class="boat-hero-section__subtitle">{{ section.settings.subtitle }}</div>
+    {% endif %}
 
-      {% if section.settings.title != blank %}
-        <h1 class="boat-hero__title">{{ section.settings.title }}</h1>
-      {% endif %}
+    {% if section.settings.title != blank %}
+      <h1 class="boat-hero-section__title">{{ section.settings.title }}</h1>
+    {% endif %}
 
-      {% if section.settings.description != blank %}
-        <div class="boat-hero__description">
-          {{ section.settings.description }}
-        </div>
-      {% endif %}
+    {% if section.settings.description != blank %}
+      <div class="boat-hero-section__description">{{ section.settings.description }}</div>
+    {% endif %}
 
-      {% if section.settings.primary_button_text != blank or section.settings.secondary_button_text != blank %}
-        <div class="boat-hero__buttons">
-          {% if section.settings.primary_button_text != blank %}
-            <a
-              href="{{ section.settings.primary_button_url | default: '#' }}"
-              class="boat-hero__button boat-hero__button--primary"
-              {% if section.settings.primary_button_url == blank %}
-                onclick="event.preventDefault()"
-              {% endif %}
-            >
-              {{ section.settings.primary_button_text }}
-            </a>
-          {% endif %}
+    {% if section.settings.primary_button_text != blank or section.settings.secondary_button_text != blank %}
+      <div class="boat-hero-section__buttons">
+        {% if section.settings.primary_button_text != blank %}
+          <a
+            href="{{ section.settings.primary_button_url | default: '#' }}"
+            class="boat-hero-section__button boat-hero-section__button--primary"
+          >
+            {{ section.settings.primary_button_text }}
+          </a>
+        {% endif %}
 
-          {% if section.settings.secondary_button_text != blank %}
-            <a
-              href="{{ section.settings.secondary_button_url | default: '#' }}"
-              class="boat-hero__button boat-hero__button--secondary"
-              {% if section.settings.secondary_button_url == blank %}
-                onclick="event.preventDefault()"
-              {% endif %}
-            >
-              {{ section.settings.secondary_button_text }}
-            </a>
-          {% endif %}
-        </div>
-      {% endif %}
-    </div>
+        {% if section.settings.secondary_button_text != blank %}
+          <a
+            href="{{ section.settings.secondary_button_url | default: '#' }}"
+            class="boat-hero-section__button boat-hero-section__button--secondary"
+          >
+            {{ section.settings.secondary_button_text }}
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
   </div>
 </div>
 
 {% schema %}
 {
-  "name": "Boat Hero Section",
+  "name": "Hero Section",
   "tag": "section",
-  "class": "boat-hero-section",
-  "disabled_on": {
-    "groups": ["header", "footer"]
-  },
+  "class": "section",
   "settings": [
     {
       "type": "header",
-      "content": "Content Settings"
+      "content": "Content"
     },
     {
       "type": "text",
@@ -312,7 +205,7 @@
     },
     {
       "type": "header",
-      "content": "Primary Button"
+      "content": "Buttons"
     },
     {
       "type": "text",
@@ -326,46 +219,6 @@
       "label": "Primary Button URL"
     },
     {
-      "type": "color",
-      "id": "primary_button_bg",
-      "label": "Primary Button Background",
-      "default": "#fe0000"
-    },
-    {
-      "type": "color",
-      "id": "primary_button_text_color",
-      "label": "Primary Button Text Color",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "primary_button_border",
-      "label": "Primary Button Border",
-      "default": "#fe0000"
-    },
-    {
-      "type": "color",
-      "id": "primary_button_bg_hover",
-      "label": "Primary Button Background (Hover)",
-      "default": "#e60000"
-    },
-    {
-      "type": "color",
-      "id": "primary_button_text_hover",
-      "label": "Primary Button Text (Hover)",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "primary_button_border_hover",
-      "label": "Primary Button Border (Hover)",
-      "default": "#e60000"
-    },
-    {
-      "type": "header",
-      "content": "Secondary Button"
-    },
-    {
       "type": "text",
       "id": "secondary_button_text",
       "label": "Secondary Button Text",
@@ -377,44 +230,8 @@
       "label": "Secondary Button URL"
     },
     {
-      "type": "color",
-      "id": "secondary_button_bg",
-      "label": "Secondary Button Background",
-      "default": "transparent"
-    },
-    {
-      "type": "color",
-      "id": "secondary_button_text_color",
-      "label": "Secondary Button Text Color",
-      "default": "#000000"
-    },
-    {
-      "type": "color",
-      "id": "secondary_button_border",
-      "label": "Secondary Button Border",
-      "default": "#000000"
-    },
-    {
-      "type": "color",
-      "id": "secondary_button_bg_hover",
-      "label": "Secondary Button Background (Hover)",
-      "default": "#000000"
-    },
-    {
-      "type": "color",
-      "id": "secondary_button_text_hover",
-      "label": "Secondary Button Text (Hover)",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "secondary_button_border_hover",
-      "label": "Secondary Button Border (Hover)",
-      "default": "#000000"
-    },
-    {
       "type": "header",
-      "content": "Background & Visual Settings"
+      "content": "Background"
     },
     {
       "type": "image_picker",
@@ -422,60 +239,30 @@
       "label": "Background Image"
     },
     {
-      "type": "select",
-      "id": "image_fit",
-      "label": "Image Fit",
-      "options": [
-        { "value": "cover", "label": "Cover" },
-        { "value": "contain", "label": "Contain" },
-        { "value": "fill", "label": "Fill" }
-      ],
-      "default": "cover"
-    },
-    {
-      "type": "select",
-      "id": "image_position",
-      "label": "Image Position",
-      "options": [
-        { "value": "center center", "label": "Center" },
-        { "value": "left center", "label": "Left" },
-        { "value": "right center", "label": "Right" },
-        { "value": "center top", "label": "Top" },
-        { "value": "center bottom", "label": "Bottom" }
-      ],
-      "default": "center center"
-    },
-    {
       "type": "color",
       "id": "background_color",
       "label": "Background Color",
-      "default": "#f7f7f7"
-    },
-    {
-      "type": "color",
-      "id": "overlay_color",
-      "label": "Overlay Color",
-      "default": "#000000"
+      "default": "#f8f8f8"
     },
     {
       "type": "range",
       "id": "overlay_opacity",
       "label": "Overlay Opacity",
       "min": 0,
-      "max": 100,
+      "max": 80,
       "step": 5,
       "unit": "%",
       "default": 0
     },
     {
       "type": "header",
-      "content": "Layout Settings"
+      "content": "Layout"
     },
     {
       "type": "range",
       "id": "section_height",
       "label": "Section Height",
-      "min": 300,
+      "min": 400,
       "max": 800,
       "step": 50,
       "unit": "px",
@@ -485,78 +272,15 @@
       "type": "range",
       "id": "mobile_height",
       "label": "Mobile Height",
-      "min": 250,
+      "min": 300,
       "max": 600,
       "step": 25,
       "unit": "px",
       "default": 400
     },
     {
-      "type": "select",
-      "id": "content_alignment",
-      "label": "Content Vertical Alignment",
-      "options": [
-        { "value": "flex-start", "label": "Top" },
-        { "value": "center", "label": "Center" },
-        { "value": "flex-end", "label": "Bottom" }
-      ],
-      "default": "center"
-    },
-    {
-      "type": "select",
-      "id": "content_position",
-      "label": "Content Horizontal Position",
-      "options": [
-        { "value": "flex-start", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "flex-end", "label": "Right" }
-      ],
-      "default": "center"
-    },
-    {
-      "type": "select",
-      "id": "text_alignment",
-      "label": "Text Alignment",
-      "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
-      ],
-      "default": "center"
-    },
-    {
-      "type": "range",
-      "id": "content_width",
-      "label": "Content Max Width",
-      "min": 400,
-      "max": 1000,
-      "step": 50,
-      "unit": "px",
-      "default": 600
-    },
-    {
-      "type": "range",
-      "id": "content_padding",
-      "label": "Content Padding",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "px",
-      "default": 20
-    },
-    {
-      "type": "range",
-      "id": "section_margin",
-      "label": "Section Bottom Margin",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "px",
-      "default": 0
-    },
-    {
       "type": "header",
-      "content": "Typography Settings"
+      "content": "Typography"
     },
     {
       "type": "color",
@@ -569,8 +293,8 @@
       "id": "title_size",
       "label": "Title Size",
       "min": 24,
-      "max": 80,
-      "step": 2,
+      "max": 72,
+      "step": 4,
       "unit": "px",
       "default": 48
     },
@@ -579,414 +303,69 @@
       "id": "mobile_title_size",
       "label": "Mobile Title Size",
       "min": 20,
-      "max": 50,
+      "max": 48,
       "step": 2,
       "unit": "px",
       "default": 32
-    },
-    {
-      "type": "select",
-      "id": "title_weight",
-      "label": "Title Weight",
-      "options": [
-        { "value": "400", "label": "Normal" },
-        { "value": "500", "label": "Medium" },
-        { "value": "600", "label": "Semi Bold" },
-        { "value": "700", "label": "Bold" },
-        { "value": "800", "label": "Extra Bold" }
-      ],
-      "default": "700"
-    },
-    {
-      "type": "range",
-      "id": "title_line_height",
-      "label": "Title Line Height",
-      "min": 1.0,
-      "max": 2.0,
-      "step": 0.1,
-      "default": 1.2
-    },
-    {
-      "type": "range",
-      "id": "title_letter_spacing",
-      "label": "Title Letter Spacing",
-      "min": -2,
-      "max": 5,
-      "step": 0.5,
-      "unit": "px",
-      "default": -1
-    },
-    {
-      "type": "select",
-      "id": "title_transform",
-      "label": "Title Transform",
-      "options": [
-        { "value": "none", "label": "None" },
-        { "value": "uppercase", "label": "Uppercase" },
-        { "value": "lowercase", "label": "Lowercase" },
-        { "value": "capitalize", "label": "Capitalize" }
-      ],
-      "default": "none"
-    },
-    {
-      "type": "range",
-      "id": "title_margin",
-      "label": "Title Bottom Margin",
-      "min": 0,
-      "max": 50,
-      "step": 2,
-      "unit": "px",
-      "default": 16
-    },
-    {
-      "type": "text",
-      "id": "title_gradient",
-      "label": "Title Gradient (CSS)",
-      "info": "Example: 45deg, #fe0000, #ff6b6b"
     },
     {
       "type": "range",
       "id": "subtitle_size",
       "label": "Subtitle Size",
       "min": 12,
-      "max": 30,
-      "step": 1,
-      "unit": "px",
-      "default": 18
-    },
-    {
-      "type": "range",
-      "id": "mobile_subtitle_size",
-      "label": "Mobile Subtitle Size",
-      "min": 12,
       "max": 24,
       "step": 1,
       "unit": "px",
       "default": 16
-    },
-    {
-      "type": "select",
-      "id": "subtitle_weight",
-      "label": "Subtitle Weight",
-      "options": [
-        { "value": "400", "label": "Normal" },
-        { "value": "500", "label": "Medium" },
-        { "value": "600", "label": "Semi Bold" },
-        { "value": "700", "label": "Bold" }
-      ],
-      "default": "500"
-    },
-    {
-      "type": "range",
-      "id": "subtitle_line_height",
-      "label": "Subtitle Line Height",
-      "min": 1.0,
-      "max": 2.0,
-      "step": 0.1,
-      "default": 1.4
-    },
-    {
-      "type": "range",
-      "id": "subtitle_margin",
-      "label": "Subtitle Bottom Margin",
-      "min": 0,
-      "max": 30,
-      "step": 2,
-      "unit": "px",
-      "default": 8
-    },
-    {
-      "type": "range",
-      "id": "subtitle_opacity",
-      "label": "Subtitle Opacity",
-      "min": 50,
-      "max": 100,
-      "step": 5,
-      "unit": "%",
-      "default": 80
     },
     {
       "type": "range",
       "id": "description_size",
       "label": "Description Size",
       "min": 14,
-      "max": 24,
-      "step": 1,
-      "unit": "px",
-      "default": 16
-    },
-    {
-      "type": "range",
-      "id": "mobile_description_size",
-      "label": "Mobile Description Size",
-      "min": 12,
-      "max": 20,
-      "step": 1,
-      "unit": "px",
-      "default": 14
-    },
-    {
-      "type": "select",
-      "id": "description_weight",
-      "label": "Description Weight",
-      "options": [
-        { "value": "400", "label": "Normal" },
-        { "value": "500", "label": "Medium" },
-        { "value": "600", "label": "Semi Bold" }
-      ],
-      "default": "400"
-    },
-    {
-      "type": "range",
-      "id": "description_line_height",
-      "label": "Description Line Height",
-      "min": 1.2,
-      "max": 2.0,
-      "step": 0.1,
-      "default": 1.6
-    },
-    {
-      "type": "range",
-      "id": "description_margin",
-      "label": "Description Bottom Margin",
-      "min": 0,
-      "max": 50,
-      "step": 2,
-      "unit": "px",
-      "default": 24
-    },
-    {
-      "type": "range",
-      "id": "description_width",
-      "label": "Description Max Width",
-      "min": 300,
-      "max": 800,
-      "step": 25,
-      "unit": "px",
-      "default": 500
-    },
-    {
-      "type": "header",
-      "content": "Button Settings"
-    },
-    {
-      "type": "select",
-      "id": "button_alignment",
-      "label": "Button Alignment",
-      "options": [
-        { "value": "flex-start", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "flex-end", "label": "Right" }
-      ],
-      "default": "center"
-    },
-    {
-      "type": "range",
-      "id": "button_gap",
-      "label": "Button Gap",
-      "min": 8,
-      "max": 32,
-      "step": 4,
-      "unit": "px",
-      "default": 16
-    },
-    {
-      "type": "range",
-      "id": "button_margin_top",
-      "label": "Buttons Top Margin",
-      "min": 0,
-      "max": 50,
-      "step": 2,
-      "unit": "px",
-      "default": 24
-    },
-    {
-      "type": "range",
-      "id": "button_padding_x",
-      "label": "Button Horizontal Padding",
-      "min": 16,
-      "max": 48,
-      "step": 4,
-      "unit": "px",
-      "default": 24
-    },
-    {
-      "type": "range",
-      "id": "button_padding_y",
-      "label": "Button Vertical Padding",
-      "min": 8,
-      "max": 24,
-      "step": 2,
-      "unit": "px",
-      "default": 12
-    },
-    {
-      "type": "range",
-      "id": "button_height",
-      "label": "Button Min Height",
-      "min": 40,
-      "max": 60,
-      "step": 2,
-      "unit": "px",
-      "default": 48
-    },
-    {
-      "type": "range",
-      "id": "button_text_size",
-      "label": "Button Text Size",
-      "min": 12,
       "max": 20,
       "step": 1,
       "unit": "px",
       "default": 16
     },
     {
-      "type": "range",
-      "id": "mobile_button_size",
-      "label": "Mobile Button Text Size",
-      "min": 12,
-      "max": 18,
-      "step": 1,
-      "unit": "px",
-      "default": 14
-    },
-    {
-      "type": "select",
-      "id": "button_text_weight",
-      "label": "Button Text Weight",
-      "options": [
-        { "value": "400", "label": "Normal" },
-        { "value": "500", "label": "Medium" },
-        { "value": "600", "label": "Semi Bold" },
-        { "value": "700", "label": "Bold" }
-      ],
-      "default": "700"
-    },
-    {
-      "type": "select",
-      "id": "button_text_transform",
-      "label": "Button Text Transform",
-      "options": [
-        { "value": "none", "label": "None" },
-        { "value": "uppercase", "label": "Uppercase" },
-        { "value": "lowercase", "label": "Lowercase" },
-        { "value": "capitalize", "label": "Capitalize" }
-      ],
-      "default": "uppercase"
-    },
-    {
-      "type": "range",
-      "id": "button_letter_spacing",
-      "label": "Button Letter Spacing",
-      "min": 0,
-      "max": 3,
-      "step": 0.1,
-      "unit": "px",
-      "default": 0.5
-    },
-    {
-      "type": "range",
-      "id": "button_border_radius",
-      "label": "Button Border Radius",
-      "min": 0,
-      "max": 25,
-      "step": 1,
-      "unit": "px",
-      "default": 8
-    },
-    {
-      "type": "range",
-      "id": "button_border_width",
-      "label": "Button Border Width",
-      "min": 0,
-      "max": 4,
-      "step": 1,
-      "unit": "px",
-      "default": 2
-    },
-    {
       "type": "header",
-      "content": "Mobile Settings"
+      "content": "Button Colors"
     },
     {
-      "type": "range",
-      "id": "mobile_padding",
-      "label": "Mobile Section Padding",
-      "min": 20,
-      "max": 80,
-      "step": 5,
-      "unit": "px",
-      "default": 40
+      "type": "color",
+      "id": "primary_button_bg",
+      "label": "Primary Button Background",
+      "default": "#fe0000"
     },
     {
-      "type": "range",
-      "id": "mobile_content_padding",
-      "label": "Mobile Content Padding",
-      "min": 16,
-      "max": 40,
-      "step": 4,
-      "unit": "px",
-      "default": 20
+      "type": "color",
+      "id": "primary_button_text",
+      "label": "Primary Button Text",
+      "default": "#ffffff"
     },
     {
-      "type": "select",
-      "id": "mobile_button_direction",
-      "label": "Mobile Button Direction",
-      "options": [
-        { "value": "row", "label": "Horizontal" },
-        { "value": "column", "label": "Vertical" }
-      ],
-      "default": "column"
+      "type": "color",
+      "id": "primary_button_bg_hover",
+      "label": "Primary Button Background (Hover)",
+      "default": "#e60000"
     },
     {
-      "type": "select",
-      "id": "mobile_button_alignment",
-      "label": "Mobile Button Alignment",
-      "options": [
-        { "value": "flex-start", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "flex-end", "label": "Right" },
-        { "value": "stretch", "label": "Full Width" }
-      ],
-      "default": "center"
+      "type": "color",
+      "id": "secondary_button_text",
+      "label": "Secondary Button Text",
+      "default": "#000000"
     },
     {
-      "type": "checkbox",
-      "id": "mobile_full_width_buttons",
-      "label": "Full Width Buttons on Mobile",
-      "default": false
-    },
-    {
-      "type": "range",
-      "id": "mobile_button_padding",
-      "label": "Mobile Button Padding",
-      "min": 12,
-      "max": 24,
-      "step": 2,
-      "unit": "px",
-      "default": 16
-    },
-    {
-      "type": "header",
-      "content": "Animation Settings"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_animations",
-      "label": "Enable Animations",
-      "default": true
+      "type": "color",
+      "id": "secondary_button_border",
+      "label": "Secondary Button Border",
+      "default": "#000000"
     }
   ],
   "presets": [
     {
-      "name": "Boat Hero Section",
-      "settings": {
-        "subtitle": "NEW COLLECTION",
-        "title": "Experience Premium Sound",
-        "description": "<p>Discover our latest range of premium audio products designed for the modern lifestyle.</p>",
-        "primary_button_text": "Shop Now",
-        "secondary_button_text": "Learn More"
-      }
+      "name": "Hero Section"
     }
   ]
 }
