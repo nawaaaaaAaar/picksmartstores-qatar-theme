@@ -1,6 +1,428 @@
-{% schema %}
-  {
-    "name": "Section name",
-    "settings": []
+{% comment %}
+  ** Custom Product Cards Section **
+  - Shows a grid of products from a selected collection.
+  - Customizable badges, features, and ratings.
+  - Replicates the style from the provided image.
+
+  ** How to use: **
+  1. Add this file as `custom-product-cards.liquid` in your theme's `sections` folder.
+  2. Go to the Shopify Theme Editor and add the "Custom Product Grid" section to a page.
+  3. Configure the settings in the editor on the right.
+
+  ** Required Setup for Features & Ratings: **
+  To show the "Feature Bar" and "Rating" for each product, you must set up Product Metafields.
+  1. Go to your Shopify Admin -> Settings -> Custom data.
+  2. Click on "Products" and then "Add definition".
+  3. Create the following two metafields:
+     - RATING:
+       - Name: Rating
+       - Namespace and key: `custom.rating`
+       - Content type: Number -> Decimal
+     - FEATURE TEXT:
+       - Name: Feature Text
+       - Namespace and key: `custom.feature_text`
+       - Content type: Text -> Single line text
+  4. After creating these, go to any product in your admin, scroll down to "Metafields", and you can enter the rating and feature text for that specific product.
+{% endcomment %}
+
+{{ 'component-rating.css' | asset_url | stylesheet_tag }}
+
+<style>
+  .custom-product-grid-section {
+    padding: 40px 0;
   }
+
+  .custom-product-grid-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .custom-product-grid-header h2 {
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  .custom-product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 24px;
+    padding: 0 16px;
+  }
+
+  @media (min-width: 768px) {
+    .custom-product-grid {
+      grid-template-columns: repeat({{ section.settings.products_per_row_desktop }}, 1fr);
+      padding: 0 40px;
+    }
+  }
+
+  .custom-product-card {
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #E5E7EB;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .custom-product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  .custom-product-card__image-wrapper {
+    position: relative;
+    padding-top: 100%; /* 1:1 Aspect Ratio */
+    background-color: #f3f4f6;
+  }
+
+  .custom-product-card__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .custom-product-card__badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 4px 8px;
+    font-size: 10px;
+    font-weight: 500;
+    border-radius: 4px;
+    z-index: 2;
+    text-transform: uppercase;
+  }
+
+  .custom-product-card__feature-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0));
+    color: #fff;
+    padding: 20px 12px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    z-index: 2;
+  }
+
+  .feature-bar__text {
+    font-weight: 500;
+  }
+
+  .feature-bar__rating {
+    display: flex;
+    align-items: center;
+    background-color: rgba(0,0,0,0.5);
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
+  .feature-bar__rating svg {
+    width: 14px;
+    height: 14px;
+    margin-right: 4px;
+    fill: #FFD700; /* Gold color for star */
+  }
+
+  .custom-product-card__info {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .custom-product-card__title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1F2937;
+    margin: 0 0 8px;
+    flex-grow: 1;
+  }
+
+  .custom-product-card__price-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .custom-product-card__price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111827;
+  }
+
+  .custom-product-card__compare-price {
+    font-size: 14px;
+    color: #6B7280;
+    text-decoration: line-through;
+  }
+
+  .custom-product-card__discount {
+    font-size: 12px;
+    font-weight: 500;
+    color: #059669;
+  }
+
+  .custom-product-card__swatches {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .custom-product-card__color-options {
+    display: flex;
+    gap: 6px;
+  }
+
+  .custom-product-card__color-swatch {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #D1D5DB;
+    cursor: pointer;
+  }
+
+  .custom-product-card__color-count {
+    font-size: 14px;
+    font-weight: 500;
+    color: #4B5563;
+  }
+
+  .no-products-message {
+    text-align: center;
+    padding: 40px;
+    font-size: 16px;
+    color: #6B7280;
+  }
+</style>
+
+<div class="custom-product-grid-section">
+  {% if section.settings.title != blank %}
+    <div class="custom-product-grid-header">
+      <h2>{{ section.settings.title | escape }}</h2>
+    </div>
+  {% endif %}
+
+  <div class="custom-product-grid">
+    {%- liquid
+      assign collection = section.settings.collection
+      assign limit = section.settings.products_to_show
+      assign product_list = collection.products | default: (1..limit)
+    -%}
+
+    {% for product in product_list limit: limit %}
+      <a href="{{ product.url | default: '#' }}" class="custom-product-card">
+        <div class="custom-product-card__image-wrapper">
+          {%- comment -%} Badge Logic {%- endcomment -%}
+          {%- assign has_badge = false -%}
+          {% for tag in product.tags %}
+            {% if tag == section.settings.bestseller_tag or tag == section.settings.new_launch_tag %}
+              <div class="custom-product-card__badge">{{ tag | escape }}</div>
+              {%- assign has_badge = true -%}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+
+          {%- if has_badge == false and section.settings.sale_badge and product.compare_at_price > product.price -%}
+            <div class="custom-product-card__badge">Sale</div>
+          {%- endif -%}
+
+          {% if product.featured_image %}
+            <img
+              class="custom-product-card__image"
+              src="{{ product.featured_image | image_url: width: 500 }}"
+              alt="{{ product.featured_image.alt | escape }}"
+              width="500"
+              height="500"
+              loading="lazy"
+            >
+          {% else %}
+            {{ 'product-1' | placeholder_svg_tag: 'custom-product-card__image' }}
+          {% endif %}
+
+          {%- comment -%} Feature Bar Logic {%- endcomment -%}
+          {%- assign feature_text = product.metafields.custom.feature_text.value -%}
+          {%- assign rating = product.metafields.custom.rating.value -%}
+
+          {%- assign has_feature_data = false -%}
+          {%- if feature_text != blank or rating != blank -%}
+            {%- assign has_feature_data = true -%}
+          {%- endif -%}
+
+          {% if section.settings.show_feature_bar and has_feature_data %}
+            <div class="custom-product-card__feature-bar">
+              {% if feature_text != blank %}
+                <span class="feature-bar__text">{{ feature_text | escape }}</span>
+              {% endif %}
+
+              {% if section.settings.show_rating and rating != blank %}
+                <span class="feature-bar__rating">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M10.868 2.884c.321-.662 1.215-.662 1.536 0l1.681 3.462 3.82.556c.734.107 1.028.997.494 1.503l-2.764 2.693.654 3.803c.124.722-.638 1.278-1.286.944L10 15.347l-3.418 1.797c-.648.334-1.41-.222-1.286-.944l.654-3.803-2.764-2.693c-.534-.506-.24-1.396.494-1.503l3.82-.556 1.681-3.462z" clip-rule="evenodd" />
+                  </svg>
+                  {{ rating }}
+                </span>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="custom-product-card__info">
+          <h3 class="custom-product-card__title">{{ product.title | default: 'Product Title' }}</h3>
+
+          <div class="custom-product-card__price-wrapper">
+            <span class="custom-product-card__price">{{ product.price | money }}</span>
+            {% if product.compare_at_price > product.price %}
+              <span class="custom-product-card__compare-price">{{ product.compare_at_price | money }}</span>
+              <span class="custom-product-card__discount">
+                {{
+                  product.compare_at_price
+                  | minus: product.price
+                  | times: 100.0
+                  | divided_by: product.compare_at_price
+                  | round
+                -}}
+                % off
+              </span>
+            {% endif %}
+          </div>
+
+          {%- comment -%} Color Swatches Logic {%- endcomment -%}
+          {%- assign color_option_name = section.settings.color_option_name -%}
+          {%- assign color_variants_count = 0 -%}
+          {%- if product.has_only_default_variant == false -%}
+            {% for option in product.options_with_values %}
+              {% if option.name == color_option_name %}
+                {% assign color_variants_count = option.values.size %}
+              {% endif %}
+            {% endfor %}
+          {%- endif -%}
+
+          {% if color_variants_count > 0 %}
+            <div class="custom-product-card__swatches">
+              <div class="custom-product-card__color-options">
+                {% for value in product.options_by_name[color_option_name].values limit: 4 %}
+                  <span
+                    class="custom-product-card__color-swatch"
+                    style="background-color: {{ value | downcase }};"
+                  ></span>
+                {% endfor %}
+              </div>
+              {% if color_variants_count > 4 %}
+                <span class="custom-product-card__color-count">+{{ color_variants_count | minus: 4 }}</span>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      </a>
+    {% else %}
+      {% if collection.products_count == 0 %}
+        <p class="no-products-message">
+          No products found in the selected collection. Please select a different collection or add products to it.
+        </p>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Product Grid",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Featured Products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "label": "Products to show",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "products_per_row_desktop",
+      "min": 3,
+      "max": 6,
+      "step": 1,
+      "label": "Products per row (Desktop)",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Card Content Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_feature_bar",
+      "label": "Show Feature Bar",
+      "info": "Requires 'Feature Text' metafield.",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show Rating",
+      "info": "Requires 'Rating' metafield.",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "sale_badge",
+      "label": "Show 'Sale' badge",
+      "info": "Shows a generic sale badge if a product is on sale and has no other badge.",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "bestseller_tag",
+      "label": "Bestseller Tag",
+      "default": "Bestseller",
+      "info": "Tag to identify bestseller products."
+    },
+    {
+      "type": "text",
+      "id": "new_launch_tag",
+      "label": "New Launch Tag",
+      "default": "New Launch",
+      "info": "Tag to identify new launch products."
+    },
+    {
+      "type": "text",
+      "id": "color_option_name",
+      "label": "Color Option Name",
+      "default": "Color",
+      "info": "The name of your product option for color swatches (e.g., 'Color', 'Colour'). Case-sensitive."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Product Grid"
+    }
+  ]
+}
 {% endschema %}
