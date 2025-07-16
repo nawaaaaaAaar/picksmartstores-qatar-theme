@@ -256,10 +256,18 @@
     {{ 'custom.css' | asset_url | stylesheet_tag }}
 
     {%- unless settings.type_body_font.system? -%}
-      {{ settings.type_body_font | font_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+      {%- if settings.type_body_font -%}
+        {{ settings.type_body_font | font_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+      {%- endif -%}
     {%- endunless -%}
     {%- unless settings.type_header_font.system? -%}
-      {{ settings.type_header_font | font_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+      {%- if settings.type_header_font -%}
+        {{
+          settings.type_header_font
+          | font_url
+          | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous'
+        }}
+      {%- endif -%}
     {%- endunless -%}
 
     {%- if localization.available_countries.size > 1 or localization.available_languages.size > 1 -%}

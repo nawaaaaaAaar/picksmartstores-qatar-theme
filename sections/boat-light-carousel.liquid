@@ -517,7 +517,7 @@
                 {%- if section.settings.show_ratings -%}
                   <div class="boat-light-carousel__rating">
                     <img
-                      src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0iI2ZmZDcwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJtNS4yMzMgMTMuMzk1IDIuNzY3LTEuNzQzIDIuNzY3IDEuNzQzLS43MzMtMy4xNDQgMi40NDQtMi4xMTgtMy4yMTEtLjI3NEw4IDUuMzM0IDYuNzMzIDcuODU5IDMuNTIyIDguMTMzbDIuNDQ0IDIuMTE4LS43MzMgMy4xNDRaIi8+PC9zdmc+"
+                      src="{{ 'star-rating.svg' | asset_url }}"
                       alt="star"
                       width="12"
                       height="12"
@@ -533,7 +533,7 @@
                 {%- if section.settings.show_personalised_icon and product.metafields.custom.personalised == 'true' -%}
                   <div class="boat-light-carousel__personalized-icon">
                     <img
-                      src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgiIGhlaWdodD0iMjgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzAwN2FmZiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTIgMmMtMi4yMSAwLTQgMS44NC00IDUuMDkgMCAzLjI1IDEuNzkgNS45MSA0IDUuOTFzNC0yLjY2IDQtNS45MWMwLTMuMjUtMS43OS01LjA5LTQtNS4wOXptMCAxMGMtMS42NiAwLTMtMS4zNC0zLTNzMS4zNC0zIDMtMyAzIDEuMzQgMyAzLTEuMzQgMy0zIDN6bTAgMTBjLTUuNTMgMC0xMC0yLjY5LTEwLTYuNSAwLTEuNjkgMS4xLTMuMjUgMyA0LjUgMSAzLjI1IDMgNCAxIDQuNSA0IDQgNSA0IDQuNSA0LTQuNSAxLTMuMjUgMy00LjUgMy00LjUgMy44OS02LjUgMTAtNi41eiIvPjwvc3ZnPg=="
+                      src="{{ 'personalization-icon.svg' | asset_url }}"
                       alt="{{ section.settings.personalization_alt_text | default: 'Personalization' }}"
                       width="28"
                       height="28"
