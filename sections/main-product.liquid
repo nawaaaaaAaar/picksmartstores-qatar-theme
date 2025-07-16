@@ -685,7 +685,7 @@
                 <div {{ block.shopify_attributes }}>
                   {% render 'pdp-payment-offers' %}
                 </div>
-              {%- when 'tiered-pricing' -%}
+              {%- when 'tiered-price' -%}
                 <div {{ block.shopify_attributes }}>
                   {% render 'pdp-tiered-pricing' %}
                 </div>
@@ -2113,7 +2113,7 @@
       "settings": []
     },
     {
-      "type": "tiered-pricing",
+      "type": "tiered-price",
       "name": "Active Offers (Tiered Pricing)",
       "limit": 1,
       "settings": []
