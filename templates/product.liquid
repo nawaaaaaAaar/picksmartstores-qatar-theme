@@ -1,0 +1,470 @@
+<!-- Product Template -->
+<script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
+{%- if product.media.size > 0 -%}
+  <script src="{{ 'product-modal.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+<div class="page-width section-padding">
+  <div class="product-single">
+    <!-- Product Media Gallery -->
+    <div class="product__media-wrapper">
+      {%- if product.featured_media -%}
+        <div class="product__media">
+          <img
+            src="{{ product.featured_media | image_url: width: 800 }}"
+            alt="{{ product.featured_media.alt | escape }}"
+            width="800"
+            height="600"
+            loading="lazy"
+            class="product__main-image"
+          >
+        </div>
+
+        {%- if product.media.size > 1 -%}
+          <div class="product__thumbnails">
+            {%- for media in product.media limit: 4 -%}
+              <button type="button" class="product__thumbnail" data-media-id="{{ media.id }}">
+                <img
+                  src="{{ media | image_url: width: 120 }}"
+                  alt="{{ media.alt | escape }}"
+                  width="120"
+                  height="120"
+                  loading="lazy"
+                >
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      {%- else -%}
+        <div class="product__media">
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- Product Information -->
+    <div class="product__info-wrapper">
+      <div class="product__info-container">
+        <!-- Product Title -->
+        <h1 class="product__title">{{ product.title | escape }}</h1>
+
+        <!-- Vendor -->
+        {%- if product.vendor != blank -%}
+          <p class="product__vendor">{{ product.vendor }}</p>
+        {%- endif -%}
+
+        <!-- Price -->
+        <div class="product__price-wrapper">
+          <span class="product__price">
+            {{ product.selected_or_first_available_variant.price | money }}
+          </span>
+          {%- if product.selected_or_first_available_variant.compare_at_price
+              > product.selected_or_first_available_variant.price
+          -%}
+            <span class="product__compare-price">
+              {{ product.selected_or_first_available_variant.compare_at_price | money }}
+            </span>
+            {%- assign discount = product.selected_or_first_available_variant.compare_at_price
+              | minus: product.selected_or_first_available_variant.price
+              | times: 100.0
+              | divided_by: product.selected_or_first_available_variant.compare_at_price
+              | round
+            -%}
+            <span class="product__discount-badge">{{ discount }}% OFF</span>
+          {%- endif -%}
+        </div>
+
+        <!-- Product Form -->
+        <product-form class="product-form">
+          {%- form 'product', product, id: 'product-form', class: 'form', novalidate: 'novalidate' -%}
+            {%- unless product.has_only_default_variant -%}
+              <!-- Variant Picker -->
+              <div class="product-form__variants">
+                {%- for option in product.options_with_values -%}
+                  <div class="product-form__input">
+                    <label class="form__label">{{ option.name }}</label>
+                    <select name="options[{{ option.name | escape }}]" class="form__select">
+                      {%- for value in option.values -%}
+                        <option
+                          value="{{ value | escape }}"
+                          {% if option.selected_value == value %}
+                            selected="selected"
+                          {% endif %}
+                        >
+                          {{ value }}
+                        </option>
+                      {%- endfor -%}
+                    </select>
+                  </div>
+                {%- endfor -%}
+              </div>
+            {%- endunless -%}
+
+            <!-- Quantity -->
+            <div class="product-form__quantity">
+              <label class="form__label">Quantity</label>
+              <quantity-input class="quantity">
+                <button class="quantity__button" name="minus" type="button">
+                  <span>−</span>
+                </button>
+                <input class="quantity__input" type="number" name="quantity" value="1" min="1">
+                <button class="quantity__button" name="plus" type="button">
+                  <span>+</span>
+                </button>
+              </quantity-input>
+            </div>
+
+            <!-- Add to Cart -->
+            <div class="product-form__buttons">
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+              <button type="submit" name="add" class="btn product-form__cart-submit">
+                {%- if product.selected_or_first_available_variant.available -%}
+                  Add to Cart
+                {%- else -%}
+                  Sold Out
+                {%- endif -%}
+              </button>
+            </div>
+          {%- endform -%}
+        </product-form>
+
+        <!-- Custom Product Information Blocks -->
+        {% render 'pdp-delivery-check' %}
+        {% render 'pdp-tiered-pricing' %}
+        {% render 'pdp-payment-offers' %}
+        {% render 'pdp-trust-badges' %}
+
+        <!-- Product Description -->
+        {%- if product.description != blank -%}
+          <div class="product__description">
+            {{ product.description }}
+          </div>
+        {%- endif -%}
+
+        <!-- Product Details Accordion -->
+        <div class="product__accordion">
+          <details class="accordion__item">
+            <summary class="accordion__title">
+              <h3>Shipping & Returns</h3>
+              <span class="accordion__icon">+</span>
+            </summary>
+            <div class="accordion__content">
+              <p>Free shipping on orders over $100. 30-day return policy applies.</p>
+            </div>
+          </details>
+
+          <details class="accordion__item">
+            <summary class="accordion__title">
+              <h3>Product Care</h3>
+              <span class="accordion__icon">+</span>
+            </summary>
+            <div class="accordion__content">
+              <p>Follow care instructions on product labels. Store in cool, dry place.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Product Layout */
+  .product-single {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 3rem;
+  }
+
+  /* Product Media */
+  .product__media-wrapper {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .product__thumbnails {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .product__thumbnail {
+    width: 80px;
+    height: 80px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    overflow: hidden;
+    background: none;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+  }
+
+  .product__thumbnail:hover,
+  .product__thumbnail.active {
+    border-color: var(--color-primary-brand-red);
+  }
+
+  .product__thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .product__media {
+    flex: 1;
+  }
+
+  .product__main-image {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+
+  /* Product Information */
+  .product__info-container {
+    padding-left: 2rem;
+  }
+
+  .product__title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: var(--color-text-dark);
+  }
+
+  .product__vendor {
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.7;
+    font-size: 0.9rem;
+  }
+
+  .product__price-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .product__price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-text-dark);
+  }
+
+  .product__compare-price {
+    font-size: 1.2rem;
+    color: var(--color-text-light);
+    text-decoration: line-through;
+  }
+
+  .product__discount-badge {
+    background: var(--color-primary-brand-green);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  /* Product Form */
+  .product-form__variants {
+    margin-bottom: 1.5rem;
+  }
+
+  .product-form__input {
+    margin-bottom: 1rem;
+  }
+
+  .form__label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .form__select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--color-border-light);
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+
+  .product-form__quantity {
+    margin-bottom: 2rem;
+  }
+
+  .quantity {
+    display: flex;
+    align-items: center;
+    max-width: 150px;
+  }
+
+  .quantity__button {
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--color-border-light);
+    background: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .quantity__button:hover {
+    background: var(--color-background-light-gray);
+  }
+
+  .quantity__button:first-child {
+    border-radius: 8px 0 0 8px;
+  }
+
+  .quantity__button:last-child {
+    border-radius: 0 8px 8px 0;
+  }
+
+  .quantity__input {
+    width: 60px;
+    height: 44px;
+    border: 1px solid var(--color-border-light);
+    border-left: none;
+    border-right: none;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  /* Add to Cart Button */
+  .product-form__cart-submit {
+    width: 100%;
+    background: var(--color-primary-brand-red);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 2rem;
+  }
+
+  .product-form__cart-submit:hover {
+    background: #c41e28;
+  }
+
+  .product-form__cart-submit:disabled {
+    background: var(--color-text-light);
+    cursor: not-allowed;
+  }
+
+  /* Product Description */
+  .product__description {
+    margin: 2rem 0;
+    line-height: 1.6;
+  }
+
+  /* Accordion */
+  .product__accordion {
+    margin-top: 2rem;
+  }
+
+  .accordion__item {
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .accordion__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .accordion__icon {
+    transition: transform 0.3s ease;
+  }
+
+  .accordion__item[open] .accordion__icon {
+    transform: rotate(45deg);
+  }
+
+  .accordion__content {
+    padding-bottom: 1.5rem;
+  }
+
+  /* Mobile Responsive */
+  @media screen and (max-width: 989px) {
+    .product-single {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .product__info-container {
+      padding-left: 0;
+    }
+
+    .product__title {
+      font-size: 2rem;
+    }
+
+    .product__media-wrapper {
+      flex-direction: column-reverse;
+    }
+
+    .product__thumbnails {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Thumbnail switching
+    const thumbnails = document.querySelectorAll('.product__thumbnail');
+    const mainImage = document.querySelector('.product__main-image');
+
+    thumbnails.forEach((thumbnail) => {
+      thumbnail.addEventListener('click', function () {
+        const img = this.querySelector('img');
+        if (img && mainImage) {
+          mainImage.src = img.src.replace('width=120', 'width=800');
+
+          thumbnails.forEach((t) => t.classList.remove('active'));
+          this.classList.add('active');
+        }
+      });
+    });
+
+    // Quantity controls
+    const quantityInput = document.querySelector('.quantity__input');
+    const minusBtn = document.querySelector('.quantity__button[name="minus"]');
+    const plusBtn = document.querySelector('.quantity__button[name="plus"]');
+
+    if (minusBtn && quantityInput) {
+      minusBtn.addEventListener('click', function () {
+        const currentValue = parseInt(quantityInput.value);
+        if (currentValue > 1) {
+          quantityInput.value = currentValue - 1;
+        }
+      });
+    }
+
+    if (plusBtn && quantityInput) {
+      plusBtn.addEventListener('click', function () {
+        const currentValue = parseInt(quantityInput.value);
+        quantityInput.value = currentValue + 1;
+      });
+    }
+  });
+</script>
