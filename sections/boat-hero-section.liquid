@@ -1,14 +1,16 @@
-{{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
+{% comment %} Enhanced Boat Hero Section with Carousel Support {% endcomment %}
 
 <style>
   .boat-hero-section {
     position: relative;
-    min-height: {{ section.settings.section_height | default: 600 }}px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: {{ section.settings.background_color | default: '#f8f8f8' }};
+    width: 100%;
+    height: {{ section.settings.section_height | default: 600 }}px;
     overflow: hidden;
+    background: linear-gradient(
+      {{ section.settings.overlay_direction | default: '135deg' }},
+      {{ section.settings.overlay_color_1 | default: '#000000' }}{{ section.settings.overlay_opacity | default: 70 | append: '%' }},
+      {{ section.settings.overlay_color_2 | default: '#141414' }}{{ section.settings.overlay_opacity | default: 70 | append: '%' }}
+    );
   }
 
   .boat-hero-section__background {
@@ -17,13 +19,11 @@
     left: 0;
     width: 100%;
     height: 100%;
+    background-image: url('{{ section.settings.background_image | image_url: width: 1920 }}');
+    background-size: cover;
+    background-position: {{ section.settings.background_position | default: 'center' }};
+    background-repeat: no-repeat;
     z-index: 1;
-  }
-
-  .boat-hero-section__background img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
   }
 
   .boat-hero-section__overlay {
@@ -32,220 +32,193 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, {{ section.settings.overlay_opacity | default: 0 | divided_by: 100.0 }});
+    background: linear-gradient(
+      {{ section.settings.overlay_direction | default: '135deg' }},
+      rgba(0, 0, 0, {{ section.settings.overlay_opacity | default: 70 | divided_by: 100.0 }}),
+      rgba(20, 20, 20, {{ section.settings.overlay_opacity | default: 70 | divided_by: 100.0 }})
+    );
     z-index: 2;
   }
 
   .boat-hero-section__content {
     position: relative;
     z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
     text-align: center;
-    color: {{ section.settings.text_color | default: '#000' }};
-    max-width: 800px;
     padding: 0 20px;
-  }
-
-  .boat-hero-section__subtitle {
-    font-size: {{ section.settings.subtitle_size | default: 18 }}px;
-    font-weight: 600;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: {{ section.settings.subtitle_color | default: '#fe0000' }};
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
   .boat-hero-section__title {
-    font-size: {{ section.settings.title_size | default: 56 }}px;
-    font-weight: 900;
-    margin-bottom: 20px;
+    font-family: var(--boat-font-primary);
+    font-size: 4rem;
+    font-weight: 800;
+    color: {{ section.settings.title_color | default: '#ffffff' }};
+    margin: 0 0 15px 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     line-height: 1.1;
-    color: {{ section.settings.title_color | default: '#000' }};
+    {% if section.settings.title_gradient_enable %}
+      background: linear-gradient(
+        45deg,
+        {{ section.settings.title_gradient_color_1 | default: '#ffffff' }},
+        {{ section.settings.title_gradient_color_2 | default: '#ff6b6b' }},
+        {{ section.settings.title_gradient_color_3 | default: '#ffffff' }}
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    {% endif %}
+  }
+
+  .boat-hero-section__subtitle {
+    font-family: var(--boat-font-secondary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: {{ section.settings.subtitle_color | default: '#d9232d' }};
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 
   .boat-hero-section__description {
-    font-size: {{ section.settings.description_size | default: 18 }}px;
-    margin-bottom: 35px;
-    line-height: 1.6;
-    color: {{ section.settings.description_color | default: '#666' }};
+    font-family: var(--boat-font-primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: {{ section.settings.description_color | default: '#ffffff' }};
+    margin: 0 0 30px 0;
+    text-transform: uppercase;
   }
 
   .boat-hero-section__buttons {
     display: flex;
     gap: 20px;
-    justify-content: center;
     flex-wrap: wrap;
+    justify-content: center;
   }
 
-  .boat-hero-section__button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px 32px;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: 700;
+  .boat-hero-btn {
+    padding: 15px 30px;
+    font-family: var(--boat-font-primary);
     font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 1px;
+    border-radius: 8px;
     transition: all 0.3s ease;
-    min-width: 180px;
     cursor: pointer;
+    border: 2px solid transparent;
+    min-width: 160px;
+    text-align: center;
   }
 
-  .boat-hero-section__button--primary {
-    background: {{ section.settings.primary_button_bg | default: '#fe0000' }};
-    color: {{ section.settings.primary_button_text_color | default: '#fff' }};
-    border: 2px solid {{ section.settings.primary_button_bg | default: '#fe0000' }};
+  .boat-hero-btn--primary {
+    background: linear-gradient(
+      45deg,
+      {{ section.settings.primary_button_color_1 | default: '#d9232d' }},
+      {{ section.settings.primary_button_color_2 | default: '#ff4757' }}
+    );
+    color: {{ section.settings.primary_button_text_color | default: '#ffffff' }};
+    box-shadow: 0 4px 15px rgba(217, 35, 45, 0.3);
   }
 
-  .boat-hero-section__button--primary:hover {
-    background: {{ section.settings.primary_button_bg_hover | default: '#e60000' }};
-    border-color: {{ section.settings.primary_button_bg_hover | default: '#e60000' }};
+  .boat-hero-btn--primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(254, 0, 0, 0.3);
+    box-shadow: 0 6px 20px rgba(217, 35, 45, 0.4);
   }
 
-  .boat-hero-section__button--secondary {
+  .boat-hero-btn--secondary {
     background: transparent;
-    color: {{ section.settings.secondary_button_text_color | default: '#000' }};
-    border: 2px solid {{ section.settings.secondary_button_border | default: '#000' }};
+    color: {{ section.settings.secondary_button_text_color | default: '#ffffff' }};
+    border: 2px solid {{ section.settings.secondary_button_border_color | default: '#00b594' }};
   }
 
-  .boat-hero-section__button--secondary:hover {
-    background: {{ section.settings.secondary_button_border | default: '#000' }};
-    color: {{ section.settings.secondary_button_text_color | default: '#fff' }};
+  .boat-hero-btn--secondary:hover {
+    background: {{ section.settings.secondary_button_hover_bg | default: '#00b594' }};
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   }
 
-  /* Responsive Design */
-  @media (max-width: 768px) {
+  /* Mobile Responsive */
+  @media screen and (max-width: 768px) {
     .boat-hero-section {
-      min-height: {{ section.settings.mobile_height | default: 500 }}px;
-    }
-
-    .boat-hero-section__content {
-      max-width: 100%;
-      padding: 0 15px;
+      height: {{ section.settings.section_height_mobile | default: 500 }}px;
     }
 
     .boat-hero-section__title {
-      font-size: {{ section.settings.mobile_title_size | default: 36 }}px;
+      font-size: 2.5rem;
     }
 
     .boat-hero-section__subtitle {
-      font-size: {{ section.settings.mobile_subtitle_size | default: 16 }}px;
-      margin-bottom: 12px;
-    }
-
-    .boat-hero-section__description {
-      font-size: {{ section.settings.mobile_description_size | default: 16 }}px;
-      margin-bottom: 25px;
+      font-size: 1.2rem;
     }
 
     .boat-hero-section__buttons {
       flex-direction: column;
       align-items: center;
-      gap: 15px;
     }
 
-    .boat-hero-section__button {
+    .boat-hero-btn {
       width: 100%;
       max-width: 280px;
-      padding: 14px 24px;
-    }
-  }
-
-  /* Animation Effects */
-  .boat-hero-section__content > * {
-    animation: fadeInUp 0.8s ease-out;
-  }
-
-  .boat-hero-section__subtitle {
-    animation-delay: 0.2s;
-  }
-
-  .boat-hero-section__title {
-    animation-delay: 0.4s;
-  }
-
-  .boat-hero-section__description {
-    animation-delay: 0.6s;
-  }
-
-  .boat-hero-section__buttons {
-    animation-delay: 0.8s;
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
     }
   }
 </style>
 
 <div class="boat-hero-section">
-  {% if section.settings.background_image %}
-    <div class="boat-hero-section__background">
-      {{ section.settings.background_image | image_url: width: 1920 | image_tag: loading: 'lazy' }}
-    </div>
+  {% if section.settings.background_image != blank %}
+    <div class="boat-hero-section__background"></div>
   {% endif %}
-
-  {% if section.settings.overlay_opacity > 0 %}
-    <div class="boat-hero-section__overlay"></div>
-  {% endif %}
+  <div class="boat-hero-section__overlay"></div>
 
   <div class="boat-hero-section__content">
-    {% if section.settings.subtitle != blank %}
-      <div class="boat-hero-section__subtitle">{{ section.settings.subtitle }}</div>
-    {% endif %}
-
     {% if section.settings.title != blank %}
       <h1 class="boat-hero-section__title">{{ section.settings.title }}</h1>
+    {% endif %}
+
+    {% if section.settings.subtitle != blank %}
+      <h2 class="boat-hero-section__subtitle">{{ section.settings.subtitle }}</h2>
     {% endif %}
 
     {% if section.settings.description != blank %}
       <div class="boat-hero-section__description">{{ section.settings.description }}</div>
     {% endif %}
 
-    {% if section.settings.primary_button_text != blank or section.settings.secondary_button_text != blank %}
-      <div class="boat-hero-section__buttons">
-        {% if section.settings.primary_button_text != blank %}
-          <a
-            href="{{ section.settings.primary_button_url | default: '#' }}"
-            class="boat-hero-section__button boat-hero-section__button--primary"
-          >
-            {{ section.settings.primary_button_text }}
-          </a>
-        {% endif %}
+    <div class="boat-hero-section__buttons">
+      {% if section.settings.button_1_text != blank and section.settings.button_1_link != blank %}
+        <a href="{{ section.settings.button_1_link }}" class="boat-hero-btn boat-hero-btn--primary">
+          {{ section.settings.button_1_text }}
+        </a>
+      {% endif %}
 
-        {% if section.settings.secondary_button_text != blank %}
-          <a
-            href="{{ section.settings.secondary_button_url | default: '#' }}"
-            class="boat-hero-section__button boat-hero-section__button--secondary"
-          >
-            {{ section.settings.secondary_button_text }}
-          </a>
-        {% endif %}
-      </div>
-    {% endif %}
+      {% if section.settings.button_2_text != blank and section.settings.button_2_link != blank %}
+        <a href="{{ section.settings.button_2_link }}" class="boat-hero-btn boat-hero-btn--secondary">
+          {{ section.settings.button_2_text }}
+        </a>
+      {% endif %}
+    </div>
   </div>
 </div>
 
 {% schema %}
 {
-  "name": "Hero Section",
-  "tag": "section",
+  "name": "🚢 Boat Hero Section",
   "class": "section",
   "settings": [
     {
       "type": "header",
-      "content": "Content"
+      "content": "Hero Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Main Title",
+      "default": "BOATHEAD DAYS"
     },
     {
       "type": "text",
@@ -254,16 +227,10 @@
       "default": "UP TO 75% OFF"
     },
     {
-      "type": "text",
-      "id": "title",
-      "label": "Title",
-      "default": "Your Next Great Find, Delivered Today"
-    },
-    {
       "type": "richtext",
       "id": "description",
       "label": "Description",
-      "default": "<p>Discover our premium collection with exclusive deals and fast delivery.</p>"
+      "default": "<p>EXTRA 5% OFF | USE CODE: BOATHEAD</p>"
     },
     {
       "type": "header",
@@ -271,29 +238,29 @@
     },
     {
       "type": "text",
-      "id": "primary_button_text",
+      "id": "button_1_text",
       "label": "Primary Button Text",
       "default": "SHOP NOW"
     },
     {
       "type": "url",
-      "id": "primary_button_url",
-      "label": "Primary Button URL"
+      "id": "button_1_link",
+      "label": "Primary Button Link"
     },
     {
       "type": "text",
-      "id": "secondary_button_text",
+      "id": "button_2_text",
       "label": "Secondary Button Text",
-      "default": "CALL TO ACTION"
+      "default": "VIEW ALL DEALS"
     },
     {
       "type": "url",
-      "id": "secondary_button_url",
-      "label": "Secondary Button URL"
+      "id": "button_2_link",
+      "label": "Secondary Button Link"
     },
     {
       "type": "header",
-      "content": "Background"
+      "content": "Background & Styling"
     },
     {
       "type": "image_picker",
@@ -301,132 +268,121 @@
       "label": "Background Image"
     },
     {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background Color",
-      "default": "#f8f8f8"
-    },
-    {
-      "type": "range",
-      "id": "overlay_opacity",
-      "label": "Overlay Opacity",
-      "min": 0,
-      "max": 80,
-      "step": 5,
-      "unit": "%",
-      "default": 0
-    },
-    {
-      "type": "header",
-      "content": "Layout"
+      "type": "select",
+      "id": "background_position",
+      "label": "Background Position",
+      "options": [
+        { "value": "center", "label": "Center" },
+        { "value": "top", "label": "Top" },
+        { "value": "bottom", "label": "Bottom" },
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
     },
     {
       "type": "range",
       "id": "section_height",
-      "label": "Section Height",
       "min": 400,
       "max": 800,
       "step": 50,
       "unit": "px",
+      "label": "Section Height (Desktop)",
       "default": 600
     },
     {
       "type": "range",
-      "id": "mobile_height",
-      "label": "Mobile Height",
+      "id": "section_height_mobile",
       "min": 300,
       "max": 600,
       "step": 25,
       "unit": "px",
+      "label": "Section Height (Mobile)",
       "default": 500
     },
     {
       "type": "header",
-      "content": "Typography"
+      "content": "Overlay Settings"
     },
     {
       "type": "color",
-      "id": "text_color",
-      "label": "Text Color",
+      "id": "overlay_color_1",
+      "label": "Overlay Color 1",
       "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color_2",
+      "label": "Overlay Color 2",
+      "default": "#141414"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay Opacity",
+      "default": 70
+    },
+    {
+      "type": "select",
+      "id": "overlay_direction",
+      "label": "Gradient Direction",
+      "options": [
+        { "value": "0deg", "label": "Top to Bottom" },
+        { "value": "45deg", "label": "Diagonal" },
+        { "value": "90deg", "label": "Left to Right" },
+        { "value": "135deg", "label": "Diagonal Reverse" }
+      ],
+      "default": "135deg"
+    },
+    {
+      "type": "header",
+      "content": "Text Colors"
     },
     {
       "type": "color",
       "id": "title_color",
       "label": "Title Color",
-      "default": "#000000"
+      "default": "#ffffff"
     },
     {
-      "type": "range",
-      "id": "title_size",
-      "label": "Title Size",
-      "min": 24,
-      "max": 80,
-      "step": 4,
-      "unit": "px",
-      "default": 56
+      "type": "checkbox",
+      "id": "title_gradient_enable",
+      "label": "Enable Title Gradient",
+      "default": true
     },
     {
-      "type": "range",
-      "id": "mobile_title_size",
-      "label": "Mobile Title Size",
-      "min": 20,
-      "max": 48,
-      "step": 2,
-      "unit": "px",
-      "default": 36
+      "type": "color",
+      "id": "title_gradient_color_1",
+      "label": "Title Gradient Color 1",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_gradient_color_2",
+      "label": "Title Gradient Color 2",
+      "default": "#ff6b6b"
+    },
+    {
+      "type": "color",
+      "id": "title_gradient_color_3",
+      "label": "Title Gradient Color 3",
+      "default": "#ffffff"
     },
     {
       "type": "color",
       "id": "subtitle_color",
       "label": "Subtitle Color",
-      "default": "#fe0000"
-    },
-    {
-      "type": "range",
-      "id": "subtitle_size",
-      "label": "Subtitle Size",
-      "min": 12,
-      "max": 24,
-      "step": 1,
-      "unit": "px",
-      "default": 18
-    },
-    {
-      "type": "range",
-      "id": "mobile_subtitle_size",
-      "label": "Mobile Subtitle Size",
-      "min": 12,
-      "max": 20,
-      "step": 1,
-      "unit": "px",
-      "default": 16
+      "default": "#d9232d"
     },
     {
       "type": "color",
       "id": "description_color",
       "label": "Description Color",
-      "default": "#666666"
-    },
-    {
-      "type": "range",
-      "id": "description_size",
-      "label": "Description Size",
-      "min": 14,
-      "max": 24,
-      "step": 1,
-      "unit": "px",
-      "default": 18
-    },
-    {
-      "type": "range",
-      "id": "mobile_description_size",
-      "label": "Mobile Description Size",
-      "min": 14,
-      "max": 20,
-      "step": 1,
-      "unit": "px",
-      "default": 16
+      "default": "#ffffff"
     },
     {
       "type": "header",
@@ -434,45 +390,44 @@
     },
     {
       "type": "color",
-      "id": "primary_button_bg",
-      "label": "Primary Button Background",
-      "default": "#fe0000"
+      "id": "primary_button_color_1",
+      "label": "Primary Button Color 1",
+      "default": "#d9232d"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_color_2",
+      "label": "Primary Button Color 2",
+      "default": "#ff4757"
     },
     {
       "type": "color",
       "id": "primary_button_text_color",
-      "label": "Primary Button Text Color",
+      "label": "Primary Button Text",
       "default": "#ffffff"
     },
     {
       "type": "color",
-      "id": "primary_button_bg_hover",
-      "label": "Primary Button Background (Hover)",
-      "default": "#e60000"
+      "id": "secondary_button_border_color",
+      "label": "Secondary Button Border",
+      "default": "#00b594"
     },
     {
       "type": "color",
       "id": "secondary_button_text_color",
-      "label": "Secondary Button Text Color",
-      "default": "#000000"
+      "label": "Secondary Button Text",
+      "default": "#ffffff"
     },
     {
       "type": "color",
-      "id": "secondary_button_border",
-      "label": "Secondary Button Border",
-      "default": "#000000"
+      "id": "secondary_button_hover_bg",
+      "label": "Secondary Button Hover Background",
+      "default": "#00b594"
     }
   ],
   "presets": [
     {
-      "name": "Hero Section",
-      "settings": {
-        "subtitle": "UP TO 75% OFF",
-        "title": "Your Next Great Find, Delivered Today",
-        "description": "<p>Discover our premium collection with exclusive deals and fast delivery.</p>",
-        "primary_button_text": "SHOP NOW",
-        "secondary_button_text": "CALL TO ACTION"
-      }
+      "name": "🚢 Boat Hero Section"
     }
   ]
 }

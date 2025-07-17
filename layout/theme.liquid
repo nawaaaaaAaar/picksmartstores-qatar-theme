@@ -26,6 +26,9 @@
     {%- comment -%} Optimized font loading for boat theme {%- endcomment -%}
     {{ 'custom-fonts.css' | asset_url | stylesheet_tag: preload: true }}
 
+    {%- comment -%} Performance optimizations {%- endcomment -%}
+    {% render 'performance-optimizations' %}
+
     <title>
       {{ page_title }}
       {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
@@ -231,7 +234,8 @@
     {% endstyle %}
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
-    {{ 'custom.css' | asset_url | stylesheet_tag }}
+    {{ 'boat-theme.css' | asset_url | stylesheet_tag }}
+    {{ 'boat-custom.css' | asset_url | stylesheet_tag }}
 
     {%- comment -%} Theme fonts handled by boat-fonts.css {%- endcomment -%}
 
@@ -325,7 +329,12 @@
     </script>
 
     {%- if settings.predictive_search_enabled -%}
+      <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    {% section 'predictive-search' %}
+    <script src="{{ 'flickity.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'custom.js' | asset_url }}" defer="defer"></script>
   </body>
 </html>
